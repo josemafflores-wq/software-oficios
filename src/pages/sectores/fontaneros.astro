@@ -1,0 +1,246 @@
+---
+// src/pages/sectores/fontaneros.astro
+import softwares from '../../softwares.json';
+import '../../global.css';
+
+// 1. MEJORA SEO: Filtro ampliado para que salgan todos los programas útiles (9 en total)
+const especialistas = softwares.filter(s => 
+    s.target_gremios && s.target_gremios.some(g => {
+        const gremio = g.toLowerCase();
+        return [
+            'fontanero', 
+            'instalador', 
+            'sat', 
+            'climatización', 
+            'reformas', 
+            'mantenimiento',
+            'autónomos' // Para incluir Billin o FacturaDirecta
+        ].some(term => gremio.includes(term));
+    })
+);
+
+// Top 5 para la tabla
+const topTable = especialistas.slice(0, 5);
+---
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mejor Programa para Fontaneros 2025: Comparativa Verifactu</title>
+    {/* 2. MEJORA SEO: Meta descripción */}
+    <meta name="description" content="Comparativa de los 9 mejores software para fontaneros y empresas de instalaciones en 2025. Precios, app offline y adaptación a Verifactu y TicketBAI." />
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans">
+
+    <nav class="bg-white border-b py-4 px-6 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="/" class="text-xl font-bold text-blue-800 tracking-tighter uppercase italic">ObraDigital.es</a>
+            <span class="text-xs font-bold text-slate-400 border px-2 py-1 rounded">GUÍA PROFESIONAL 2025</span>
+        </div>
+    </nav>
+
+    <header class="bg-blue-900 text-white py-16 px-6">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-4xl md:text-5xl font-black mb-4 italic">
+                Programas de Gestión para Fontaneros: <span class="text-blue-400">Deja de perder horas con el papel.</span>
+            </h1>
+            <p class="text-lg text-blue-100 opacity-90">
+                Analizamos las herramientas que usan los instaladores en España para hacer presupuestos en el momento, cobrar con tarjeta y cumplir con la factura electrónica obligatoria (Verifactu).
+            </p>
+        </div>
+    </header>
+
+    <section class="max-w-6xl mx-auto px-6 -mt-10 relative z-20 mb-16">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
+            <div class="bg-slate-900 p-4 flex justify-between items-center">
+                <h2 class="text-white font-bold text-sm uppercase tracking-widest">Comparativa Rápida 2025</h2>
+                <span class="bg-green-600 text-white text-[10px] px-2 py-1 rounded font-bold animate-pulse">VERIFACTU READY</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold uppercase text-slate-500">
+                            <th class="p-4">Software</th>
+                            <th class="p-4">Ideal para</th>
+                            <th class="p-4">Precio Base</th>
+                            <th class="p-4 text-center">App Móvil</th>
+                            <th class="p-4"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        {/* Solo mostramos los 5 mejores en la tabla */}
+                        {topTable.map((s) => (
+                            <tr class="border-b border-slate-100 hover:bg-blue-50/50 transition-colors">
+                                <td class="p-4 font-bold text-slate-800 flex items-center gap-2">
+                                    {s.logo_url && <img src={s.logo_url} class="w-6 h-6 object-contain" alt="" />}
+                                    {s.name}
+                                </td>
+                                <td class="p-4 text-slate-600 font-medium">
+                                    {s.target_gremios ? s.target_gremios[0] : 'General'}
+                                </td>
+                                <td class="p-4 font-black text-blue-700">
+                                    {s.pricing?.start_price ? `${s.pricing.start_price}€/mes` : 'Consultar'}
+                                </td>
+                                <td class="p-4 text-center text-xl">
+                                    {s.tabla_tecnica?.app_movil ? '📱' : '-'}
+                                </td>
+                                <td class="p-4">
+                                    <a href={s.url_afiliado || "#"} target="_blank" class="bg-blue-600 text-white text-[10px] font-black px-3 py-2 rounded uppercase hover:bg-blue-700">Ver Web</a>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-5xl mx-auto py-12 px-6">
+        <div class="space-y-10">
+            {especialistas.map((soft) => (
+                <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden hover:shadow-xl transition-shadow">
+                    <div class="p-6 md:p-10">
+                        
+                        {/* CABECERA DE TARJETA CON SELLO VERIFACTU */}
+                        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 relative">
+                            <div class="flex items-center gap-6">
+                                {/* LOGO con Sello */}
+                                <div class="w-24 h-24 bg-white rounded-xl flex items-center justify-center border border-slate-200 shadow-sm p-3 shrink-0 relative group">
+                                    {soft.logo_url ? (
+                                        <img src={soft.logo_url} alt={`Logo ${soft.name}`} class="w-full h-full object-contain" loading="lazy"/>
+                                    ) : (
+                                        <span class="text-3xl font-black text-slate-300">{soft.name.charAt(0)}</span>
+                                    )}
+                                    
+                                    {/* Sello Verifactu Flotante (SIN ASTERISCO) */}
+                                    {soft.legal_spain?.verifactu_ready && (
+                                        <div class="absolute -top-3 -right-3 bg-green-600 text-white text-[10px] font-black px-2 py-1 rounded shadow-md border-2 border-white z-10">
+                                            VERIFACTU
+                                        </div>
+                                    )}
+                                </div>
+
+                                <div>
+                                    <h2 class="text-3xl font-black text-slate-800">{soft.name}</h2>
+                                    
+                                    {/* Etiquetas Legales */}
+                                    <div class="flex flex-col gap-1 mt-2">
+                                        {soft.legal_spain?.verifactu_ready ? (
+                                            <span class="flex items-center text-green-700 font-bold text-xs bg-green-50 px-2 py-1 rounded w-fit border border-green-200">
+                                                <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                                                HOMOLOGADO VERIFACTU
+                                            </span>
+                                        ) : (
+                                            <span class="text-red-500 text-xs font-bold">⚠️ Pendiente adaptación legal</span>
+                                        )}
+                                        
+                                        {soft.legal_spain?.ticketbai_ready && (
+                                           <span class="text-slate-500 text-[10px] font-medium ml-1">
+                                             + Compatible TicketBAI
+                                           </span>
+                                        )}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="flex flex-col items-end">
+                                <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Cuota mensual</span>
+                                <span class="text-3xl font-black text-slate-900">
+                                    {soft.pricing?.start_price ? `${soft.pricing.start_price}€` : 'Consultar'}
+                                </span>
+                                {soft.pricing?.has_free_trial && (
+                                     <span class="text-blue-600 text-xs font-bold mt-1 bg-blue-50 px-2 py-0.5 rounded">
+                                        Prueba Gratis {soft.pricing.trial_days} días
+                                     </span>
+                                )}
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                            {/* Columna: Beneficios Reales */}
+                            <div class="space-y-6">
+                                <div class="prose prose-slate">
+                                    <h3 class="text-xl font-bold text-slate-800">¿Cómo ayuda a tu negocio?</h3>
+                                    <p class="text-slate-600 leading-relaxed text-sm">
+                                        {soft.opinion_experto_fontanero || soft.h2_ventajas_gremio || soft.short_description}
+                                    </p>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    {soft.features && soft.features.slice(0, 4).map(f => (
+                                        <span class="bg-slate-100 text-slate-700 text-xs font-bold px-3 py-1 rounded-md border border-slate-200 uppercase tracking-tight">
+                                            {f}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Columna: Acción Directa */}
+                            <div class="flex flex-col justify-center bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                                <h4 class="font-bold text-slate-800 mb-4 text-center italic text-sm">"Ideal para llevarlo en la furgoneta y olvidarte de facturar al llegar a casa"</h4>
+                                
+                                <div class="space-y-3">
+                                    <a 
+                                        href={soft.url_afiliado || "#"} 
+                                        target="_blank" 
+                                        rel="noopener noreferrer" 
+                                        class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-xl text-lg shadow-xl shadow-blue-200 transition-transform active:scale-95"
+                                    >
+                                        VER WEB DE {soft.name.toUpperCase()}
+                                    </a>
+                                    
+                                    <a 
+                                        href={`/analisis/${soft.id}`} 
+                                        class="block w-full text-center bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-50 transition-colors text-sm"
+                                    >
+                                        Leer nuestra opinión detallada
+                                    </a>
+                                </div>
+                                <p class="text-[10px] text-center text-slate-400 mt-4 uppercase font-bold tracking-widest">Enlace oficial verificado · 2025</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+
+        {/* 3. BLOQUE SEO FINAL (Integrado con 3 Columnas) */}
+        <div class="mt-20 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden p-8 md:p-12">
+            <h2 class="text-2xl font-black text-slate-800 mb-6">Guía: Cómo elegir programa de fontanería en 2025</h2>
+            <div class="space-y-6 text-slate-600 leading-relaxed">
+                <p>
+                    Más allá del precio, para un instalador que pasa el día en la calle, hay tres funciones innegociables con la nueva Ley Antifraude y el ritmo de trabajo actual:
+                </p>
+                {/* Grid de 3 Columnas: Offline, Verifactu, Firma */}
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 not-prose mt-6">
+                    <div class="p-5 bg-blue-50 rounded-xl border border-blue-100">
+                        <div class="text-3xl mb-2">📡</div>
+                        <h4 class="font-bold text-blue-900 mb-2">Modo Offline</h4>
+                        <p class="text-sm text-blue-800 leading-snug">
+                            Vital para trabajar en sótanos y cuartos de calderas sin cobertura. Los datos se sincronizan al salir.
+                        </p>
+                    </div>
+                    <div class="p-5 bg-green-50 rounded-xl border border-green-100">
+                        <div class="text-3xl mb-2">⚖️</div>
+                        <h4 class="font-bold text-green-900 mb-2">Verifactu</h4>
+                        <p class="text-sm text-green-800 leading-snug">
+                            El software garantiza que las facturas son inalterables y trazables, evitando multas de Hacienda.
+                        </p>
+                    </div>
+                    <div class="p-5 bg-purple-50 rounded-xl border border-purple-100">
+                        <div class="text-3xl mb-2">✍️</div>
+                        <h4 class="font-bold text-purple-900 mb-2">Firma Digital</h4>
+                        <p class="text-sm text-purple-800 leading-snug">
+                            Cierra el aviso en el momento. El cliente firma el parte de trabajo en tu móvil y recibe el PDF al instante.
+                        </p>
+                    </div>
+                </div>
+                <p class="text-sm italic text-slate-500 mt-6 border-t border-slate-100 pt-4">
+                    * Todos los programas listados en esta página cumplen con estos tres requisitos técnicos esenciales.
+                </p>
+            </div>
+        </div>
+
+    </main>
+</body>
+</html>

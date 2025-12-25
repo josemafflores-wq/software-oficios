@@ -1,0 +1,276 @@
+---
+// src/pages/analisis/[id].astro
+import softwares from '../../softwares.json';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  return softwares.map((soft) => {
+    return {
+      params: { id: soft.id },
+      props: { software: soft },
+    };
+  });
+}
+
+const { software } = Astro.props;
+
+const precioDisplay = software.pricing?.start_price 
+  ? `${software.pricing.start_price}€` 
+  : "Consultar";
+---
+
+<Layout title={`${software.name}: Precio, Opiniones y Verifactu`}>
+  
+  {/* --- CABECERA (HERO) AZUL CORPORATIVO --- */}
+  <div class="bg-indigo-900 text-white py-12 md:py-16 relative overflow-hidden">
+    {/* Textura de fondo sutil */}
+    <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+
+    <div class="max-w-6xl mx-auto px-4 md:flex items-center gap-8 relative z-10">
+      
+      {/* Columna Logo */}
+      <div class="md:w-1/4 flex justify-center md:justify-start mb-6 md:mb-0">
+        <div class="bg-white p-6 rounded-2xl shadow-2xl w-48 h-48 flex items-center justify-center transform hover:scale-105 transition-transform duration-300">
+            <img 
+                src={software.logo_url} 
+                alt={`Logo ${software.name}`} 
+                class="max-h-full max-w-full object-contain"
+            />
+        </div>
+      </div>
+
+      {/* Columna Texto Hero */}
+      <div class="md:w-3/4 text-center md:text-left">
+        
+        {/* BADGES SEO - ORDEN: Verifactu (Verde) -> Kit Digital (Azul) -> TicketBAI (Morado) */}
+        <div class="flex flex-wrap gap-3 justify-center md:justify-start mb-4">
+            
+            {/* 1. Verifactu */}
+            {software.legal_spain?.verifactu_ready && (
+                <span class="px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full uppercase tracking-wide shadow-sm flex items-center gap-1 border border-green-400">
+                    <span>✅</span> Verifactu
+                </span>
+            )}
+
+            {/* 2. Kit Digital */}
+            {software.kit_digital_eligible && (
+                <span class="px-3 py-1 bg-blue-500 text-white text-xs font-bold rounded-full uppercase tracking-wide shadow-sm border border-blue-400">
+                    Kit Digital
+                </span>
+            )}
+            
+            {/* 3. TicketBAI */}
+            {software.legal_spain?.ticketbai_ready && (
+                <span class="px-3 py-1 bg-purple-500 text-white text-xs font-bold rounded-full uppercase tracking-wide shadow-sm border border-purple-400">
+                    TicketBAI
+                </span>
+            )}
+        </div>
+
+        <h1 class="text-3xl md:text-5xl font-bold mb-4 tracking-tight">{software.name}</h1>
+        <p class="text-xl text-indigo-100 max-w-2xl mb-8 leading-relaxed">{software.short_description}</p>
+        
+        <div class="flex flex-wrap gap-4 justify-center md:justify-start items-center">
+            <a href={software.url_afiliado} target="_blank" rel="nofollow noopener" 
+               class="bg-yellow-400 text-yellow-900 font-bold py-3 px-8 rounded-lg hover:bg-yellow-300 transition shadow-lg transform hover:-translate-y-1 flex items-center gap-2">
+                Ver Oferta Oficial <span class="text-xl">→</span>
+            </a>
+            <div class="text-indigo-200 text-sm flex items-center gap-1">
+                Desde <span class="text-white text-2xl font-bold">{precioDisplay}</span> /mes
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* --- CONTENIDO PRINCIPAL --- */}
+  <div class="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-8 -mt-8 relative z-20">
+    
+    {/* COLUMNA IZQUIERDA (2/3): ANÁLISIS, VÍDEO, OPINIONES */}
+    <div class="md:col-span-2 space-y-8">
+        
+        {/* 1. ANÁLISIS + VIDEO */}
+        <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                <span>🔍</span> Análisis a fondo
+            </h2>
+            <div class="prose prose-lg prose-indigo max-w-none text-gray-600 leading-relaxed whitespace-pre-line">
+                {software.contenido_seo_extenso}
+            </div>
+
+            {software.video_demo_id && (
+                <div class="mt-8 pt-8 border-t border-gray-100">
+                    <h3 class="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wider flex items-center gap-2">
+                        <span>🎥</span> Video Demostración
+                    </h3>
+                    <div class="aspect-video rounded-xl overflow-hidden bg-gray-900 shadow-lg">
+                        <iframe 
+                            width="100%" 
+                            height="100%" 
+                            src={`https://www.youtube.com/embed/${software.video_demo_id}`} 
+                            title={`Video de ${software.name}`}
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            )}
+        </section>
+
+        {/* 2. OPINIONES DE EXPERTOS */}
+        <section class="grid gap-6">
+            {software.opinion_experto_fontanero && (
+                <div class="bg-blue-50 p-6 rounded-2xl border-l-4 border-blue-500 shadow-sm">
+                    <div class="flex items-center mb-3">
+                        <span class="text-2xl mr-3">🔧</span>
+                        <h3 class="font-bold text-blue-900 uppercase text-xs tracking-wider">La opinión del Fontanero</h3>
+                    </div>
+                    <p class="italic text-gray-700 text-lg font-medium">"{software.opinion_experto_fontanero}"</p>
+                </div>
+            )}
+            
+            {software.opinion_experto_reformas && (
+                <div class="bg-orange-50 p-6 rounded-2xl border-l-4 border-orange-500 shadow-sm">
+                    <div class="flex items-center mb-3">
+                        <span class="text-2xl mr-3">🧱</span>
+                        <h3 class="font-bold text-orange-900 uppercase text-xs tracking-wider">Para Empresas de Reformas</h3>
+                    </div>
+                    <p class="italic text-gray-700 text-lg font-medium">"{software.opinion_experto_reformas}"</p>
+                </div>
+            )}
+        </section>
+
+        {/* 3. PROS Y CONTRAS */}
+        <section class="grid md:grid-cols-2 gap-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-green-500">
+                <h3 class="font-bold text-lg text-gray-800 mb-4 flex items-center gap-2">
+                    ✅ Lo mejor
+                </h3>
+                <ul class="space-y-3">
+                    {(software.pros || []).map(item => (
+                        <li class="flex items-start text-sm text-gray-700">
+                            <span class="text-green-500 mr-2 font-bold">•</span> {item}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-red-500">
+                <h3 class="font-bold text-lg text-gray-800 mb-4 flex items-center gap-2">
+                    ❌ A mejorar
+                </h3>
+                <ul class="space-y-3">
+                     {(software.cons || []).map(item => (
+                        <li class="flex items-start text-sm text-gray-700">
+                            <span class="text-red-500 mr-2 font-bold">•</span> {item}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </section>
+
+        {/* 4. FAQs */}
+        {software.faqs_seo && software.faqs_seo.length > 0 && (
+            <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6">Preguntas Frecuentes</h2>
+                <div class="space-y-4">
+                    {(software.faqs_seo || []).map((faq) => (
+                        <details class="group border border-gray-200 rounded-xl open:bg-gray-50 transition-all duration-200">
+                            <summary class="flex cursor-pointer items-center justify-between p-5 font-bold text-gray-800 list-none select-none hover:bg-gray-50 rounded-xl">
+                                {faq.pregunta}
+                                <span class="group-open:rotate-180 transition-transform duration-300 text-indigo-500">▼</span>
+                            </summary>
+                            <div class="px-5 pb-5 pt-2 text-gray-600 leading-relaxed">
+                                {faq.respuesta}
+                            </div>
+                        </details>
+                    ))}
+                </div>
+            </section>
+        )}
+    </div>
+
+    {/* COLUMNA DERECHA (1/3): DATOS TÉCNICOS Y CTA (STICKY) */}
+    <div class="md:col-span-1 space-y-6">
+        
+        {/* TARJETA DE PRECIO FLOTANTE */}
+        <div class="bg-white p-6 rounded-2xl shadow-lg border border-indigo-50 sticky top-6 z-30">
+            <div class="text-center mb-6">
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Plan Inicial</p>
+                <div class="flex justify-center items-baseline gap-1">
+                    <span class="text-5xl font-extrabold text-gray-900 tracking-tight">
+                        {software.pricing?.start_price || "?"}
+                    </span>
+                    <span class="text-2xl font-bold text-gray-500">€</span>
+                </div>
+                <p class="text-gray-400 text-sm mt-1">/ {software.pricing?.period || "mes"}</p>
+                
+                {software.pricing?.has_free_trial && (
+                    <div class="mt-4 inline-block px-4 py-1.5 bg-green-100 text-green-700 text-xs font-bold rounded-full border border-green-200">
+                        ✨ Prueba gratis {software.pricing.trial_days} días
+                    </div>
+                )}
+            </div>
+
+            <a href={software.url_afiliado} target="_blank" rel="nofollow noopener" 
+               class="block w-full bg-indigo-600 text-white font-bold py-4 px-4 rounded-xl text-center hover:bg-indigo-700 transition-all shadow-md hover:shadow-xl transform hover:-translate-y-0.5 mb-4">
+                Empezar Ahora
+            </a>
+            <p class="text-xs text-center text-gray-400 mb-6">Enlace seguro a la web oficial</p>
+
+            <div class="border-t border-gray-100 pt-6 space-y-4">
+                <h4 class="font-bold text-gray-900 text-sm uppercase tracking-wide">Características:</h4>
+                <ul class="text-sm space-y-3 text-gray-600">
+                    {(software.features || []).slice(0, 5).map(f => (
+                        <li class="flex items-center gap-3">
+                            <span class="text-indigo-500 flex-shrink-0">●</span> {f}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+            
+            {/* RESUMEN TÉCNICO MINI */}
+            <div class="mt-6 pt-6 border-t border-gray-100">
+                 <ul class="space-y-3 text-sm">
+                    <li class="flex justify-between items-center">
+                        <span class="text-gray-500">Verifactu</span>
+                        <span class="font-bold text-gray-900">
+                            {software.legal_spain?.verifactu_ready ? "✅ Sí" : "❌ No"}
+                        </span>
+                    </li>
+                    <li class="flex justify-between items-center">
+                        <span class="text-gray-500">App Móvil</span>
+                        <span class="font-bold text-gray-900">
+                            {software.tabla_tecnica?.app_movil ? "Sí" : "No"}
+                        </span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        {/* TARJETA TÉCNICA DETALLADA */}
+        <div class="bg-gray-50 p-6 rounded-2xl border border-gray-200">
+            <h3 class="font-bold text-gray-800 mb-4 text-sm uppercase">Ficha Técnica</h3>
+            <ul class="space-y-3 text-sm">
+                <li class="flex justify-between border-b border-gray-200 pb-2">
+                    <span class="text-gray-500">Tipo:</span>
+                    <span class="font-medium text-right text-gray-900">{software.tabla_tecnica?.tipo || "Consultar"}</span>
+                </li>
+                <li class="flex justify-between border-b border-gray-200 pb-2">
+                    <span class="text-gray-500">Firma Digital:</span>
+                    <span class="font-medium text-right text-gray-900">{software.tabla_tecnica?.firma_digital ? "Sí" : "No"}</span>
+                </li>
+                 <li class="flex justify-between border-b border-gray-200 pb-2">
+                    <span class="text-gray-500">TicketBAI:</span>
+                    <span class="font-medium text-right text-gray-900">{software.legal_spain?.ticketbai_ready ? "Sí" : "No"}</span>
+                </li>
+                <li class="flex justify-between pt-1">
+                    <span class="text-gray-500">Soporte:</span>
+                    <span class="font-medium text-right text-gray-900">{software.tabla_tecnica?.soporte_tecnico || "Email"}</span>
+                </li>
+            </ul>
+        </div>
+        
+    </div>
+  </div>
+</Layout>
