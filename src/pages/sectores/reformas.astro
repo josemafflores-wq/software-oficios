@@ -1,25 +1,25 @@
 ---
-// src/pages/sectores/fontaneros.astro
+// src/pages/sectores/reformas.astro
 import softwares from '../../softwares.json';
 import '../../global.css';
 import Header from '../../components/Header.astro';
 
-// 1. FILTRO FONTANEROS
+// 1. FILTRO REFORMAS
 const especialistas = softwares.filter(s => 
     s.target_gremios && s.target_gremios.some(g => {
         const gremio = g.toLowerCase();
-        return ['fontanero', 'instalador', 'sat', 'climatización', 'reformas', 'mantenimiento', 'autónomos'].some(term => gremio.includes(term));
+        return ['reformas', 'construcción', 'albañiles', 'arquitectos', 'jefes de obra', 'obras', 'instaladores', 'autónomos'].some(term => gremio.includes(term));
     })
 );
 const topTable = especialistas.slice(0, 5);
 
-// 2. SCHEMA UPDATE: FAQs reales del texto
+// 2. SCHEMA UPDATE
 const schema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "¿Es obligatorio usar software por la Ley Verifactu?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. A partir de 2025, Hacienda exige que el software garantice la inalterabilidad de las facturas. El Excel y el papel dejarán de ser válidos para emitir facturas legales." } },
-    { "@type": "Question", "name": "¿Qué pasa si trabajo en un sótano sin cobertura?", "acceptedAnswer": { "@type": "Answer", "text": "Debes elegir un software con tecnología 'Offline First'. Esto permite rellenar el parte y recoger la firma en el móvil sin internet, y sincronizar los datos automáticamente al salir a la calle." } }
+    { "@type": "Question", "name": "¿Qué software lee archivos BC3?", "acceptedAnswer": { "@type": "Answer", "text": "Programas como Quercusoft o MN Program permiten importar bancos de precios BC3 (estándar FIEBDC) para realizar presupuestos de licitaciones." } },
+    { "@type": "Question", "name": "¿Cómo evito desviaciones en el presupuesto?", "acceptedAnswer": { "@type": "Answer", "text": "Necesitas un ERP que permita imputar albaranes de compra y horas de operarios a cada partida del presupuesto en tiempo real, alertándote si te pasas del coste previsto." } }
   ]
 };
 ---
@@ -28,21 +28,21 @@ const schema = {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mejor Programa para Fontaneros 2025: Comparativa Verifactu</title>
-    <meta name="description" content="Comparativa de los 9 mejores software para fontaneros y empresas de instalaciones en 2025. Precios, app offline, firma digital y adaptación a Verifactu." />
+    <title>Software para Reformas y Construcción 2025: Presupuestos BC3</title>
+    <meta name="description" content="Comparativa ERP Construcción 2025. Control de costes, certificaciones, BC3 y Ley Verifactu." />
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans">
 
-    <Header />
+   <Header />
 
     <header class="bg-blue-900 text-white py-16 px-6">
         <div class="max-w-4xl mx-auto">
             <h1 class="text-4xl md:text-5xl font-black mb-4 italic">
-                Programas de Gestión para Fontaneros: <span class="text-blue-400">Adiós al papeleo.</span>
+                Software para Reformas: <span class="text-blue-400">Controla la rentabilidad de la obra.</span>
             </h1>
             <p class="text-lg text-blue-100 opacity-90">
-                Herramientas para instaladores: presupuestos in-situ, cobro con tarjeta y cumplimiento Verifactu.
+                Analizamos los ERP líderes para constructoras. Presupuestos profesionales, certificaciones y cumplimiento de la Ley Verifactu.
             </p>
         </div>
     </header>
@@ -58,7 +58,7 @@ const schema = {
                     <thead>
                         <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold uppercase text-slate-500">
                             <th class="p-4">Software</th>
-                            <th class="p-4">Ideal para</th>
+                            <th class="p-4">Especialidad</th>
                             <th class="p-4">Precio Base</th>
                             <th class="p-4 text-center">App</th>
                             <th class="p-4"></th>
@@ -116,9 +116,9 @@ const schema = {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                             <div class="space-y-6">
                                 <div class="prose prose-slate">
-                                    <h4 class="text-xl font-bold text-slate-800">¿Cómo ayuda a tu negocio?</h4>
+                                    <h4 class="text-xl font-bold text-slate-800">Opinión del Jefe de Obra:</h4>
                                     <p class="text-slate-600 leading-relaxed text-sm">
-                                        {soft.opinion_experto_fontanero || soft.h2_ventajas_gremio || soft.short_description}
+                                        {soft.opinion_experto_reformas || soft.opinion_experto_fontanero || soft.short_description}
                                     </p>
                                 </div>
                                 <div class="flex flex-wrap gap-2">
@@ -129,14 +129,14 @@ const schema = {
                             </div>
                             <div class="flex flex-col justify-center bg-slate-50 p-6 rounded-2xl border border-slate-100">
                                 <h4 class="font-bold text-slate-800 mb-4 text-center italic text-sm">
-                                    "Ideal para llevarlo en la furgoneta y facturar al instante"
+                                    "La mejor opción para controlar costes y evitar desviaciones"
                                 </h4>
                                 <div class="space-y-3">
                                     <a href={soft.url_afiliado || "#"} target="_blank" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-xl text-lg shadow-xl shadow-blue-200 transition-transform active:scale-95">
                                         VER WEB DE {soft.name.toUpperCase()}
                                     </a>
                                     <a href={`/analisis/${soft.id}`} class="block w-full text-center bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-50 transition-colors text-sm">
-                                        Leer nuestra opinión detallada
+                                        Leer análisis detallado
                                     </a>
                                 </div>
                                 <p class="text-[10px] text-center text-slate-400 mt-4 uppercase font-bold tracking-widest">Enlace oficial verificado · 2025</p>
@@ -151,63 +151,63 @@ const schema = {
         <div class="mt-20 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden p-8 md:p-12">
             
             <div class="prose prose-slate max-w-none">
-                <h2 class="text-3xl font-black text-slate-800 mb-6">Guía 2025: Cómo elegir el mejor software para fontaneros y SAT</h2>
+                <h2 class="text-3xl font-black text-slate-800 mb-6">Guía 2025: Cómo elegir ERP para construcción y reformas</h2>
                 <p class="text-lg leading-relaxed text-slate-600">
-                    El sector de la fontanería y las instalaciones térmicas (RITE) se enfrenta a un cambio histórico en 2025. La libreta de autocopia y el Excel ya no sirven. 
-                    No solo por la eficiencia, sino por imperativo legal. Elegir el programa adecuado marca la diferencia entre <strong>perder horas administrativas</strong> o tener un negocio automatizado que factura solo.
+                    El margen de beneficio en una reforma se gana o se pierde en los detalles. Un mal cálculo en el acopio de materiales o una certificación olvidada pueden arruinar el mes. 
+                    El software de construcción moderno ya no es solo para hacer facturas; es una herramienta de <strong>Control de Gestión</strong> que te dice en tiempo real si estás ganando dinero o perdiendo en cada partida.
                 </p>
             </div>
 
-            {/* Grid Visual de 3 puntos clave */}
+            {/* Grid Visual de 3 puntos clave (CONSTRUCCIÓN) */}
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 not-prose my-10 border-y border-slate-100 py-10">
                 <div class="p-6 bg-blue-50 rounded-2xl border border-blue-100">
-                    <div class="text-4xl mb-4">📡</div>
-                    <h4 class="font-bold text-blue-900 mb-3 text-lg">1. Modo "Offline First"</h4>
+                    <div class="text-4xl mb-4">📐</div>
+                    <h4 class="font-bold text-blue-900 mb-3 text-lg">1. Presupuestos y BC3</h4>
                     <p class="text-sm text-blue-800 leading-relaxed">
-                        Un fontanero pasa el 40% de su tiempo en <strong>sótanos, garajes y cuartos de calderas</strong> donde el 4G no llega. El software debe permitirte crear el parte, cargar materiales y recoger la firma del cliente sin conexión, y sincronizarse solo al salir a la calle.
+                        El estándar en España. Necesitas importar bancos de precios (Generador de Precios, Preoc, etc.) y trabajar con partidas descompuestas. Si vas a licitar para obra pública, el formato <strong>FIEBDC-3 (BC3)</strong> es obligatorio.
                     </p>
                 </div>
                 <div class="p-6 bg-green-50 rounded-2xl border border-green-100">
                     <div class="text-4xl mb-4">⚖️</div>
-                    <h4 class="font-bold text-green-900 mb-3 text-lg">2. Verifactu y Ley Antifraude</h4>
+                    <h4 class="font-bold text-green-900 mb-3 text-lg">2. Certificaciones y Retenciones</h4>
                     <p class="text-sm text-green-800 leading-relaxed">
-                        Hacienda se pone seria. El software debe generar un registro de alta de factura inalterable. Si usas Word o un programa antiguo que permite "borrar" facturas, te expones a multas de hasta <strong>50.000€</strong>. Todos los programas de esta lista están adaptados.
+                        En obras largas no facturas todo al final. Necesitas "Certificar a Origen" (por % de avance). Además, el software debe gestionar las <strong>retenciones de garantía</strong> (ese 5% que el cliente se guarda) para avisarte cuándo reclamarlo.
                     </p>
                 </div>
                 <div class="p-6 bg-purple-50 rounded-2xl border border-purple-100">
-                    <div class="text-4xl mb-4">🔄</div>
-                    <h4 class="font-bold text-purple-900 mb-3 text-lg">3. Mantenimientos (SAT)</h4>
+                    <div class="text-4xl mb-4">🚧</div>
+                    <h4 class="font-bold text-purple-900 mb-3 text-lg">3. Control de Desviaciones</h4>
                     <p class="text-sm text-purple-800 leading-relaxed">
-                        El dinero real está en los recurrentes. Busca un programa que gestione <strong>avisos automáticos</strong> para revisiones anuales de calderas o aire acondicionado. Si el software avisa al cliente por ti, aumentas tu facturación un 30% sin esfuerzo.
+                        Lo presupuestado vs. lo real. Un buen ERP te permite imputar las facturas de compra de materiales y las horas de los albañiles a cada obra. Así sabes al instante si te estás desviando del presupuesto inicial antes de que sea tarde.
                     </p>
                 </div>
             </div>
 
             <div class="prose prose-slate max-w-none">
-                <h3 class="text-2xl font-bold text-slate-800">Preguntas Frecuentes antes de contratar</h3>
+                <h3 class="text-2xl font-bold text-slate-800">Preguntas Frecuentes del Jefe de Obra</h3>
                 
                 <details class="group bg-slate-50 p-5 rounded-xl cursor-pointer mb-4 border border-slate-100">
                     <summary class="font-bold text-slate-800 flex justify-between items-center list-none text-lg">
-                        ¿Puedo cobrar con tarjeta en el momento?
+                        ¿Es obligatorio usar software certificado en reformas?
                         <span class="text-blue-600 group-open:rotate-180 transition-transform">▼</span>
                     </summary>
                     <p class="text-slate-600 mt-3 leading-relaxed">
-                        Sí. Herramientas modernas como <strong>STEL Order</strong> o <strong>ToolTime</strong> integran pasarelas de pago (Stripe o PayPal). Puedes enviar el parte de trabajo al email del cliente con un botón de "Pagar Ahora", reduciendo la morosidad a casi cero.
+                        Sí, la <strong>Ley Antifraude (Verifactu)</strong> aplica a todos los autónomos y empresas que emitan facturas en España. Los programas que permiten "llevar una caja B" o modificar facturas ya emitidas están prohibidos y conllevan fuertes sanciones.
                     </p>
                 </details>
 
                 <details class="group bg-slate-50 p-5 rounded-xl cursor-pointer mb-4 border border-slate-100">
                     <summary class="font-bold text-slate-800 flex justify-between items-center list-none text-lg">
-                        ¿Sirven para empresas de reformas o solo averías?
+                        ¿Sirven para gestionar subcontratas?
                         <span class="text-blue-600 group-open:rotate-180 transition-transform">▼</span>
                     </summary>
                     <p class="text-slate-600 mt-3 leading-relaxed">
-                        Depende. Programas como <strong>Fixner</strong> o <strong>STEL Order</strong> son híbridos: gestionan muy bien los avisos urgentes (SAT) pero también permiten crear presupuestos por capítulos para reformas de baños o cocinas.
+                        Sí. Los ERPs de construcción (como Quercusoft o MN Program) permiten gestionar proveedores y subcontratas, validando sus facturas contra tu presupuesto y controlando los pagos y vencimientos.
                     </p>
                 </details>
 
                 <p className="text-sm italic text-slate-500 mt-8">
-                    * Metodología: En ObraDigital.es analizamos la capacidad de trabajo offline, la velocidad de carga de la app y la adaptación legal a la normativa española vigente.
+                    * Nota: Todos los programas listados cumplen con la normativa de facturación española y están preparados para la factura electrónica B2B obligatoria.
                 </p>
             </div>
         </div>
