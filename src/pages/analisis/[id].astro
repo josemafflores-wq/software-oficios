@@ -4,12 +4,10 @@ import softwares from '../../softwares.json';
 import Layout from '../../layouts/Layout.astro';
 
 export async function getStaticPaths() {
-  return softwares.map((soft) => {
-    return {
-      params: { id: soft.id },
-      props: { software: soft },
-    };
-  });
+  return softwares.map((soft) => ({
+    params: { id: soft.id },
+    props: { software: soft },
+  }));
 }
 
 const { software } = Astro.props;
@@ -17,189 +15,241 @@ const { software } = Astro.props;
 const precioDisplay = software.pricing?.start_price 
   ? `${software.pricing.start_price}€` 
   : "Consultar";
+
+// --- CEREBRO DE OPINIONES (SOPORTE PARA 8 SECTORES) ---
+const opinionesData = {
+    defecto: {
+        titulo: "Análisis del Experto",
+        texto: software.short_description,
+        icon: "⭐",
+        clase: "bg-gray-50 border-gray-500 text-gray-900"
+    },
+    fontaneros: {
+        titulo: "La Opinión del Fontanero",
+        texto: software.opinion_experto_fontanero || `Práctico para partes de trabajo, gestión de materiales y cobro in-situ.`,
+        icon: "🔧",
+        clase: "bg-blue-50 border-blue-500 text-blue-900"
+    },
+    reformas: {
+        titulo: "Para Empresas de Reformas",
+        texto: software.opinion_experto_reformas || `Control de desviaciones presupuestarias, certificaciones y gestión de industriales.`,
+        icon: "🧱",
+        clase: "bg-orange-50 border-orange-500 text-orange-900"
+    },
+    electricistas: {
+        titulo: "Análisis para Electricistas",
+        texto: software.opinion_experto_fontanero || `Gestión de boletines, mantenimientos preventivos y avisos de avería urgentes.`,
+        icon: "⚡",
+        clase: "bg-yellow-50 border-yellow-500 text-yellow-900"
+    },
+    talleres: {
+        titulo: "Análisis para Taller Mecánico",
+        texto: software.opinion_experto_taller || `Gestión de matrículas, ORs, depósito de vehículos y stock de recambios.`,
+        icon: "🚗",
+        clase: "bg-red-50 border-red-500 text-red-900"
+    },
+    cerrajeros: {
+        titulo: "Especial Cerrajeros 24h",
+        texto: `Indispensable para servicios de urgencia. Permite firma digital de conformidad y cobro con tarjeta en la puerta del cliente.`,
+        icon: "🔑",
+        clase: "bg-zinc-100 border-zinc-600 text-zinc-900"
+    },
+    carpinteros: {
+        titulo: "Para Carpintería y Aluminio",
+        texto: `Ideal para gestionar presupuestos con medidas, despiece de materiales y control de fabricación en taller.`,
+        icon: "🪚",
+        clase: "bg-amber-50 border-amber-600 text-amber-900"
+    },
+    limpieza: {
+        titulo: "Empresas de Limpieza",
+        texto: `Control horario de cuadrillas por GPS, planificación de rutas recurrentes y gestión de cuadrantes de trabajo.`,
+        icon: "✨",
+        clase: "bg-cyan-50 border-cyan-500 text-cyan-900"
+    },
+    jardineros: {
+        titulo: "Jardinería y Paisajismo",
+        texto: `Gestión de mantenimientos periódicos estacionales y seguimiento de tratamientos fitosanitarios por cliente.`,
+        icon: "🌿",
+        clase: "bg-green-50 border-green-600 text-green-900"
+    }
+};
+
+const faqsFinales = [...(software.faqs_seo || [])];
+const faqsGenericas = [
+    { p: `¿Cumple ${software.name} con Verifactu?`, r: software.legal_spain?.verifactu_ready ? `Sí, garantiza facturas inalterables según normativa.` : `Está en proceso de adaptación.` },
+    { p: "¿Es 100% en la nube?", r: software.tabla_tecnica?.nube ? "Sí, accesible desde cualquier navegador sin instalaciones." : "Requiere instalación local o servidor." },
+    { p: "¿Tiene App móvil?", r: software.tabla_tecnica?.app_movil ? "Sí, cuenta con app nativa para iOS y Android." : "Funciona mediante versión web móvil." }
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": software.name,
+  "offers": { "@type": "Offer", "price": software.pricing?.start_price || "0", "priceCurrency": "EUR" }
+};
 ---
 
-<Layout title={`${software.name}: Precio, Opiniones y Verifactu`}>
-  
-  {/* --- HERO SECTION (CABECERA AZUL) --- */}
-  <div class="bg-indigo-900 text-white py-12 md:py-16 relative overflow-hidden">
-    {/* Textura de fondo sutil */}
-    <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+<Layout title={`${software.name}: Precio y Opiniones 2025`}>
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 
+  {/* HERO SECTION */}
+  <div class="bg-indigo-900 text-white py-12 md:py-16 relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
     <div class="max-w-6xl mx-auto px-4 md:flex items-center gap-8 relative z-10">
-      
-      {/* COLUMNA 1: LOGO */}
       <div class="md:w-1/4 flex justify-center md:justify-start mb-6 md:mb-0">
         <div class="bg-white p-6 rounded-2xl shadow-2xl w-48 h-48 flex items-center justify-center transform hover:scale-105 transition-transform duration-300">
-            <img 
-                src={software.logo_url} 
-                alt={`Logo ${software.name}`} 
-                class="max-h-full max-w-full object-contain"
-            />
+            {software.logo_url ? <img src={software.logo_url} alt={`Logo ${software.name}`} class="max-h-full max-w-full object-contain" /> : <span class="text-4xl font-black text-slate-300">{software.name[0]}</span>}
         </div>
       </div>
-
-      {/* COLUMNA 2: TEXTO Y BADGES */}
       <div class="md:w-3/4 text-center md:text-left">
-        
-        {/* BADGES SEO: Verifactu (Verde) -> Kit Digital (Azul) -> TicketBAI (Morado) */}
         <div class="flex flex-wrap gap-3 justify-center md:justify-start mb-4">
-            {software.legal_spain?.verifactu_ready && (
-                <span class="px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full uppercase tracking-wide shadow-sm flex items-center gap-1 border border-green-400">
-                    <span>✅</span> Verifactu
-                </span>
-            )}
-            {software.kit_digital_eligible && (
-                <span class="px-3 py-1 bg-blue-500 text-white text-xs font-bold rounded-full uppercase tracking-wide shadow-sm border border-blue-400">
-                    Kit Digital
-                </span>
-            )}
-            {software.legal_spain?.ticketbai_ready && (
-                <span class="px-3 py-1 bg-purple-500 text-white text-xs font-bold rounded-full uppercase tracking-wide shadow-sm border border-purple-400">
-                    TicketBAI
-                </span>
-            )}
+            {software.legal_spain?.verifactu_ready && <span class="px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full uppercase tracking-wide border border-green-400">✅ Verifactu</span>}
+            {software.kit_digital_eligible && <span class="px-3 py-1 bg-blue-500 text-white text-xs font-bold rounded-full uppercase border border-blue-400">Kit Digital</span>}
         </div>
-
         <h1 class="text-3xl md:text-5xl font-bold mb-4 tracking-tight">{software.name}</h1>
         <p class="text-xl text-indigo-100 max-w-2xl mb-8 leading-relaxed">{software.short_description}</p>
-        
         <div class="flex flex-wrap gap-4 justify-center md:justify-start items-center">
-            <a href={software.url_afiliado} target="_blank" rel="nofollow noopener" 
-               class="bg-yellow-400 text-yellow-900 font-bold py-3 px-8 rounded-lg hover:bg-yellow-300 transition shadow-lg transform hover:-translate-y-1 flex items-center gap-2">
+            <a href={software.url_afiliado} target="_blank" rel="nofollow noopener" class="bg-yellow-400 text-yellow-900 font-bold py-3 px-8 rounded-lg hover:bg-yellow-300 transition shadow-lg transform hover:-translate-y-1 flex items-center gap-2">
                 Ver Oferta Oficial <span class="text-xl">→</span>
             </a>
-            <div class="text-indigo-200 text-sm flex items-center gap-1">
-                Desde <span class="text-white text-2xl font-bold">{precioDisplay}</span> /mes
-            </div>
+            <div class="text-indigo-200 text-sm flex items-center gap-1">Desde <span class="text-white text-2xl font-bold">{precioDisplay}</span> /mes</div>
         </div>
       </div>
     </div>
   </div>
 
-  {/* --- CONTENIDO PRINCIPAL --- */}
   <div class="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-8 -mt-8 relative z-20">
-    
-    {/* COLUMNA IZQUIERDA (2/3) */}
     <div class="md:col-span-2 space-y-8">
         
-        {/* 1. ANÁLISIS + VIDEO */}
+        {/* CAJA DE OPINIÓN CAMALEÓNICA */}
+        <section id="opinion-dinamica" class="p-8 rounded-2xl border-l-4 shadow-sm transition-all duration-300 bg-gray-50 border-gray-500">
+            <div class="flex items-center mb-4">
+                <span id="opinion-icon" class="text-3xl mr-3">⭐</span>
+                <h3 id="opinion-titulo" class="font-bold uppercase text-sm tracking-wider text-gray-900">Análisis del Experto</h3>
+            </div>
+            <p id="opinion-texto" class="italic text-gray-700 text-lg font-medium leading-relaxed">"{software.short_description}"</p>
+        </section>
+
+        {/* ANÁLISIS A FONDO */}
         <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-                <span>🔍</span> Análisis a fondo
-            </h2>
-            <div class="prose prose-lg prose-indigo max-w-none text-gray-600 leading-relaxed whitespace-pre-line">
-                {software.contenido_seo_extenso}
+            <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2"><span>🔍</span> Análisis a fondo</h2>
+            <div id="texto-analisis-normal" class="prose prose-lg prose-indigo max-w-none text-gray-600 leading-relaxed">
+                <p><strong>{software.name}</strong> es una de las soluciones más sólidas para {software.target_gremios?.join(' y ')}. Destaca por su capacidad de {software.features?.slice(0,3).join(', ')}.</p>
+                {software.contenido_seo_extenso && <div class="whitespace-pre-line mt-4">{software.contenido_seo_extenso}</div>}
             </div>
 
-            {software.video_demo_id && (
-                <div class="mt-8 pt-8 border-t border-gray-100">
-                    <h3 class="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wider flex items-center gap-2">
-                        <span>🎥</span> Video Demostración
-                    </h3>
-                    <div class="aspect-video rounded-xl overflow-hidden bg-gray-900 shadow-lg">
-                        <iframe 
-                            width="100%" 
-                            height="100%" 
-                            src={`https://www.youtube.com/embed/${software.video_demo_id}`} 
-                            title={`Video de ${software.name}`}
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen>
-                        </iframe>
-                    </div>
-                </div>
-            )}
+            {/* --- BLOQUES EXTRA DINÁMICOS --- */}
+            <div id="extra-talleres" class="hidden mt-6 p-5 bg-red-50 rounded-xl border border-red-100">
+                <h3 class="font-bold text-red-900 flex items-center gap-2 mb-2"><span>🚗</span> Funcionalidades para Taller</h3>
+                <p class="text-red-800 text-sm">Entrada por matrícula, gestión de ORs y control de margen de recambios.</p>
+            </div>
+
+            <div id="extra-electricistas" class="hidden mt-6 p-5 bg-yellow-50 rounded-xl border border-yellow-200">
+                <h3 class="font-bold text-yellow-900 flex items-center gap-2 mb-2"><span>⚡</span> Especial Electricistas</h3>
+                <p class="text-yellow-900 text-sm">Gestión de mantenimientos preventivos y base de precios para boletines.</p>
+            </div>
+
+            <div id="extra-fontaneros" class="hidden mt-6 p-5 bg-blue-50 rounded-xl border border-blue-100">
+                <h3 class="font-bold text-blue-900 flex items-center gap-2 mb-2"><span>🔧</span> Utilidad para Fontaneros</h3>
+                <p class="text-blue-800 text-sm">Firma digital in-situ y modo offline para sótanos sin cobertura.</p>
+            </div>
+
+            <div id="extra-reformas" class="hidden mt-6 p-5 bg-orange-50 rounded-xl border border-orange-100">
+                <h3 class="font-bold text-orange-900 flex items-center gap-2 mb-2"><span>🧱</span> Gestión de Reformas</h3>
+                <p class="text-orange-900 text-sm">Presupuestos por capítulos y control de certificaciones a origen.</p>
+            </div>
+
+            <div id="extra-cerrajeros" class="hidden mt-6 p-5 bg-zinc-50 rounded-xl border border-zinc-200">
+                <h3 class="font-bold text-zinc-900 flex items-center gap-2 mb-2"><span>🔑</span> Gestión para Cerrajeros</h3>
+                <p class="text-zinc-800 text-sm">Asignación de avisos urgentes y geolocalización de técnicos en tiempo real.</p>
+            </div>
+
+            <div id="extra-carpinteros" class="hidden mt-6 p-5 bg-amber-50 rounded-xl border border-amber-100">
+                <h3 class="font-bold text-amber-900 flex items-center gap-2 mb-2"><span>🪚</span> Carpintería y Aluminio</h3>
+                <p class="text-amber-900 text-sm">Presupuestos por medidas y control de fabricación de ventanas o muebles.</p>
+            </div>
+
+            <div id="extra-limpieza" class="hidden mt-6 p-5 bg-cyan-50 rounded-xl border border-cyan-100">
+                <h3 class="font-bold text-cyan-900 flex items-center gap-2 mb-2"><span>✨</span> Servicios de Limpieza</h3>
+                <p class="text-cyan-900 text-sm">Control horario por GPS en el centro del cliente y facturación recurrente.</p>
+            </div>
+
+            <div id="extra-jardineros" class="hidden mt-6 p-5 bg-green-50 rounded-xl border border-green-100">
+                <h3 class="font-bold text-green-900 flex items-center gap-2 mb-2"><span>🌿</span> Jardinería Profesional</h3>
+                <p class="text-green-900 text-sm">Programación de tareas estacionales y control de productos fitosanitarios.</p>
+            </div>
         </section>
 
-        {/* 2. OPINIONES */}
-        <section class="grid gap-6">
-            {software.opinion_experto_fontanero && (
-                <div class="bg-blue-50 p-6 rounded-2xl border-l-4 border-blue-500 shadow-sm">
-                    <div class="flex items-center mb-3">
-                        <span class="text-2xl mr-3">🔧</span>
-                        <h3 class="font-bold text-blue-900 uppercase text-xs tracking-wider">La opinión del Fontanero</h3>
-                    </div>
-                    <p class="italic text-gray-700 text-lg font-medium">"{software.opinion_experto_fontanero}"</p>
-                </div>
-            )}
-            {software.opinion_experto_reformas && (
-                <div class="bg-orange-50 p-6 rounded-2xl border-l-4 border-orange-500 shadow-sm">
-                    <div class="flex items-center mb-3">
-                        <span class="text-2xl mr-3">🧱</span>
-                        <h3 class="font-bold text-orange-900 uppercase text-xs tracking-wider">Para Empresas de Reformas</h3>
-                    </div>
-                    <p class="italic text-gray-700 text-lg font-medium">"{software.opinion_experto_reformas}"</p>
-                </div>
-            )}
-        </section>
-
-        {/* 3. PROS Y CONTRAS */}
+        {/* PROS Y CONTRAS */}
         <section class="grid md:grid-cols-2 gap-6">
-            <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-green-500">
-                <h3 class="font-bold text-lg text-gray-800 mb-4 flex items-center gap-2">
-                    ✅ Lo mejor
-                </h3>
-                <ul class="space-y-3">
-                    {(software.pros || []).map(item => (
-                        <li class="flex items-start text-sm text-gray-700">
-                            <span class="text-green-500 mr-2 font-bold">•</span> {item}
-                        </li>
-                    ))}
-                </ul>
+            <div class="bg-white p-6 rounded-2xl border-t-4 border-green-500 shadow-sm">
+                <h3 class="font-bold text-gray-800 mb-4">✅ Lo mejor</h3>
+                <ul class="space-y-3 text-sm text-gray-700">{(software.pros || []).map(i => <li>• {i}</li>)}</ul>
             </div>
-            <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-red-500">
-                <h3 class="font-bold text-lg text-gray-800 mb-4 flex items-center gap-2">
-                    ❌ A mejorar
-                </h3>
-                <ul class="space-y-3">
-                     {(software.cons || []).map(item => (
-                        <li class="flex items-start text-sm text-gray-700">
-                            <span class="text-red-500 mr-2 font-bold">•</span> {item}
-                        </li>
-                    ))}
-                </ul>
+            <div class="bg-white p-6 rounded-2xl border-t-4 border-red-500 shadow-sm">
+                <h3 class="font-bold text-gray-800 mb-4">❌ A mejorar</h3>
+                <ul class="space-y-3 text-sm text-gray-700">{(software.cons || []).map(i => <li>• {i}</li>)}</ul>
             </div>
         </section>
 
-        {/* 4. FAQs */}
-        {software.faqs_seo && software.faqs_seo.length > 0 && (
-            <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-                <h2 class="text-2xl font-bold text-gray-800 mb-6">Preguntas Frecuentes</h2>
-                <div class="space-y-4">
-                    {(software.faqs_seo || []).map((faq) => (
-                        <details class="group border border-gray-200 rounded-xl open:bg-gray-50 transition-all duration-200">
-                            <summary class="flex cursor-pointer items-center justify-between p-5 font-bold text-gray-800 list-none select-none hover:bg-gray-50 rounded-xl">
-                                {faq.pregunta}
-                                <span class="group-open:rotate-180 transition-transform duration-300 text-indigo-500">▼</span>
-                            </summary>
-                            <div class="px-5 pb-5 pt-2 text-gray-600 leading-relaxed">
-                                {faq.respuesta}
-                            </div>
-                        </details>
-                    ))}
-                </div>
-            </section>
-        )}
+        {/* FAQs */}
+        <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Preguntas Frecuentes</h2>
+            <div class="space-y-4">
+                {faqsFinales.map((faq) => (
+                    <details class="group border border-gray-200 rounded-xl open:bg-gray-50 transition-all">
+                        <summary class="flex cursor-pointer items-center justify-between p-5 font-bold text-gray-800 list-none">
+                            {faq.pregunta} <span class="group-open:rotate-180 transition-transform">▼</span>
+                        </summary>
+                        <div class="px-5 pb-5 text-gray-600 leading-relaxed">{faq.respuesta}</div>
+                    </details>
+                ))}
+            </div>
+        </section>
     </div>
 
-    {/* COLUMNA DERECHA (1/3) */}
+    {/* SIDEBAR */}
     <div class="md:col-span-1 space-y-6">
-        
-        {/* TARJETA DE PRECIO FLOTANTE */}
-        <div class="bg-white p-6 rounded-2xl shadow-lg border border-indigo-50 sticky top-6 z-30">
+        <div class="bg-white p-6 rounded-2xl shadow-lg border border-indigo-50 sticky top-24">
             <div class="text-center mb-6">
-                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Plan Inicial</p>
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Plan Inicial</p>
                 <div class="flex justify-center items-baseline gap-1">
-                    <span class="text-5xl font-extrabold text-gray-900 tracking-tight">
-                        {software.pricing?.start_price || "?"}
-                    </span>
+                    <span class="text-5xl font-extrabold text-gray-900">{software.pricing?.start_price || "?"}</span>
                     <span class="text-2xl font-bold text-gray-500">€</span>
                 </div>
                 <p class="text-gray-400 text-sm mt-1">/ {software.pricing?.period || "mes"}</p>
-                
-                {software.pricing?.has_free_trial && (
-                    <div class="mt-4 inline-block px-4 py-1.5 bg-green-100 text-green-700 text-xs font-bold rounded-full border border-green-200">
-                        ✨ Prueba gratis {software.pricing.trial_days} días
-                    </div>
-                )}
+            </div>
+            <a href={software.url_afiliado} target="_blank" class="block w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl text-center shadow-md transition-all active:scale-95">Probar Gratis Ahora</a>
+            <div class="mt-8 border-t border-gray-100 pt-6">
+                <h4 class="font-bold text-gray-800 text-sm mb-4">Ficha Técnica</h4>
+                <ul class="space-y-3 text-sm">
+                    <li class="flex justify-between text-gray-600"><span>App</span><span class="font-medium text-slate-900">{software.tabla_tecnica?.app_movil ? "Sí" : "Web"}</span></li>
+                    <li class="flex justify-between text-gray-600"><span>Nube</span><span class="font-medium text-slate-900">{software.tabla_tecnica?.nube ? "Sí" : "No"}</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+  </div>
+
+  {/* SCRIPT CAMALEÓNICO */}
+  <script define:vars={{ opinionesData }}>
+    document.addEventListener('DOMContentLoaded', () => {
+        const sector = new URLSearchParams(window.location.search).get('sector'); 
+        const box = document.getElementById('opinion-dinamica');
+        const titulo = document.getElementById('opinion-titulo');
+        const texto = document.getElementById('opinion-texto');
+        const icon = document.getElementById('opinion-icon');
+
+        if (sector && opinionesData[sector]) {
+            const d = opinionesData[sector];
+            titulo.textContent = d.titulo;
+            texto.textContent = `"${d.texto}"`;
+            icon.textContent = d.icon;
+            box.className = `p-8 rounded-2xl border-l-4 shadow-sm transition-all duration-300 ${d.clase}`;
+            
+            const cajaExtra = document.getElementById(`extra-${sector}`);
+            if (cajaExtra) cajaExtra.classList.remove('hidden');
+        } 
+    });
+  </script>
+</Layout>

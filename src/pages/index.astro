@@ -2,71 +2,72 @@
 // src/pages/index.astro
 import Header from '../components/Header.astro';
 import softwares from '../softwares.json';
-import '../global.css';
+import '../styles/global.css';
 
-// Sacamos los 3 mejores generales para la tabla de la Home
+// Sacamos los 3 mejores generales para la tabla rápida
 const topGeneral = softwares.slice(0, 3);
+
+const sectores = [
+    { id: 'fontaneros', nombre: 'Fontaneros', emoji: '🔧', desc: 'Partes de trabajo y SAT.' },
+    { id: 'electricistas', nombre: 'Electricistas', emoji: '⚡', desc: 'Boletines y mantenimientos.' },
+    { id: 'reformas', nombre: 'Reformas', emoji: '🧱', desc: 'Presupuestos BC3 y obras.' },
+    { id: 'cerrajeros', nombre: 'Cerrajeros', emoji: '🔑', desc: 'Urgencias 24h y GPS.' },
+    { id: 'carpinteros', nombre: 'Carpinteros', emoji: '🪚', desc: 'Medidas y fabricación.' },
+    { id: 'jardineros', nombre: 'Jardinería', emoji: '🌿', desc: 'Mantenimiento estacional.' },
+    { id: 'limpieza', nombre: 'Limpieza', emoji: '✨', desc: 'Cuadrantes y control horario.' },
+    { id: 'talleres', nombre: 'Talleres', emoji: '🚗', desc: 'Matrículas y recambios.' }
+];
 ---
 
 <html lang="es">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Comparador de Software para Profesionales y Pymes 2025 | ObraDigital</title>
-    <meta name="description" content="Elige el mejor software para tu negocio: Fontaneros, Reformas, Talleres y Electricistas. Comparativa de precios, Ley Verifactu y Kit Digital." />
+    <title>Comparador de Software para Profesionales 2025 | ObraDigital</title>
+    <meta name="description" content="Encuentra el mejor software para tu oficio. Analizamos herramientas para fontaneros, electricistas, reformas, cerrajeros y más." />
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans">
 
     <Header />
 
-    {/* HERO SECTION */}
-    <header class="bg-blue-900 text-white py-20 px-6 text-center relative overflow-hidden">
-        <div class="max-w-4xl mx-auto relative z-10">
+    {/* HERO SECTION - BLOQUE AZUL LIMPIO */}
+    <header class="bg-blue-900 text-white py-16 px-6 text-center">
+        <div class="max-w-4xl mx-auto">
             <h1 class="text-4xl md:text-6xl font-black mb-6 tracking-tight leading-tight">
-                El Software perfecto para tu negocio <span class="text-blue-400">existe.</span>
+                El Software perfecto para tu oficio <span class="text-blue-400">existe.</span>
             </h1>
-            <p class="text-xl text-blue-100 mb-10 max-w-2xl mx-auto leading-relaxed">
-                No pierdas tiempo probando programas. Hemos analizado y filtrado las mejores herramientas para profesionales en España adaptadas a la <strong>Ley Verifactu 2025</strong>.
+            <p class="text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed">
+                Analizamos y filtramos las mejores herramientas para profesionales en España adaptadas a la <strong>Ley Verifactu 2025</strong>.
             </p>
         </div>
     </header>
 
-    <main class="max-w-6xl mx-auto px-6 py-16 -mt-10 relative z-20">
+    <main class="max-w-6xl mx-auto px-6 py-12">
         
-        {/* 1. SELECTOR VISUAL DE SECTORES (El "Buscador" Visual) */}
+        {/* SELECTOR DE SECTORES - FUERA DEL AZUL, SIN MÁRGENES NEGATIVOS */}
         <div class="mb-16">
-            <h2 class="text-center text-slate-800 font-black text-2xl mb-8 uppercase tracking-wide">👇 Elige tu Gremio para empezar</h2>
+            <h2 class="text-center text-slate-800 font-black text-2xl mb-8 uppercase tracking-wide">
+                👇 Elige tu gremio para empezar
+            </h2>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                
-                <a href="/sectores/fontaneros" class="group bg-white p-8 rounded-2xl shadow-xl border border-slate-200 hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl hover:border-blue-500">
-                    <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">🔧</div>
-                    <h3 class="text-2xl font-black text-slate-800 group-hover:text-blue-600 mb-2">Fontaneros</h3>
-                    <p class="text-sm text-slate-500 font-medium">Partes de trabajo, avisos y modo offline.</p>
-                </a>
-
-                <a href="/sectores/electricistas" class="group bg-white p-8 rounded-2xl shadow-xl border border-slate-200 hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl hover:border-yellow-500">
-                    <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">⚡</div>
-                    <h3 class="text-2xl font-black text-slate-800 group-hover:text-blue-600 mb-2">Electricistas</h3>
-                    <p class="text-sm text-slate-500 font-medium">Boletines, mantenimientos y materiales.</p>
-                </a>
-
-                <a href="/sectores/reformas" class="group bg-white p-8 rounded-2xl shadow-xl border border-slate-200 hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl hover:border-green-500">
-                    <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">🧱</div>
-                    <h3 class="text-2xl font-black text-slate-800 group-hover:text-blue-600 mb-2">Reformas</h3>
-                    <p class="text-sm text-slate-500 font-medium">Presupuestos BC3 y certificaciones.</p>
-                </a>
-
-                <a href="/sectores/talleres" class="group bg-white p-8 rounded-2xl shadow-xl border border-slate-200 hover:-translate-y-2 transition-all duration-300 hover:shadow-2xl hover:border-red-500">
-                    <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">🚗</div>
-                    <h3 class="text-2xl font-black text-slate-800 group-hover:text-blue-600 mb-2">Talleres</h3>
-                    <p class="text-sm text-slate-500 font-medium">Matrículas, OR y recambios.</p>
-                </a>
-
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                {sectores.map(s => (
+                    <a href={`/software/${s.id}`} class="group bg-white p-8 rounded-2xl shadow-xl border border-slate-200 hover:-translate-y-1 transition-all duration-300 hover:border-blue-500">
+                        <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">
+                            {s.emoji}
+                        </div>
+                        <h3 class="text-2xl font-black text-slate-800 group-hover:text-blue-600 mb-2">
+                            {s.nombre}
+                        </h3>
+                        <p class="text-sm text-slate-500 font-medium">
+                            {s.desc}
+                        </p>
+                    </a>
+                ))}
             </div>
         </div>
 
-        {/* 2. TABLA DESTACADOS (LINK JUICE A FICHAS) */}
+        {/* TABLA DESTACADOS */}
         <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden mb-16">
             <div class="bg-slate-900 p-5">
                 <h2 class="text-white font-bold text-lg">🏆 Los Programas Mejor Valorados del Mes</h2>
@@ -88,8 +89,12 @@ const topGeneral = softwares.slice(0, 3);
                                     <img src={soft.logo_url} alt={soft.name} class="w-8 h-8 object-contain"/>
                                     {soft.name}
                                 </td>
-                                <td class="p-5 text-slate-600 hidden md:table-cell">{soft.short_description.slice(0, 60)}...</td>
-                                <td class="p-5 text-center font-black text-blue-700">{soft.pricing?.start_price}€</td>
+                                <td class="p-5 text-slate-600 hidden md:table-cell">
+                                    {soft.short_description.slice(0, 60)}...
+                                </td>
+                                <td class="p-5 text-center font-black text-blue-700">
+                                    {soft.pricing?.start_price}€
+                                </td>
                                 <td class="p-5 text-right">
                                     <a href={`/analisis/${soft.id}`} class="text-blue-600 font-bold hover:underline">Ver Análisis →</a>
                                 </td>
@@ -100,20 +105,17 @@ const topGeneral = softwares.slice(0, 3);
             </div>
         </div>
 
-        {/* 3. TEXTO SEO (AUTORIDAD) */}
+        {/* TEXTO SEO */}
         <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
             <div class="prose prose-slate">
                 <h2 class="text-3xl font-black text-slate-800">¿Por qué digitalizar tu empresa en 2025?</h2>
                 <p>
-                    Ya no es una opción, es una obligación. Con la entrada en vigor de la <strong>Ley Antifraude (Verifactu)</strong> y la inminente factura electrónica B2B, los autónomos y Pymes que sigan usando Excel o facturas en papel tendrán problemas legales.
-                </p>
-                <p>
-                    En <strong>ObraDigital</strong> analizamos el mercado para que tú no pierdas tiempo. Solo recomendamos software que:
+                    Ya no es una opción, es una obligación. Con la entrada en vigor de la <strong>Ley Verifactu</strong> y la factura electrónica, los autónomos que sigan usando papel tendrán problemas legales.
                 </p>
                 <ul>
                     <li>✅ Está certificado por Hacienda.</li>
-                    <li>📱 Tiene App móvil real (Android/iOS).</li>
-                    <li>☁️ Funciona en la nube (accesible desde cualquier sitio).</li>
+                    <li>📱 Tiene App móvil real.</li>
+                    <li>☁️ Funciona en la nube.</li>
                 </ul>
             </div>
             <div class="bg-slate-100 p-8 rounded-2xl border border-slate-200">
@@ -125,7 +127,6 @@ const topGeneral = softwares.slice(0, 3);
                         </a>
                     ))}
                 </div>
-                <p class="text-xs text-slate-400 mt-4 italic">Índice completo de herramientas analizadas.</p>
             </div>
         </div>
 
@@ -134,23 +135,23 @@ const topGeneral = softwares.slice(0, 3);
     <footer class="bg-slate-900 text-slate-400 py-12 text-center text-sm border-t border-slate-800">
         <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-3 gap-8 text-left mb-8">
             <div>
-                <span class="text-white font-black text-lg italic">ObraDigital.es</span>
-                <p class="mt-2 text-slate-500">Guía independiente de software para profesionales de la construcción y servicios.</p>
+                <span class="text-white font-black text-lg italic uppercase">ObraDigital.es</span>
+                <p class="mt-2 text-slate-500">Guía independiente de software para servicios y construcción.</p>
             </div>
             <div>
                 <h4 class="text-white font-bold mb-3">Sectores</h4>
                 <ul class="space-y-2">
-                    <li><a href="/sectores/fontaneros" class="hover:text-white transition">Fontaneros</a></li>
-                    <li><a href="/sectores/reformas" class="hover:text-white transition">Reformas</a></li>
-                    <li><a href="/sectores/electricistas" class="hover:text-white transition">Electricistas</a></li>
+                    <li><a href="/software/fontaneros" class="hover:text-white transition">Fontaneros</a></li>
+                    <li><a href="/software/reformas" class="hover:text-white transition">Reformas</a></li>
+                    <li><a href="/software/electricistas" class="hover:text-white transition">Electricistas</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="text-white font-bold mb-3">Legal</h4>
                 <ul class="space-y-2">
-                    <li><a href="#" class="hover:text-white transition">Aviso Legal</a></li>
-                    <li><a href="#" class="hover:text-white transition">Política de Privacidad</a></li>
-                    <li><a href="#" class="hover:text-white transition">Contacto</a></li>
+                    <li>Aviso Legal</li>
+                    <li>Privacidad</li>
+                    <li>Contacto</li>
                 </ul>
             </div>
         </div>

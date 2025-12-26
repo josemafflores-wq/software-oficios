@@ -1,25 +1,28 @@
 ---
-// src/pages/sectores/fontaneros.astro
+// src/pages/software/electricistas.astro
 import softwares from '../../softwares.json';
 import '../../global.css';
 import Header from '../../components/Header.astro';
 
-// 1. FILTRO FONTANEROS
+// 1. FILTRO ELECTRICISTAS
 const especialistas = softwares.filter(s => 
     s.target_gremios && s.target_gremios.some(g => {
         const gremio = g.toLowerCase();
-        return ['fontanero', 'instalador', 'sat', 'climatización', 'reformas', 'mantenimiento', 'autónomos'].some(term => gremio.includes(term));
+        return [
+            'electricistas', 'instalador', 'sat', 'mantenimiento', 
+            'climatización', 'telecomunicaciones', 'autónomos', 'pymes'
+        ].some(term => gremio.includes(term));
     })
 );
 const topTable = especialistas.slice(0, 5);
 
-// 2. SCHEMA UPDATE: FAQs reales del texto
+// 2. SCHEMA UPDATE
 const schema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "¿Es obligatorio usar software por la Ley Verifactu?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. A partir de 2025, Hacienda exige que el software garantice la inalterabilidad de las facturas. El Excel y el papel dejarán de ser válidos para emitir facturas legales." } },
-    { "@type": "Question", "name": "¿Qué pasa si trabajo en un sótano sin cobertura?", "acceptedAnswer": { "@type": "Answer", "text": "Debes elegir un software con tecnología 'Offline First'. Esto permite rellenar el parte y recoger la firma en el móvil sin internet, y sincronizar los datos automáticamente al salir a la calle." } }
+    { "@type": "Question", "name": "¿El software permite gestionar mantenimientos preventivos?", "acceptedAnswer": { "@type": "Answer", "text": "Sí, es vital para electricistas. Permite programar revisiones periódicas de cuadros eléctricos o sistemas contraincendios automáticamente." } },
+    { "@type": "Question", "name": "¿Funciona sin internet en cuartos de contadores?", "acceptedAnswer": { "@type": "Answer", "text": "Sí, cuentan con tecnología Offline First para poder rellenar partes de trabajo en sótanos sin cobertura." } }
   ]
 };
 ---
@@ -28,8 +31,8 @@ const schema = {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mejor Programa para Fontaneros 2025: Comparativa Verifactu</title>
-    <meta name="description" content="Comparativa de los 9 mejores software para fontaneros y empresas de instalaciones en 2025. Precios, app offline, firma digital y adaptación a Verifactu." />
+    <title>Software para Electricistas 2025: SAT, Boletines y Mantenimiento</title>
+    <meta name="description" content="Guía de software para empresas instaladoras. Gestión de avisos, boletines eléctricos, mantenimientos preventivos y Ley Verifactu." />
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans">
@@ -39,10 +42,10 @@ const schema = {
     <header class="bg-blue-900 text-white py-16 px-6">
         <div class="max-w-4xl mx-auto">
             <h1 class="text-4xl md:text-5xl font-black mb-4 italic">
-                Programas de Gestión para Fontaneros: <span class="text-blue-400">Adiós al papeleo.</span>
+                Software para Electricistas: <span class="text-blue-400">Tu oficina en el bolsillo.</span>
             </h1>
             <p class="text-lg text-blue-100 opacity-90">
-                Herramientas para instaladores: presupuestos in-situ, cobro con tarjeta y cumplimiento Verifactu.
+                Herramientas para empresas de instalaciones eléctricas. Gestiona avisos urgentes, mantenimientos preventivos y certificaciones desde el móvil.
             </p>
         </div>
     </header>
@@ -58,7 +61,7 @@ const schema = {
                     <thead>
                         <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold uppercase text-slate-500">
                             <th class="p-4">Software</th>
-                            <th class="p-4">Ideal para</th>
+                            <th class="p-4">Especialidad</th>
                             <th class="p-4">Precio Base</th>
                             <th class="p-4 text-center">App</th>
                             <th class="p-4"></th>
@@ -68,7 +71,7 @@ const schema = {
                         {topTable.map((s) => (
                             <tr class="border-b border-slate-100 hover:bg-blue-50/50 transition-colors">
                                 <td class="p-4 font-bold text-slate-800 flex items-center gap-2">
-                                    {s.logo_url && <img src={s.logo_url} class="w-6 h-6 object-contain" />}
+                                    {s.logo_url && <img src={s.logo_url} class="w-6 h-6 object-contain" alt="" />}
                                     {s.name}
                                 </td>
                                 <td class="p-4 text-slate-600 font-medium">{s.target_gremios ? s.target_gremios[0] : 'General'}</td>
@@ -89,7 +92,7 @@ const schema = {
                 <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden hover:shadow-xl transition-shadow">
                     <div class="p-6 md:p-10">
                         
-                        {/* CABECERA (Diseño original respetado) */}
+                        {/* CABECERA (Diseño Fontaneros) */}
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 relative">
                             <div class="flex items-center gap-6">
                                 <div class="w-24 h-24 bg-white rounded-xl flex items-center justify-center border border-slate-200 shadow-sm p-3 shrink-0 relative group">
@@ -99,7 +102,8 @@ const schema = {
                                     )}
                                 </div>
                                 <div>
-                                    <h3 class="text-3xl font-black text-slate-800"><a href={`/analisis/${soft.id}`} class="hover:text-blue-700">{soft.name}</a></h3>
+                                    {/* ENLACE MODIFICADO 1: Título de la tarjeta */}
+                                    <h3 class="text-3xl font-black text-slate-800"><a href={`/analisis/${soft.id}?sector=electricistas`} class="hover:text-blue-700">{soft.name}</a></h3>
                                     <div class="flex flex-col gap-1 mt-2">
                                         {soft.legal_spain?.verifactu_ready && <span class="flex items-center text-green-700 font-bold text-xs bg-green-50 px-2 py-1 rounded border border-green-200">HOMOLOGADO VERIFACTU</span>}
                                     </div>
@@ -112,13 +116,13 @@ const schema = {
                             </div>
                         </div>
 
-                        {/* GRID (Diseño original respetado) */}
+                        {/* GRID (Diseño Fontaneros: Texto Izq | Caja Der) */}
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                             <div class="space-y-6">
                                 <div class="prose prose-slate">
-                                    <h4 class="text-xl font-bold text-slate-800">¿Cómo ayuda a tu negocio?</h4>
+                                    <h4 class="text-xl font-bold text-slate-800">¿Por qué para electricistas?</h4>
                                     <p class="text-slate-600 leading-relaxed text-sm">
-                                        {soft.opinion_experto_fontanero || soft.h2_ventajas_gremio || soft.short_description}
+                                        {soft.opinion_experto_fontanero || soft.h2_ventajas_gremio || "Ideal para gestionar avisos, mantenimientos y materiales."}
                                     </p>
                                 </div>
                                 <div class="flex flex-wrap gap-2">
@@ -129,14 +133,15 @@ const schema = {
                             </div>
                             <div class="flex flex-col justify-center bg-slate-50 p-6 rounded-2xl border border-slate-100">
                                 <h4 class="font-bold text-slate-800 mb-4 text-center italic text-sm">
-                                    "Ideal para llevarlo en la furgoneta y facturar al instante"
+                                    "La herramienta definitiva para SAT y Mantenimientos"
                                 </h4>
                                 <div class="space-y-3">
                                     <a href={soft.url_afiliado || "#"} target="_blank" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-xl text-lg shadow-xl shadow-blue-200 transition-transform active:scale-95">
                                         VER WEB DE {soft.name.toUpperCase()}
                                     </a>
-                                    <a href={`/analisis/${soft.id}`} class="block w-full text-center bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-50 transition-colors text-sm">
-                                        Leer nuestra opinión detallada
+                                    {/* ENLACE MODIFICADO 2: Botón 'Leer análisis' */}
+                                    <a href={`/analisis/${soft.id}?sector=electricistas`} class="block w-full text-center bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-50 transition-colors text-sm">
+                                        Leer análisis
                                     </a>
                                 </div>
                                 <p class="text-[10px] text-center text-slate-400 mt-4 uppercase font-bold tracking-widest">Enlace oficial verificado · 2025</p>
@@ -147,67 +152,69 @@ const schema = {
             ))}
         </div>
 
-        {/* --- GUÍA SEO EXPANDIDA (NUEVA SECCIÓN CON TEXTO DE VALOR) --- */}
+        {/* GUÍA SEO EXPANDIDA */}
         <div class="mt-20 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden p-8 md:p-12">
             
             <div class="prose prose-slate max-w-none">
-                <h2 class="text-3xl font-black text-slate-800 mb-6">Guía 2025: Cómo elegir el mejor software para fontaneros y SAT</h2>
+                <h2 class="text-3xl font-black text-slate-800 mb-6">Guía 2025: Digitalización para Empresas Instaladoras Eléctricas</h2>
                 <p class="text-lg leading-relaxed text-slate-600">
-                    El sector de la fontanería y las instalaciones térmicas (RITE) se enfrenta a un cambio histórico en 2025. La libreta de autocopia y el Excel ya no sirven. 
-                    No solo por la eficiencia, sino por imperativo legal. Elegir el programa adecuado marca la diferencia entre <strong>perder horas administrativas</strong> o tener un negocio automatizado que factura solo.
+                    El sector eléctrico tiene particularidades que un software genérico no puede resolver. Trabajáis bajo la presión de normativas estrictas (REBT), precios de materiales volátiles (cobre) y entornos de trabajo difíciles.
+                </p>
+                
+                <p class="text-lg leading-relaxed text-slate-600">
+                    Además, el modelo de negocio está cambiando: de la "obra nueva" al <strong>Mantenimiento Preventivo</strong> recurrente. El software que elijas debe ser capaz de automatizar estas revisiones para que tu facturación no pare.
                 </p>
             </div>
 
-            {/* Grid Visual de 3 puntos clave */}
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 not-prose my-10 border-y border-slate-100 py-10">
                 <div class="p-6 bg-blue-50 rounded-2xl border border-blue-100">
-                    <div class="text-4xl mb-4">📡</div>
-                    <h4 class="font-bold text-blue-900 mb-3 text-lg">1. Modo "Offline First"</h4>
+                    <div class="text-4xl mb-4">🔄</div>
+                    <h4 class="font-bold text-blue-900 mb-3 text-lg">1. Mantenimientos Preventivos</h4>
                     <p class="text-sm text-blue-800 leading-relaxed">
-                        Un fontanero pasa el 40% de su tiempo en <strong>sótanos, garajes y cuartos de calderas</strong> donde el 4G no llega. El software debe permitirte crear el parte, cargar materiales y recoger la firma del cliente sin conexión, y sincronizarse solo al salir a la calle.
+                        El secreto de la rentabilidad. El software debe generar automáticamente los avisos de revisión (anuales, semestrales) de cuadros eléctricos, extintores o fotovoltaica.
                     </p>
                 </div>
                 <div class="p-6 bg-green-50 rounded-2xl border border-green-100">
-                    <div class="text-4xl mb-4">⚖️</div>
-                    <h4 class="font-bold text-green-900 mb-3 text-lg">2. Verifactu y Ley Antifraude</h4>
+                    <div class="text-4xl mb-4">🔦</div>
+                    <h4 class="font-bold text-green-900 mb-3 text-lg">2. Trabajo Offline</h4>
                     <p class="text-sm text-green-800 leading-relaxed">
-                        Hacienda se pone seria. El software debe generar un registro de alta de factura inalterable. Si usas Word o un programa antiguo que permite "borrar" facturas, te expones a multas de hasta <strong>50.000€</strong>. Todos los programas de esta lista están adaptados.
+                        Imprescindible. Un electricista pasa media vida en sótanos, garajes y salas de máquinas donde no hay cobertura. La App debe ser <strong>nativa</strong>.
                     </p>
                 </div>
                 <div class="p-6 bg-purple-50 rounded-2xl border border-purple-100">
-                    <div class="text-4xl mb-4">🔄</div>
-                    <h4 class="font-bold text-purple-900 mb-3 text-lg">3. Mantenimientos (SAT)</h4>
+                    <div class="text-4xl mb-4">🔌</div>
+                    <h4 class="font-bold text-purple-900 mb-3 text-lg">3. Materiales y Precios</h4>
                     <p class="text-sm text-purple-800 leading-relaxed">
-                        El dinero real está en los recurrentes. Busca un programa que gestione <strong>avisos automáticos</strong> para revisiones anuales de calderas o aire acondicionado. Si el software avisa al cliente por ti, aumentas tu facturación un 30% sin esfuerzo.
+                        Conecta tu software con tarifas actualizadas. El precio del cable cambia constantemente; si presupuestas con tarifas antiguas, pierdes dinero.
                     </p>
                 </div>
             </div>
 
             <div class="prose prose-slate max-w-none">
-                <h3 class="text-2xl font-bold text-slate-800">Preguntas Frecuentes antes de contratar</h3>
+                <h3 class="text-2xl font-bold text-slate-800">Preguntas Frecuentes del Instalador Electricista</h3>
                 
                 <details class="group bg-slate-50 p-5 rounded-xl cursor-pointer mb-4 border border-slate-100">
                     <summary class="font-bold text-slate-800 flex justify-between items-center list-none text-lg">
-                        ¿Puedo cobrar con tarjeta en el momento?
+                        ¿Puedo gestionar Boletines (CIE) desde el programa?
                         <span class="text-blue-600 group-open:rotate-180 transition-transform">▼</span>
                     </summary>
                     <p class="text-slate-600 mt-3 leading-relaxed">
-                        Sí. Herramientas modernas como <strong>STEL Order</strong> o <strong>ToolTime</strong> integran pasarelas de pago (Stripe o PayPal). Puedes enviar el parte de trabajo al email del cliente con un botón de "Pagar Ahora", reduciendo la morosidad a casi cero.
+                        Algunos ERPs especializados permiten rellenar el Certificado de Instalación Eléctrica directamente. Otros se integran con las plataformas de Industria.
                     </p>
                 </details>
 
                 <details class="group bg-slate-50 p-5 rounded-xl cursor-pointer mb-4 border border-slate-100">
                     <summary class="font-bold text-slate-800 flex justify-between items-center list-none text-lg">
-                        ¿Sirven para empresas de reformas o solo averías?
+                        ¿Cómo me afecta la Ley Antifraude si soy autónomo?
                         <span class="text-blue-600 group-open:rotate-180 transition-transform">▼</span>
                     </summary>
                     <p class="text-slate-600 mt-3 leading-relaxed">
-                        Depende. Programas como <strong>Fixner</strong> o <strong>STEL Order</strong> son híbridos: gestionan muy bien los avisos urgentes (SAT) pero también permiten crear presupuestos por capítulos para reformas de baños o cocinas.
+                        Te afecta al 100%. Seas una gran instaladora o un electricista autónomo, tu software de facturación debe cumplir con <strong>Verifactu</strong>.
                     </p>
                 </details>
 
                 <p className="text-sm italic text-slate-500 mt-8">
-                    * Metodología: En ObraDigital.es analizamos la capacidad de trabajo offline, la velocidad de carga de la app y la adaptación legal a la normativa española vigente.
+                    * Nota: Todos los programas analizados en ObraDigital.es están verificados para cumplir con las normativas fiscales españolas vigentes.
                 </p>
             </div>
         </div>

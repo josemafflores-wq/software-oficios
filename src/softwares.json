@@ -19,7 +19,7 @@
         "respuesta": "Sí, es su punto fuerte. La app nativa permite trabajar 100% offline y sincroniza los datos automáticamente al recuperar la cobertura."
       }
     ],
-    "target_gremios": ["Fontaneros", "Electricistas", "SAT", "Climatización"],
+    "target_gremios": ["Fontaneros", "Electricistas", "SAT", "Climatización", "Cerrajeros", "Carpinteros", "Jardineros"],
     "pricing": { "start_price": 30, "currency": "EUR", "period": "mes", "has_free_trial": true, "trial_days": 15 },
     "legal_spain": { "ticketbai_ready": true, "crea_y_crece_ready": true, "verifactu_ready": true },
     "features": ["Certificado Verifactu", "App nativa offline", "Catálogo digital", "Firma biométrica"],
@@ -28,6 +28,29 @@
     "contenido_seo_extenso": "STEL Order es el software de referencia para el SAT y empresas de instalación en España. Su gran ventaja es la capacidad de operar sin conexión a internet, fundamental para trabajos en zonas sin cobertura. Cumple rigurosamente con TicketBAI y está homologado para el sistema Verifactu, asegurando la trazabilidad que exige Hacienda.",
     "opinion_experto_fontanero": "Lo que más valoro es que si estoy en un sótano sin cobertura, puedo hacer el albarán y que el cliente firme en la tablet sin problemas.",
     "tabla_tecnica": { "tipo": "Cloud + App Nativa", "app_movil": true, "firma_digital": true, "soporte_tecnico": "Teléfono, Chat y Email" }
+  },
+  {
+    "id": "fixner",
+    "name": "Fixner",
+    "short_description": "Especialista en gestión de servicios, SAT y mantenimientos. Potente motor de avisos y Verifactu.",
+    "web_oficial": "https://fixner.com/",
+    "url_afiliado": "https://fixner.com/?ref=comparador",
+    "logo_url": "https://unavatar.io/fixner.com",
+    "video_demo_id": "ypxPbFrLlw4",
+    "kit_digital_eligible": true,
+    "nivel_dificultad": "Medio/Alto",
+    "faqs_seo": [
+      { "pregunta": "¿Está Fixner homologado para TicketBAI y Verifactu?", "respuesta": "Sí, Fixner cumple estrictamente con los estándares técnicos de TicketBAI (País Vasco) y la normativa nacional Verifactu." }
+    ],
+    "target_gremios": ["Fontaneros", "Climatización", "Mantenimiento", "Seguridad", "Cerrajeros", "Limpieza", "Jardineros"],
+    "pricing": { "start_price": 25, "currency": "EUR", "period": "mes", "has_free_trial": true, "trial_days": 15 },
+    "legal_spain": { "ticketbai_ready": true, "crea_y_crece_ready": true, "verifactu_ready": true },
+    "features": ["Gestión de mantenimientos", "Control de Stock", "Garante Verifactu"],
+    "pros": ["Gestión excelente de contratos recurrentes", "Soporte muy cercano"],
+    "cons": ["Requiere configuración inicial detallada"],
+    "contenido_seo_extenso": "Fixner es una herramienta robusta pensada para empresas de servicios y mantenimiento. Si tu negocio se basa en contratos recurrentes (ej. mantenimiento de calderas), Fixner automatiza la creación de órdenes de trabajo y facturas cumpliendo con Verifactu.",
+    "opinion_experto_fontanero": "Para llevar los mantenimientos anuales de las calderas es lo mejor. Genera los avisos solo y no se me pasa ni una revisión.",
+    "tabla_tecnica": { "tipo": "Cloud", "app_movil": true, "firma_digital": true, "soporte_tecnico": "Soporte Personalizado" }
   },
   {
     "id": "tooltime",
@@ -42,8 +65,8 @@
     "faqs_seo": [
       { "pregunta": "¿Cumple ToolTime con la normativa Verifactu?", "respuesta": "Sí, ToolTime ha localizado su software específicamente para España, cumpliendo con la Ley Antifraude y los requisitos de facturación Verifactu." }
     ],
-    "target_gremios": ["Fontaneros", "Reformas", "Instaladores", "Tejados"],
-    "pricing": { "start_price": null, "currency": "EUR", "period": "mes", "has_free_trial": false, "trial_days": 0 },
+    "target_gremios": ["Fontaneros", "Reformas", "Instaladores", "Tejados", "Cerrajeros", "Limpieza"],
+    "pricing": { "start_price": 24, "currency": "EUR", "period": "mes", "has_free_trial": true, "trial_days": 30 },
     "legal_spain": { "ticketbai_ready": true, "crea_y_crece_ready": true, "verifactu_ready": true },
     "features": ["Certificado Verifactu", "Planificador visual", "Documentación de obra con fotos"],
     "pros": ["Interfaz muy moderna y limpia", "Planificación estilo 'Drag & Drop'"],
@@ -51,6 +74,27 @@
     "contenido_seo_extenso": "ToolTime destaca por su interfaz moderna y su planificador visual de citas. Es ideal para empresas que gestionan múltiples técnicos y necesitan ver la disponibilidad de un vistazo. Aunque es una empresa alemana, su adaptación a la normativa fiscal española (Verifactu) es completa.",
     "opinion_experto_reformas": "Visualmente es el más potente. Mueves las citas como en un calendario de Google y las facturas salen listas para Hacienda.",
     "tabla_tecnica": { "tipo": "Cloud (Web + App)", "app_movil": true, "firma_digital": true, "soporte_tecnico": "Chat y Email" }
+  },
+  {
+    "id": "taclia",
+    "name": "Taclia",
+    "short_description": "El software de gestión más fácil de usar. Ideal para Pymes que quieren digitalizarse sin complicaciones.",
+    "web_oficial": "https://taclia.com",
+    "url_afiliado": "https://taclia.com",
+    "logo_url": "https://unavatar.io/taclia.com",
+    "video_demo_id": "",
+    "kit_digital_eligible": true,
+    "nivel_dificultad": "Muy Bajo",
+    "faqs_seo": [],
+    "target_gremios": ["Fontaneros", "Electricistas", "Reformas", "Cerrajeros", "Limpieza", "Jardineros", "Manitas"],
+    "pricing": { "start_price": 0, "currency": "EUR", "period": "mes", "has_free_trial": true, "trial_days": 0 },
+    "legal_spain": { "verifactu_ready": true, "ticketbai": true },
+    "features": ["Versión Gratuita", "Gestión de Servicios", "App Muy Sencilla", "Facturación"],
+    "pros": ["Tiene un plan gratis real", "Interfaz muy moderna", "Soporte en español"],
+    "cons": ["Faltan funciones avanzadas de stock", "No gestiona BC3"],
+    "contenido_seo_extenso": "Taclia ha revolucionado el mercado con su facilidad de uso. Es perfecto para empresas que huyen de programas complicados. Permite gestionar tareas, servicios y facturas de una forma extremadamente visual.",
+    "opinion_experto_fontanero": "Perfecto si buscas algo gratis o muy barato para empezar a gestionar partes de trabajo sencillos.",
+    "tabla_tecnica": { "tipo": "Cloud", "app_movil": true, "firma_digital": true, "soporte_tecnico": "Chat" }
   },
   {
     "id": "holded",
@@ -65,14 +109,14 @@
     "faqs_seo": [
       { "pregunta": "¿Holded presenta los impuestos a Hacienda?", "respuesta": "Sí, automatiza gran parte de los modelos tributarios y está conectado para el Suministro Inmediato de Información (SII) y Verifactu." }
     ],
-    "target_gremios": ["Fontaneros", "Reformas", "Arquitectos", "Grandes Instaladoras"],
+    "target_gremios": ["Reformas", "Arquitectos", "Instaladores", "Grandes Instaladoras", "Carpinteros"],
     "pricing": { "start_price": 29, "currency": "EUR", "period": "mes", "has_free_trial": true, "trial_days": 14 },
     "legal_spain": { "ticketbai_ready": true, "crea_y_crece_ready": true, "verifactu_ready": true },
     "features": ["Integración Verifactu/SII", "Conciliación Bancaria", "CRM integrado"],
-    "pros": ["Diseño y usabilidad excelentes", "Automatización contable superior"],
-    "cons": ["Demasiadas opciones para un autónomo simple"],
-    "contenido_seo_extenso": "Holded no es solo un programa de facturación, es un sistema operativo para tu negocio. Destaca por su diseño intuitivo y su capacidad para automatizar la contabilidad conectándose con tus bancos. Perfecto para empresas de fontanería grandes que quieren control financiero total.",
-    "opinion_experto_reformas": "Tengo una SL y esto me salva la vida. Mi gestor entra, saca los datos y yo solo me preocupo de facturar. Muy visual.",
+    "pros": ["Diseño increíble", "Contabilidad automática", "Muchas integraciones"],
+    "cons": ["Demasiadas opciones para un autónomo simple", "Precio sube con funcionalidades extra"],
+    "contenido_seo_extenso": "Holded no es solo un programa de facturación, es un sistema operativo para tu negocio. Destaca por su diseño intuitivo y su capacidad para automatizar la contabilidad conectándose con tus bancos.",
+    "opinion_experto_reformas": "La mejor opción si quieres llevar la contabilidad y los impuestos dentro del mismo programa que las obras. Muy visual.",
     "tabla_tecnica": { "tipo": "Cloud (ERP)", "app_movil": true, "firma_digital": true, "soporte_tecnico": "Chat, Email y Academy" }
   },
   {
@@ -94,32 +138,9 @@
     "features": ["Normativa Verifactu", "Cobro facturas por Bizum", "Subida de gastos por foto"],
     "pros": ["Precio imbatible", "Curva de aprendizaje nula"],
     "cons": ["Funcionalidades limitadas para grandes obras"],
-    "contenido_seo_extenso": "Billin es la opción ideal para el fontanero autónomo que 'no quiere líos'. Se centra en crear facturas rápidas, legales y fáciles de cobrar. Su integración con Bizum y su bajo coste lo hacen perfecto para profesionales que buscan cumplir con Verifactu gastando lo mínimo.",
+    "contenido_seo_extenso": "Billin es la opción ideal para el fontanero autónomo que 'no quiere líos'. Se centra en crear facturas rápidas, legales y fáciles de cobrar.",
     "opinion_experto_fontanero": "Yo solo quiero hacer la factura y cobrar. Billin es lo más barato y sencillo que he encontrado para cumplir con la ley.",
     "tabla_tecnica": { "tipo": "Cloud", "app_movil": true, "firma_digital": false, "soporte_tecnico": "Chat y Email" }
-  },
-  {
-    "id": "fixner",
-    "name": "Fixner",
-    "short_description": "Especialista en gestión de servicios, SAT y mantenimientos. Potente motor de avisos y Verifactu.",
-    "web_oficial": "https://fixner.com/",
-    "url_afiliado": "https://fixner.com/?ref=comparador",
-    "logo_url": "https://unavatar.io/fixner.com",
-    "video_demo_id": "ypxPbFrLlw4",
-    "kit_digital_eligible": true,
-    "nivel_dificultad": "Medio/Alto",
-    "faqs_seo": [
-      { "pregunta": "¿Está Fixner homologado para TicketBAI y Verifactu?", "respuesta": "Sí, Fixner cumple estrictamente con los estándares técnicos de TicketBAI (País Vasco) y la normativa nacional Verifactu." }
-    ],
-    "target_gremios": ["Fontaneros", "Climatización", "Mantenimiento", "Seguridad"],
-    "pricing": { "start_price": 25, "currency": "EUR", "period": "mes", "has_free_trial": true, "trial_days": 15 },
-    "legal_spain": { "ticketbai_ready": true, "crea_y_crece_ready": true, "verifactu_ready": true },
-    "features": ["Gestión de mantenimientos", "Control de Stock", "Garante Verifactu"],
-    "pros": ["Gestión excelente de contratos recurrentes", "Soporte muy cercano"],
-    "cons": ["Requiere configuración inicial detallada"],
-    "contenido_seo_extenso": "Fixner es una herramienta robusta pensada para empresas de servicios y mantenimiento. Si tu negocio se basa en contratos recurrentes (ej. mantenimiento de calderas), Fixner automatiza la creación de órdenes de trabajo y facturas cumpliendo con Verifactu.",
-    "opinion_experto_fontanero": "Para llevar los mantenimientos anuales de las calderas es lo mejor. Genera los avisos solo y no se me pasa ni una revisión.",
-    "tabla_tecnica": { "tipo": "Cloud", "app_movil": true, "firma_digital": true, "soporte_tecnico": "Soporte Personalizado" }
   },
   {
     "id": "mn_program",
@@ -140,7 +161,7 @@
     "features": ["Módulo Verifactu", "CRM ilimitado", "Integración total correo/agenda"],
     "pros": ["Personalización extrema", "Centralización de correos y documentos"],
     "cons": ["Interfaz densa con muchas opciones"],
-    "contenido_seo_extenso": "MN Program es una suite de gestión completa. A diferencia de apps sencillas, esto es un software para gestionar toda la empresa: desde correos electrónicos hasta facturación blindada ante la Ley Antifraude. Ideal para oficinas técnicas o empresas de fontanería con estructura administrativa.",
+    "contenido_seo_extenso": "MN Program es una suite de gestión completa. Ideal para oficinas técnicas o empresas de fontanería con estructura administrativa.",
     "opinion_experto_reformas": "Es un bicho grande, pero tener todos los correos de los clientes vinculados a sus fichas y facturas te ahorra mucho tiempo buscando papeles.",
     "tabla_tecnica": { "tipo": "Híbrido Desktop/Cloud", "app_movil": true, "firma_digital": true, "soporte_tecnico": "Teléfono y Remoto" }
   },
@@ -163,7 +184,7 @@
     "features": ["Fichaje digital", "Gestión de vacaciones", "Portal del empleado"],
     "pros": ["Cumple Ley de Control Horario", "Uso muy intuitivo"],
     "cons": ["No es un ERP de facturación"],
-    "contenido_seo_extenso": "Woffu es el complemento perfecto para tu software de facturación si tienes empleados a cargo. Soluciona el cumplimiento de la Ley de Control Horario obligatoria, gestionando fichajes, vacaciones y ausencias de forma digital.",
+    "contenido_seo_extenso": "Woffu es el complemento perfecto para tu software de facturación si tienes empleados a cargo. Soluciona el cumplimiento de la Ley de Control Horario.",
     "opinion_experto_fontanero": "Para facturar uso otro, pero Woffu es lo mejor para que los operarios fichen desde el móvil y yo sepa quién está trabajando.",
     "tabla_tecnica": { "tipo": "Cloud RRHH", "app_movil": true, "firma_digital": true, "soporte_tecnico": "Chat y Centro de Ayuda" }
   },
@@ -186,7 +207,7 @@
     "features": ["Archivos BC3", "Certificaciones de obra", "Facturación Verifactu"],
     "pros": ["Imprescindible para obra pública", "Control de costes exhaustivo"],
     "cons": ["Interfaz clásica (escritorio)"],
-    "contenido_seo_extenso": "Quercusoft es vital para quienes trabajan con licitaciones y obra pública. Permite importar bancos de precios y generar presupuestos en formato BC3. Su módulo de gestión actualiza las certificaciones de obra a facturas que cumplen con la Ley Antifraude.",
+    "contenido_seo_extenso": "Quercusoft es vital para quienes trabajan con licitaciones y obra pública. Permite importar bancos de precios y generar presupuestos en formato BC3.",
     "opinion_experto_reformas": "Si trabajas para la administración o constructoras grandes, necesitas leer BC3. Quercusoft es el estándar para esto.",
     "tabla_tecnica": { "tipo": "Desktop", "app_movil": false, "firma_digital": false, "soporte_tecnico": "Teléfono" }
   },
@@ -209,7 +230,7 @@
     "features": ["Garante Verifactu", "Contabilidad analítica", "Control de Stock avanzado"],
     "pros": ["Fiabilidad y prestigio de marca", "Conexión directa con Gestoría"],
     "cons": ["Coste más elevado que una startup"],
-    "contenido_seo_extenso": "Sage 50 es la evolución del clásico ContaPlus/FacturaPlus. Ofrece una seguridad jurídica absoluta ante Verifactu. Es ideal si tu empresa ya tiene cierto volumen y necesitas una contabilidad analítica rigurosa además de facturar.",
+    "contenido_seo_extenso": "Sage 50 es la evolución del clásico ContaPlus/FacturaPlus. Ofrece una seguridad jurídica absoluta ante Verifactu.",
     "opinion_experto_fontanero": "Es el que usa mi gestor de toda la vida. Es caro comparado con una app, pero te da una seguridad total ante inspecciones.",
     "tabla_tecnica": { "tipo": "Desktop Conectado", "app_movil": true, "firma_digital": true, "soporte_tecnico": "Teléfono, Foro y Chat" }
   },
@@ -232,8 +253,71 @@
     "features": ["Adaptado a Verifactu", "Escaneo de tickets (OCR)", "Generación de impuestos"],
     "pros": ["Digitalización certificada de tickets", "Interfaz muy rápida"],
     "cons": ["Gestión de stock básica"],
-    "contenido_seo_extenso": "FacturaDirecta combina agilidad con cumplimiento legal. Destaca por su sistema OCR que permite hacer una foto a un ticket de compra y contabilizarlo automáticamente. Emite facturas adaptadas a Verifactu directamente desde el móvil.",
+    "contenido_seo_extenso": "FacturaDirecta combina agilidad con cumplimiento legal. Destaca por su sistema OCR que permite hacer una foto a un ticket de compra y contabilizarlo automáticamente.",
     "opinion_experto_fontanero": "Lo uso por la rapidez. Hago la foto al ticket de material, hago la factura al cliente, y todo se queda legalizado al momento.",
     "tabla_tecnica": { "tipo": "Cloud", "app_movil": true, "firma_digital": true, "soporte_tecnico": "Email y Chat" }
+  },
+  {
+    "id": "houzz-pro",
+    "name": "Houzz Pro",
+    "short_description": "La herramienta definitiva para diseño, reformas y carpintería. Planos 3D y gestión de clientes.",
+    "web_oficial": "https://www.houzz.es/pro",
+    "url_afiliado": "https://www.houzz.es/pro",
+    "logo_url": "https://st.hzcdn.com/static/houzz_pro_logo.svg",
+    "video_demo_id": "",
+    "kit_digital_eligible": true,
+    "nivel_dificultad": "Medio",
+    "faqs_seo": [],
+    "target_gremios": ["Reformas", "Carpinteros", "Arquitectos", "Interioristas", "Jardineros"],
+    "pricing": { "start_price": 49, "currency": "EUR", "period": "mes", "has_free_trial": true, "trial_days": 30 },
+    "legal_spain": { "verifactu_ready": true, "ticketbai": false },
+    "features": ["Planos 3D", "Presupuestos Visuales", "Gestión de Obras", "Portal Cliente"],
+    "pros": ["Herramientas de diseño 3D", "Marketing incluido", "Presupuestos muy visuales"],
+    "cons": ["Caro para autónomos pequeños", "Menos fuerte en contabilidad"],
+    "contenido_seo_extenso": "Houzz Pro es la solución para quienes venden 'por los ojos'. Si haces reformas o interiorismo, necesitas enseñarle al cliente cómo quedará.",
+    "opinion_experto_reformas": "Imprescindible si vendes diseño. Puedes enseñar al cliente cómo quedará la reforma en 3D antes de empezar.",
+    "tabla_tecnica": { "tipo": "Cloud", "app_movil": true, "firma_digital": true, "soporte_tecnico": "Email" }
+  },
+  {
+    "id": "praxedo",
+    "name": "Praxedo",
+    "short_description": "Líder mundial en gestión de servicios de campo (FSM). Para empresas con muchos técnicos en la calle.",
+    "web_oficial": "https://www.praxedo.es",
+    "url_afiliado": "https://www.praxedo.es",
+    "logo_url": "https://www.praxedo.es/wp-content/themes/praxedo/assets/images/logo.svg",
+    "video_demo_id": "",
+    "kit_digital_eligible": true,
+    "nivel_dificultad": "Alto",
+    "faqs_seo": [],
+    "target_gremios": ["Electricistas", "Fontaneros", "Climatización", "Telecomunicaciones", "Cerrajeros", "Limpieza"],
+    "pricing": { "start_price": 24, "currency": "EUR", "period": "mes/usuario", "has_free_trial": true, "trial_days": 30 },
+    "legal_spain": { "verifactu_ready": true, "ticketbai": true },
+    "features": ["Optimización de Rutas", "Integración SAP/Sage", "Partes Complejos"],
+    "pros": ["Gestión de rutas inteligente", "Conecta con cualquier ERP", "App muy robusta"],
+    "cons": ["Curva de aprendizaje", "Pensado para empresas medianas/grandes"],
+    "contenido_seo_extenso": "Praxedo es potencia pura. Si tienes 10 técnicos en la calle, necesitas esto para optimizar las rutas y ahorrar gasolina.",
+    "opinion_experto_fontanero": "Potencia pura para empresas con más de 5 técnicos. Optimiza las rutas para ahorrar gasolina.",
+    "tabla_tecnica": { "tipo": "Cloud", "app_movil": true, "firma_digital": true, "soporte_tecnico": "Soporte Enterprise" }
+  },
+  {
+    "id": "factusol",
+    "name": "Factusol",
+    "short_description": "El clásico de la facturación en España. Opción gratuita instalable o versión nube.",
+    "web_oficial": "https://www.sdelsol.com/programa-facturacion-factusol/",
+    "url_afiliado": "https://www.sdelsol.com/programa-facturacion-factusol/",
+    "logo_url": "https://unavatar.io/sdelsol.com",
+    "video_demo_id": "",
+    "kit_digital_eligible": true,
+    "nivel_dificultad": "Medio",
+    "faqs_seo": [],
+    "target_gremios": ["Talleres", "Ferreterias", "Almacenes", "Distribución", "Fontaneros"],
+    "pricing": { "start_price": 0, "currency": "EUR", "period": "año (local)", "has_free_trial": false, "trial_days": 0 },
+    "legal_spain": { "verifactu_ready": true, "ticketbai": true },
+    "features": ["Control de Stock", "Facturación", "Remesas", "Muy Completo"],
+    "pros": ["Versión local gratuita", "Muy conocido por gestorías", "Control de stock brutal"],
+    "cons": ["Interfaz anticuada", "Sin App móvil nativa potente", "Soporte de pago"],
+    "contenido_seo_extenso": "Factusol es un clásico incombustible. Si tienes un almacén o necesitas controlar el stock al milímetro, es imbatible.",
+    "opinion_experto_taller": "Un clásico para controlar el stock de recambios al milímetro. Interfaz antigua pero muy potente.",
+    "tabla_tecnica": { "tipo": "Desktop/Cloud", "app_movil": false, "firma_digital": false, "soporte_tecnico": "Teléfono (Pago)" }
   }
 ]

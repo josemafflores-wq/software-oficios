@@ -99,7 +99,8 @@ const schema = {
                                     )}
                                 </div>
                                 <div>
-                                    <h3 class="text-3xl font-black text-slate-800"><a href={`/analisis/${soft.id}`} class="hover:text-blue-700">{soft.name}</a></h3>
+                                    {/* ENLACE MODIFICADO 1: Título con parámetro sector */}
+                                    <h3 class="text-3xl font-black text-slate-800"><a href={`/analisis/${soft.id}?sector=reformas`} class="hover:text-blue-700">{soft.name}</a></h3>
                                     <div class="flex flex-col gap-1 mt-2">
                                         {soft.legal_spain?.verifactu_ready && <span class="flex items-center text-green-700 font-bold text-xs bg-green-50 px-2 py-1 rounded border border-green-200">HOMOLOGADO VERIFACTU</span>}
                                     </div>
@@ -135,7 +136,8 @@ const schema = {
                                     <a href={soft.url_afiliado || "#"} target="_blank" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-xl text-lg shadow-xl shadow-blue-200 transition-transform active:scale-95">
                                         VER WEB DE {soft.name.toUpperCase()}
                                     </a>
-                                    <a href={`/analisis/${soft.id}`} class="block w-full text-center bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-50 transition-colors text-sm">
+                                    {/* ENLACE MODIFICADO 2: Botón con parámetro sector */}
+                                    <a href={`/analisis/${soft.id}?sector=reformas`} class="block w-full text-center bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-50 transition-colors text-sm">
                                         Leer análisis detallado
                                     </a>
                                 </div>
@@ -147,7 +149,7 @@ const schema = {
             ))}
         </div>
 
-        {/* --- GUÍA SEO EXPANDIDA (NUEVA SECCIÓN CON TEXTO DE VALOR) --- */}
+        {/* --- GUÍA SEO EXPANDIDA --- */}
         <div class="mt-20 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden p-8 md:p-12">
             
             <div class="prose prose-slate max-w-none">

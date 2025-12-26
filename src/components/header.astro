@@ -2,31 +2,64 @@
 // src/components/Header.astro
 ---
 <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
-    <div class="max-w-6xl mx-auto px-4 md:px-6">
-        <div class="flex justify-between items-center h-16">
-            <a href="/" class="text-xl font-black text-blue-900 tracking-tighter italic hover:opacity-80 transition flex items-center gap-2">
-                ObraDigital<span class="text-blue-500">.es</span>
-            </a>
-
-            <div class="hidden md:flex gap-8 text-sm font-bold text-slate-600">
-                <a href="/sectores/fontaneros" class="hover:text-blue-600 transition">Fontaneros y SAT</a>
-                <a href="/sectores/electricistas" class="hover:text-blue-600 transition">Electricistas</a>
-                <a href="/sectores/reformas" class="hover:text-blue-600 transition">Reformas</a>
-                <a href="/sectores/talleres" class="hover:text-blue-600 transition">Talleres</a>
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="flex justify-between h-20">
+            <div class="flex items-center">
+                <a href="/" class="flex items-center gap-2 group">
+                    <div class="bg-blue-600 p-1.5 rounded-lg group-hover:bg-blue-700 transition-colors">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                    </div>
+                    <span class="text-xl font-black text-slate-800 tracking-tighter uppercase">Obra<span class="text-blue-600">Digital</span></span>
+                </a>
             </div>
 
-            <div class="md:hidden text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
-                MENÚ
+            <div class="hidden lg:flex items-center gap-1">
+                <a href="/software/fontaneros" class="px-3 py-2 text-[13px] font-bold text-slate-600 hover:text-blue-600 rounded-lg transition-all">Fontaneros</a>
+                <a href="/software/electricistas" class="px-3 py-2 text-[13px] font-bold text-slate-600 hover:text-blue-600 rounded-lg transition-all">Electricistas</a>
+                <a href="/software/reformas" class="px-3 py-2 text-[13px] font-bold text-slate-600 hover:text-blue-600 rounded-lg transition-all">Reformas</a>
+                <a href="/software/cerrajeros" class="px-3 py-2 text-[13px] font-bold text-slate-600 hover:text-blue-600 rounded-lg transition-all">Cerrajeros</a>
+                <a href="/software/carpinteros" class="px-3 py-2 text-[13px] font-bold text-slate-600 hover:text-blue-600 rounded-lg transition-all">Carpinteros</a>
+                <a href="/software/jardineros" class="px-3 py-2 text-[13px] font-bold text-slate-600 hover:text-blue-600 rounded-lg transition-all">Jardinería</a>
+                <a href="/software/limpieza" class="px-3 py-2 text-[13px] font-bold text-slate-600 hover:text-blue-600 rounded-lg transition-all">Limpieza</a>
+                <a href="/software/talleres" class="px-3 py-2 text-[13px] font-bold text-slate-600 hover:text-blue-600 rounded-lg transition-all">Talleres</a>
+                
+                <div class="h-6 w-px bg-slate-200 mx-2"></div>
+                
+                <a href="/" class="bg-slate-900 text-white px-4 py-2 rounded-xl text-xs font-black hover:bg-slate-800 transition-all shadow-md active:scale-95">
+                    INICIO
+                </a>
+            </div>
+
+            <div class="lg:hidden flex items-center">
+                <button id="mobile-menu-button" class="text-slate-600 p-2 focus:outline-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
             </div>
         </div>
     </div>
-    
-    <div class="md:hidden border-t border-slate-100 overflow-x-auto hide-scrollbar">
-        <div class="flex px-4 py-3 gap-6 text-sm font-bold text-slate-600 min-w-max">
-            <a href="/sectores/fontaneros" class="hover:text-blue-600">Fontaneros</a>
-            <a href="/sectores/electricistas" class="hover:text-blue-600">Electricistas</a>
-            <a href="/sectores/reformas" class="hover:text-blue-600">Reformas</a>
-            <a href="/sectores/talleres" class="hover:text-blue-600">Talleres</a>
+
+    <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-slate-100 px-6 py-6 shadow-2xl absolute w-full left-0">
+        <div class="grid grid-cols-2 gap-4">
+            <a href="/software/fontaneros" class="font-bold text-slate-700 p-3 hover:bg-blue-50 rounded-xl text-sm border border-slate-50 italic">🔧 Fontanería</a>
+            <a href="/software/electricistas" class="font-bold text-slate-700 p-3 hover:bg-blue-50 rounded-xl text-sm border border-slate-50 italic">⚡ Electricistas</a>
+            <a href="/software/reformas" class="font-bold text-slate-700 p-3 hover:bg-blue-50 rounded-xl text-sm border border-slate-50 italic">🧱 Reformas</a>
+            <a href="/software/cerrajeros" class="font-bold text-slate-700 p-3 hover:bg-blue-50 rounded-xl text-sm border border-slate-50 italic">🔑 Cerrajería</a>
+            <a href="/software/carpinteros" class="font-bold text-slate-700 p-3 hover:bg-blue-50 rounded-xl text-sm border border-slate-50 italic">🪚 Carpintería</a>
+            <a href="/software/jardineros" class="font-bold text-slate-700 p-3 hover:bg-blue-50 rounded-xl text-sm border border-slate-50 italic">🌿 Jardinería</a>
+            <a href="/software/limpieza" class="font-bold text-slate-700 p-3 hover:bg-blue-50 rounded-xl text-sm border border-slate-50 italic">✨ Limpieza</a>
+            <a href="/software/talleres" class="font-bold text-slate-700 p-3 hover:bg-blue-50 rounded-xl text-sm border border-slate-50 italic">🚗 Talleres</a>
         </div>
+        <a href="/" class="block text-center bg-blue-600 text-white font-black p-4 rounded-xl shadow-lg mt-6 uppercase tracking-tight">Volver a la Home</a>
     </div>
 </nav>
+
+<script>
+    const btn = document.getElementById('mobile-menu-button');
+    const menu = document.getElementById('mobile-menu');
+
+    btn?.addEventListener('click', () => {
+        menu?.classList.toggle('hidden');
+    });
+</script>
