@@ -1,6 +1,8 @@
 ---
 // src/pages/index.astro
-import header from '../components/header.astro';
+// Importamos con minúscula para que Vercel encuentre el archivo físico
+// pero le asignamos el alias HeaderComp para que Astro lo diferencie de la etiqueta HTML <header>
+import HeaderComp from '../components/header.astro';
 import softwares from '../softwares.json';
 import '../styles/global.css';
 
@@ -28,10 +30,9 @@ const sectores = [
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans">
 
-    <header />
+    <HeaderComp />
 
-    {/* HERO SECTION - BLOQUE AZUL LIMPIO */}
-    <header class="bg-blue-900 text-white py-16 px-6 text-center">
+    <section class="bg-blue-900 text-white py-16 px-6 text-center">
         <div class="max-w-4xl mx-auto">
             <h1 class="text-4xl md:text-6xl font-black mb-6 tracking-tight leading-tight">
                 El Software perfecto para tu oficio <span class="text-blue-400">existe.</span>
@@ -40,11 +41,11 @@ const sectores = [
                 Analizamos y filtramos las mejores herramientas para profesionales en España adaptadas a la <strong>Ley Verifactu 2025</strong>.
             </p>
         </div>
-    </header>
+    </section>
 
     <main class="max-w-6xl mx-auto px-6 py-12">
         
-        {/* SELECTOR DE SECTORES - FUERA DEL AZUL, SIN MÁRGENES NEGATIVOS */}
+        {/* SELECTOR DE SECTORES */}
         <div class="mb-16">
             <h2 class="text-center text-slate-800 font-black text-2xl mb-8 uppercase tracking-wide">
                 👇 Elige tu gremio para empezar
@@ -86,7 +87,7 @@ const sectores = [
                         {topGeneral.map(soft => (
                             <tr class="hover:bg-blue-50/50 transition">
                                 <td class="p-5 font-bold text-slate-800 flex items-center gap-3">
-                                    <img src={soft.logo_url} alt={soft.name} class="w-8 h-8 object-contain"/>
+                                    <img src={soft.logo_url} alt={`Logo de ${soft.name} - Software para oficios 2025`} class="w-8 h-8 object-contain"/>
                                     {soft.name}
                                 </td>
                                 <td class="p-5 text-slate-600 hidden md:table-cell">
