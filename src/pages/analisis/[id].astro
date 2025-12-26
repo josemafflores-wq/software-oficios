@@ -16,7 +16,7 @@ const precioDisplay = software.pricing?.start_price
   ? `${software.pricing.start_price}€` 
   : "Consultar";
 
-// --- CEREBRO DE OPINIONES (SOPORTE PARA 8 SECTORES) ---
+// --- CEREBRO DE OPINIONES ACTUALIZADO (Añadido Climatización) ---
 const opinionesData = {
     defecto: {
         titulo: "Análisis del Experto",
@@ -71,6 +71,12 @@ const opinionesData = {
         texto: `Gestión de mantenimientos periódicos estacionales y seguimiento de tratamientos fitosanitarios por cliente.`,
         icon: "🌿",
         clase: "bg-green-50 border-green-600 text-green-900"
+    },
+    climatizacion: {
+        titulo: "Especial Climatización y HVAC",
+        texto: `Excelente para el cumplimiento del RITE, gestión de partes de asistencia técnica y control legal de gases fluorados.`,
+        icon: "❄️",
+        clase: "bg-sky-50 border-sky-500 text-sky-900"
     }
 };
 
@@ -130,6 +136,7 @@ const schema = {
                 {software.contenido_seo_extenso && <div class="whitespace-pre-line mt-4">{software.contenido_seo_extenso}</div>}
             </div>
 
+            {/* CAJAS EXTRA POR SECTOR */}
             <div id="extra-talleres" class="hidden mt-6 p-5 bg-red-50 rounded-xl border border-red-100">
                 <h3 class="font-bold text-red-900 flex items-center gap-2 mb-2"><span>🚗</span> Funcionalidades para Taller</h3>
                 <p class="text-red-800 text-sm">Entrada por matrícula, gestión de ORs y control de margen de recambios.</p>
@@ -162,8 +169,12 @@ const schema = {
                 <h3 class="font-bold text-green-900 flex items-center gap-2 mb-2"><span>🌿</span> Jardinería Profesional</h3>
                 <p class="text-green-900 text-sm">Programación de tareas estacionales y control de productos fitosanitarios.</p>
             </div>
+            <div id="extra-climatizacion" class="hidden mt-6 p-5 bg-sky-50 rounded-xl border border-sky-100">
+                <h3 class="font-bold text-sky-900 flex items-center gap-2 mb-2"><span>❄️</span> Especial Climatización y RITE</h3>
+                <p class="text-sky-900 text-sm">Control de gases fluorados, mantenimiento preventivo RITE y partes de SAT.</p>
+            </div>
 
-            {/* VÍDEO INTEGRADO (SIN LÍNEA DIVISORA) */}
+            {/* VÍDEO INTEGRADO */}
             {software.video_demo_id && (
               <div class="mt-8">
                 <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">

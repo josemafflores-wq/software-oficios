@@ -1,0 +1,142 @@
+---
+import HeaderComp from '../components/header.astro';
+import '../styles/global.css';
+
+// Esquema de Datos Estructurados para aparecer en los resultados enriquecidos de Google
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Guía Ley Verifactu 2026: Requisitos, Plazos y Software Homologado",
+  "author": {
+    "@type": "Organization",
+    "name": "ObraDigital"
+  },
+  "datePublished": "2025-12-26",
+  "description": "Análisis técnico de la Ley Verifactu para 2026. Descubre los nuevos plazos de Hacienda, requisitos del software garante y cómo evitar multas de 50.000€.",
+  "image": "https://www.softwareoficios.es/og-verifactu.jpg"
+};
+---
+
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ley Verifactu 2026: Guía Completa de Normativa y Software Garante</title>
+    <meta name="description" content="¿Tu software cumple con Verifactu? Guía actualizada sobre la normativa de Hacienda para 2026. Plazos oficiales, certificados y sanciones por software no homologado." />
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</head>
+<body class="bg-slate-50 text-slate-900 font-sans selection:bg-blue-100">
+
+    <HeaderComp />
+
+    <header class="bg-slate-900 text-white pt-24 pb-16 px-6 relative overflow-hidden">
+        <div class="absolute top-0 right-0 opacity-10 pointer-events-none">
+            <svg width="400" height="400" viewBox="0 0 24 24" fill="white"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+        </div>
+        <div class="max-w-4xl mx-auto relative z-10">
+            <nav class="flex gap-2 mb-6 items-center text-sm text-slate-400">
+                <a href="/" class="hover:text-blue-400 transition">Inicio</a> 
+                <span>/</span> 
+                <span class="text-white">Guía Verifactu 2026</span>
+            </nav>
+            <h1 class="text-4xl md:text-6xl font-black mb-6 leading-[1.1]">
+                Ley Verifactu 2026: <span class="text-blue-400">La Guía de Adaptación</span> para Profesionales
+            </h1>
+            <p class="text-xl text-slate-300 max-w-2xl leading-relaxed">
+                Hacienda transforma el modelo de facturación en España. Analizamos los últimos cambios normativos, los plazos de implementación y los requisitos técnicos del software garante.
+            </p>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-6 py-12">
+        
+        <div class="bg-blue-50 border-l-8 border-blue-600 p-8 rounded-r-2xl mb-16 shadow-sm">
+            <h2 class="text-blue-900 font-black text-xl mb-4 uppercase tracking-tight">Resumen de urgencia para 2026:</h2>
+            <ul class="space-y-3 text-blue-800 font-medium">
+                <li class="flex items-start gap-2">✅ <strong>Obligatoriedad:</strong> Software adaptado en julio 2025; autónomos en julio 2026.</li>
+                <li class="flex items-start gap-2">✅ <strong>Sanciones:</strong> Hasta 50.000€ por simple tenencia de software no homologado.</li>
+                <li class="flex items-start gap-2">✅ <strong>Requisito:</strong> Cada factura debe llevar un código QR y un hash encadenado.</li>
+            </ul>
+        </div>
+
+        <article class="prose prose-slate prose-lg max-w-none">
+            
+            <h2 class="text-3xl font-black text-slate-800">1. ¿Qué es Verifactu y por qué cambia las reglas del juego?</h2>
+            <p>
+                El sistema <strong>Verifactu</strong> no es solo una nueva forma de hacer facturas; es el mecanismo técnico mediante el cual la Agencia Tributaria (AEAT) garantiza la <strong>inalterabilidad de los registros contables</strong>. Bajo la Ley Antifraude 11/2021, desaparece la posibilidad de editar o borrar facturas sin dejar un rastro auditable.
+            </p>
+            <p>
+                Este sistema obliga a los programas de facturación a comportarse como "cajas negras" donde cada movimiento queda registrado cronológicamente y firmado digitalmente.
+            </p>
+
+            <h2 class="text-3xl font-black text-slate-800 mt-16">2. Calendario de Implementación Actualizado</h2>
+            <p>Tras las últimas revisiones técnicas de 2024 y 2025, el calendario definitivo para el despliegue de Verifactu se estructura de la siguiente manera:</p>
+            
+            <div class="my-10 overflow-hidden rounded-2xl border border-slate-200 shadow-lg">
+                <table class="w-full text-left bg-white border-collapse">
+                    <thead class="bg-slate-900 text-white">
+                        <tr>
+                            <th class="p-5">Hito Normativo</th>
+                            <th class="p-5">Fecha Límite</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                        <tr>
+                            <td class="p-5 font-bold">Certificación obligatoria para empresas de Software</td>
+                            <td class="p-5">Julio 2025</td>
+                        </tr>
+                        <tr>
+                            <td class="p-5 font-bold text-blue-700">Obligatoriedad de uso para Autónomos y Pymes</td>
+                            <td class="p-5 text-blue-700 font-black">1 de Julio de 2026</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2 class="text-3xl font-black text-slate-800 mt-16">3. Requisitos del "Software Garante"</h2>
+            <p>Para que tu programa sea legal en 2026, debe cumplir con los pilares del reglamento:</p>
+            <ul>
+                <li><strong>Trazabilidad:</strong> Cada registro de facturación debe estar encadenado al anterior mediante un sistema de hash.</li>
+                <li><strong>Legibilidad:</strong> Los datos deben estar disponibles para Hacienda en formatos estándar (XML).</li>
+                <li><strong>Inalterabilidad:</strong> No se pueden borrar facturas. Cualquier corrección debe hacerse mediante facturas rectificativas.</li>
+                <li><strong>Generación de QR:</strong> Obligatorio en todas las facturas impresas para que el receptor pueda validar la factura en la web de la AEAT.</li>
+            </ul>
+
+            <h2 class="text-3xl font-black text-slate-800 mt-16">4. Régimen Sancionador: El riesgo de 50.000€</h2>
+            <p>
+                Hacienda ha sido muy clara: no se castiga solo el fraude, se castiga la <strong>tenencia de herramientas fraudulentas</strong>. Si en una inspección rutinaria se detecta que utilizas un software que no cumple con el Reglamento Verifactu, la sanción estándar es de <strong>50.000€</strong> por cada año que se haya utilizado dicho sistema.
+            </p>
+
+            <h2 class="text-3xl font-black text-slate-800 mt-16">5. Diferencia entre Verifactu y TicketBAI</h2>
+            <p>
+                Es una duda frecuente. <strong>TicketBAI</strong> es el sistema ya vigente en las haciendas forales del País Vasco. <strong>Verifactu</strong> es el estándar nacional para el resto de España. Aunque son similares, un software debe estar específicamente certificado para el territorio donde opera la empresa.
+            </p>
+
+            <div class="mt-20 bg-slate-900 rounded-3xl p-10 text-center relative shadow-2xl">
+                <div class="relative z-10">
+                    <h3 class="text-3xl font-black text-white mb-6">¿Tu software está listo para 2026?</h3>
+                    <p class="text-slate-400 mb-8 max-w-xl mx-auto">
+                        Hemos filtrado las mejores herramientas del mercado que ya cuentan con el sello de Software Garante y están adaptadas a los nuevos plazos.
+                    </p>
+                    <div class="flex flex-wrap justify-center gap-4">
+                        <a href="/software/cerrajeros" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition">Cerrajeros</a>
+                        <a href="/software/fontaneros" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition">Fontaneros</a>
+                        <a href="/software/electricistas" class="bg-blue-600 text-white px-6 py-3 rounded-xl font-bold hover:bg-blue-700 transition">Electricistas</a>
+                    </div>
+                </div>
+            </div>
+
+        </article>
+    </main>
+
+    <footer class="bg-white border-t border-slate-200 py-16 px-6 text-center">
+        <div class="max-w-4xl mx-auto">
+            <p class="text-slate-400 text-sm italic">
+                Descargo de responsabilidad: Esta guía se basa en el Reglamento que desarrolla los requisitos de los sistemas informáticos de facturación (RD 1007/2023). La normativa puede sufrir modificaciones técnicas por parte de la AEAT.
+            </p>
+            <p class="mt-8 font-black text-slate-800 uppercase italic">ObraDigital.es</p>
+        </div>
+    </footer>
+
+</body>
+</html>
