@@ -2,7 +2,7 @@
 // src/pages/software/electricistas.astro
 import softwares from '../../softwares.json';
 import '../../global.css';
-import Header from '../../components/Header.astro';
+import Header from '../../components/header.astro';
 
 // 1. FILTRO ELECTRICISTAS
 const especialistas = softwares.filter(s => 
@@ -91,8 +91,6 @@ const schema = {
             {especialistas.map((soft) => (
                 <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden hover:shadow-xl transition-shadow">
                     <div class="p-6 md:p-10">
-                        
-                        {/* CABECERA (Diseño Fontaneros) */}
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 relative">
                             <div class="flex items-center gap-6">
                                 <div class="w-24 h-24 bg-white rounded-xl flex items-center justify-center border border-slate-200 shadow-sm p-3 shrink-0 relative group">
@@ -102,7 +100,6 @@ const schema = {
                                     )}
                                 </div>
                                 <div>
-                                    {/* ENLACE MODIFICADO 1: Título de la tarjeta */}
                                     <h3 class="text-3xl font-black text-slate-800"><a href={`/analisis/${soft.id}?sector=electricistas`} class="hover:text-blue-700">{soft.name}</a></h3>
                                     <div class="flex flex-col gap-1 mt-2">
                                         {soft.legal_spain?.verifactu_ready && <span class="flex items-center text-green-700 font-bold text-xs bg-green-50 px-2 py-1 rounded border border-green-200">HOMOLOGADO VERIFACTU</span>}
@@ -116,13 +113,12 @@ const schema = {
                             </div>
                         </div>
 
-                        {/* GRID (Diseño Fontaneros: Texto Izq | Caja Der) */}
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                             <div class="space-y-6">
                                 <div class="prose prose-slate">
                                     <h4 class="text-xl font-bold text-slate-800">¿Por qué para electricistas?</h4>
                                     <p class="text-slate-600 leading-relaxed text-sm">
-                                        {soft.opinion_experto_fontanero || soft.h2_ventajas_gremio || "Ideal para gestionar avisos, mantenimientos y materiales."}
+                                        {soft.short_description}
                                     </p>
                                 </div>
                                 <div class="flex flex-wrap gap-2">
@@ -139,7 +135,6 @@ const schema = {
                                     <a href={soft.url_afiliado || "#"} target="_blank" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-xl text-lg shadow-xl shadow-blue-200 transition-transform active:scale-95">
                                         VER WEB DE {soft.name.toUpperCase()}
                                     </a>
-                                    {/* ENLACE MODIFICADO 2: Botón 'Leer análisis' */}
                                     <a href={`/analisis/${soft.id}?sector=electricistas`} class="block w-full text-center bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-50 transition-colors text-sm">
                                         Leer análisis
                                     </a>
@@ -152,15 +147,12 @@ const schema = {
             ))}
         </div>
 
-        {/* GUÍA SEO EXPANDIDA */}
         <div class="mt-20 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden p-8 md:p-12">
-            
             <div class="prose prose-slate max-w-none">
                 <h2 class="text-3xl font-black text-slate-800 mb-6">Guía 2025: Digitalización para Empresas Instaladoras Eléctricas</h2>
                 <p class="text-lg leading-relaxed text-slate-600">
                     El sector eléctrico tiene particularidades que un software genérico no puede resolver. Trabajáis bajo la presión de normativas estrictas (REBT), precios de materiales volátiles (cobre) y entornos de trabajo difíciles.
                 </p>
-                
                 <p class="text-lg leading-relaxed text-slate-600">
                     Además, el modelo de negocio está cambiando: de la "obra nueva" al <strong>Mantenimiento Preventivo</strong> recurrente. El software que elijas debe ser capaz de automatizar estas revisiones para que tu facturación no pare.
                 </p>
@@ -192,7 +184,6 @@ const schema = {
 
             <div class="prose prose-slate max-w-none">
                 <h3 class="text-2xl font-bold text-slate-800">Preguntas Frecuentes del Instalador Electricista</h3>
-                
                 <details class="group bg-slate-50 p-5 rounded-xl cursor-pointer mb-4 border border-slate-100">
                     <summary class="font-bold text-slate-800 flex justify-between items-center list-none text-lg">
                         ¿Puedo gestionar Boletines (CIE) desde el programa?
@@ -202,7 +193,6 @@ const schema = {
                         Algunos ERPs especializados permiten rellenar el Certificado de Instalación Eléctrica directamente. Otros se integran con las plataformas de Industria.
                     </p>
                 </details>
-
                 <details class="group bg-slate-50 p-5 rounded-xl cursor-pointer mb-4 border border-slate-100">
                     <summary class="font-bold text-slate-800 flex justify-between items-center list-none text-lg">
                         ¿Cómo me afecta la Ley Antifraude si soy autónomo?
@@ -212,8 +202,7 @@ const schema = {
                         Te afecta al 100%. Seas una gran instaladora o un electricista autónomo, tu software de facturación debe cumplir con <strong>Verifactu</strong>.
                     </p>
                 </details>
-
-                <p className="text-sm italic text-slate-500 mt-8">
+                <p class="text-sm italic text-slate-500 mt-8">
                     * Nota: Todos los programas analizados en ObraDigital.es están verificados para cumplir con las normativas fiscales españolas vigentes.
                 </p>
             </div>

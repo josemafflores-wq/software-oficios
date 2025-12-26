@@ -75,12 +75,6 @@ const opinionesData = {
 };
 
 const faqsFinales = [...(software.faqs_seo || [])];
-const faqsGenericas = [
-    { p: `¿Cumple ${software.name} con Verifactu?`, r: software.legal_spain?.verifactu_ready ? `Sí, garantiza facturas inalterables según normativa.` : `Está en proceso de adaptación.` },
-    { p: "¿Es 100% en la nube?", r: software.tabla_tecnica?.nube ? "Sí, accesible desde cualquier navegador sin instalaciones." : "Requiere instalación local o servidor." },
-    { p: "¿Tiene App móvil?", r: software.tabla_tecnica?.app_movil ? "Sí, cuenta con app nativa para iOS y Android." : "Funciona mediante versión web móvil." }
-];
-
 const schema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
@@ -121,7 +115,6 @@ const schema = {
   <div class="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-8 -mt-8 relative z-20">
     <div class="md:col-span-2 space-y-8">
         
-        {/* CAJA DE OPINIÓN CAMALEÓNICA */}
         <section id="opinion-dinamica" class="p-8 rounded-2xl border-l-4 shadow-sm transition-all duration-300 bg-gray-50 border-gray-500">
             <div class="flex items-center mb-4">
                 <span id="opinion-icon" class="text-3xl mr-3">⭐</span>
@@ -130,7 +123,6 @@ const schema = {
             <p id="opinion-texto" class="italic text-gray-700 text-lg font-medium leading-relaxed">"{software.short_description}"</p>
         </section>
 
-        {/* ANÁLISIS A FONDO */}
         <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
             <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2"><span>🔍</span> Análisis a fondo</h2>
             <div id="texto-analisis-normal" class="prose prose-lg prose-indigo max-w-none text-gray-600 leading-relaxed">
@@ -138,49 +130,60 @@ const schema = {
                 {software.contenido_seo_extenso && <div class="whitespace-pre-line mt-4">{software.contenido_seo_extenso}</div>}
             </div>
 
-            {/* --- BLOQUES EXTRA DINÁMICOS --- */}
             <div id="extra-talleres" class="hidden mt-6 p-5 bg-red-50 rounded-xl border border-red-100">
                 <h3 class="font-bold text-red-900 flex items-center gap-2 mb-2"><span>🚗</span> Funcionalidades para Taller</h3>
                 <p class="text-red-800 text-sm">Entrada por matrícula, gestión de ORs y control de margen de recambios.</p>
             </div>
-
             <div id="extra-electricistas" class="hidden mt-6 p-5 bg-yellow-50 rounded-xl border border-yellow-200">
                 <h3 class="font-bold text-yellow-900 flex items-center gap-2 mb-2"><span>⚡</span> Especial Electricistas</h3>
                 <p class="text-yellow-900 text-sm">Gestión de mantenimientos preventivos y base de precios para boletines.</p>
             </div>
-
             <div id="extra-fontaneros" class="hidden mt-6 p-5 bg-blue-50 rounded-xl border border-blue-100">
                 <h3 class="font-bold text-blue-900 flex items-center gap-2 mb-2"><span>🔧</span> Utilidad para Fontaneros</h3>
                 <p class="text-blue-800 text-sm">Firma digital in-situ y modo offline para sótanos sin cobertura.</p>
             </div>
-
             <div id="extra-reformas" class="hidden mt-6 p-5 bg-orange-50 rounded-xl border border-orange-100">
                 <h3 class="font-bold text-orange-900 flex items-center gap-2 mb-2"><span>🧱</span> Gestión de Reformas</h3>
                 <p class="text-orange-900 text-sm">Presupuestos por capítulos y control de certificaciones a origen.</p>
             </div>
-
             <div id="extra-cerrajeros" class="hidden mt-6 p-5 bg-zinc-50 rounded-xl border border-zinc-200">
                 <h3 class="font-bold text-zinc-900 flex items-center gap-2 mb-2"><span>🔑</span> Gestión para Cerrajeros</h3>
                 <p class="text-zinc-800 text-sm">Asignación de avisos urgentes y geolocalización de técnicos en tiempo real.</p>
             </div>
-
             <div id="extra-carpinteros" class="hidden mt-6 p-5 bg-amber-50 rounded-xl border border-amber-100">
                 <h3 class="font-bold text-amber-900 flex items-center gap-2 mb-2"><span>🪚</span> Carpintería y Aluminio</h3>
                 <p class="text-amber-900 text-sm">Presupuestos por medidas y control de fabricación de ventanas o muebles.</p>
             </div>
-
             <div id="extra-limpieza" class="hidden mt-6 p-5 bg-cyan-50 rounded-xl border border-cyan-100">
                 <h3 class="font-bold text-cyan-900 flex items-center gap-2 mb-2"><span>✨</span> Servicios de Limpieza</h3>
                 <p class="text-cyan-900 text-sm">Control horario por GPS en el centro del cliente y facturación recurrente.</p>
             </div>
-
             <div id="extra-jardineros" class="hidden mt-6 p-5 bg-green-50 rounded-xl border border-green-100">
                 <h3 class="font-bold text-green-900 flex items-center gap-2 mb-2"><span>🌿</span> Jardinería Profesional</h3>
                 <p class="text-green-900 text-sm">Programación de tareas estacionales y control de productos fitosanitarios.</p>
             </div>
+
+            {/* VÍDEO INTEGRADO (SIN LÍNEA DIVISORA) */}
+            {software.video_demo_id && (
+              <div class="mt-8">
+                <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                   <span>📺</span> Vídeo Demostración
+                </h3>
+                <div class="aspect-video rounded-xl overflow-hidden shadow-lg bg-black">
+                  <iframe 
+                    width="100%" 
+                    height="100%" 
+                    src={`https://www.youtube.com/embed/${software.video_demo_id}`} 
+                    title={`${software.name} demo`}
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen
+                  ></iframe>
+                </div>
+              </div>
+            )}
         </section>
 
-        {/* PROS Y CONTRAS */}
         <section class="grid md:grid-cols-2 gap-6">
             <div class="bg-white p-6 rounded-2xl border-t-4 border-green-500 shadow-sm">
                 <h3 class="font-bold text-gray-800 mb-4">✅ Lo mejor</h3>
@@ -192,7 +195,6 @@ const schema = {
             </div>
         </section>
 
-        {/* FAQs */}
         <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
             <h2 class="text-2xl font-bold text-gray-800 mb-6">Preguntas Frecuentes</h2>
             <div class="space-y-4">
@@ -208,7 +210,6 @@ const schema = {
         </section>
     </div>
 
-    {/* SIDEBAR */}
     <div class="md:col-span-1 space-y-6">
         <div class="bg-white p-6 rounded-2xl shadow-lg border border-indigo-50 sticky top-24">
             <div class="text-center mb-6">
@@ -231,7 +232,6 @@ const schema = {
     </div>
   </div>
 
-  {/* SCRIPT CAMALEÓNICO */}
   <script define:vars={{ opinionesData }}>
     document.addEventListener('DOMContentLoaded', () => {
         const sector = new URLSearchParams(window.location.search).get('sector'); 

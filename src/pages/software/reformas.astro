@@ -1,8 +1,8 @@
 ---
-// src/pages/sectores/reformas.astro
+// src/pages/software/reformas.astro
 import softwares from '../../softwares.json';
 import '../../global.css';
-import Header from '../../components/Header.astro';
+import Header from '../../components/header.astro';
 
 // 1. FILTRO REFORMAS
 const especialistas = softwares.filter(s => 
@@ -34,7 +34,7 @@ const schema = {
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans">
 
-   <Header />
+    <Header />
 
     <header class="bg-blue-900 text-white py-16 px-6">
         <div class="max-w-4xl mx-auto">
@@ -88,8 +88,6 @@ const schema = {
             {especialistas.map((soft) => (
                 <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden hover:shadow-xl transition-shadow">
                     <div class="p-6 md:p-10">
-                        
-                        {/* CABECERA (Diseño original respetado) */}
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 relative">
                             <div class="flex items-center gap-6">
                                 <div class="w-24 h-24 bg-white rounded-xl flex items-center justify-center border border-slate-200 shadow-sm p-3 shrink-0 relative group">
@@ -99,7 +97,6 @@ const schema = {
                                     )}
                                 </div>
                                 <div>
-                                    {/* ENLACE MODIFICADO 1: Título con parámetro sector */}
                                     <h3 class="text-3xl font-black text-slate-800"><a href={`/analisis/${soft.id}?sector=reformas`} class="hover:text-blue-700">{soft.name}</a></h3>
                                     <div class="flex flex-col gap-1 mt-2">
                                         {soft.legal_spain?.verifactu_ready && <span class="flex items-center text-green-700 font-bold text-xs bg-green-50 px-2 py-1 rounded border border-green-200">HOMOLOGADO VERIFACTU</span>}
@@ -113,7 +110,6 @@ const schema = {
                             </div>
                         </div>
 
-                        {/* GRID (Diseño original respetado) */}
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                             <div class="space-y-6">
                                 <div class="prose prose-slate">
@@ -136,7 +132,6 @@ const schema = {
                                     <a href={soft.url_afiliado || "#"} target="_blank" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-xl text-lg shadow-xl shadow-blue-200 transition-transform active:scale-95">
                                         VER WEB DE {soft.name.toUpperCase()}
                                     </a>
-                                    {/* ENLACE MODIFICADO 2: Botón con parámetro sector */}
                                     <a href={`/analisis/${soft.id}?sector=reformas`} class="block w-full text-center bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-50 transition-colors text-sm">
                                         Leer análisis detallado
                                     </a>
@@ -149,18 +144,14 @@ const schema = {
             ))}
         </div>
 
-        {/* --- GUÍA SEO EXPANDIDA --- */}
         <div class="mt-20 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden p-8 md:p-12">
-            
             <div class="prose prose-slate max-w-none">
                 <h2 class="text-3xl font-black text-slate-800 mb-6">Guía 2025: Cómo elegir ERP para construcción y reformas</h2>
                 <p class="text-lg leading-relaxed text-slate-600">
-                    El margen de beneficio en una reforma se gana o se pierde en los detalles. Un mal cálculo en el acopio de materiales o una certificación olvidada pueden arruinar el mes. 
-                    El software de construcción moderno ya no es solo para hacer facturas; es una herramienta de <strong>Control de Gestión</strong> que te dice en tiempo real si estás ganando dinero o perdiendo en cada partida.
+                    El margen de beneficio en una reforma se gana o se pierde en los detalles. Un mal cálculo en el acopio de materiales o una certificación olvidada pueden arruinar el mes. El software de construcción moderno ya no es solo para hacer facturas; es una herramienta de <strong>Control de Gestión</strong> que te dice en tiempo real si estás ganando dinero o perdiendo en cada partida.
                 </p>
             </div>
 
-            {/* Grid Visual de 3 puntos clave (CONSTRUCCIÓN) */}
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 not-prose my-10 border-y border-slate-100 py-10">
                 <div class="p-6 bg-blue-50 rounded-2xl border border-blue-100">
                     <div class="text-4xl mb-4">📐</div>
@@ -187,7 +178,6 @@ const schema = {
 
             <div class="prose prose-slate max-w-none">
                 <h3 class="text-2xl font-bold text-slate-800">Preguntas Frecuentes del Jefe de Obra</h3>
-                
                 <details class="group bg-slate-50 p-5 rounded-xl cursor-pointer mb-4 border border-slate-100">
                     <summary class="font-bold text-slate-800 flex justify-between items-center list-none text-lg">
                         ¿Es obligatorio usar software certificado en reformas?
@@ -197,7 +187,6 @@ const schema = {
                         Sí, la <strong>Ley Antifraude (Verifactu)</strong> aplica a todos los autónomos y empresas que emitan facturas en España. Los programas que permiten "llevar una caja B" o modificar facturas ya emitidas están prohibidos y conllevan fuertes sanciones.
                     </p>
                 </details>
-
                 <details class="group bg-slate-50 p-5 rounded-xl cursor-pointer mb-4 border border-slate-100">
                     <summary class="font-bold text-slate-800 flex justify-between items-center list-none text-lg">
                         ¿Sirven para gestionar subcontratas?
@@ -207,8 +196,7 @@ const schema = {
                         Sí. Los ERPs de construcción (como Quercusoft o MN Program) permiten gestionar proveedores y subcontratas, validando sus facturas contra tu presupuesto y controlando los pagos y vencimientos.
                     </p>
                 </details>
-
-                <p className="text-sm italic text-slate-500 mt-8">
+                <p class="text-sm italic text-slate-500 mt-8">
                     * Nota: Todos los programas listados cumplen con la normativa de facturación española y están preparados para la factura electrónica B2B obligatoria.
                 </p>
             </div>

@@ -1,25 +1,25 @@
 ---
-// src/pages/software/jardineros.astro
+// src/pages/software/fontaneros.astro
 import softwares from '../../softwares.json';
 import '../../global.css';
-import Header from '../../components/Header.astro';
+import Header from '../../components/header.astro';
 
-// 1. FILTRO JARDINEROS
+// 1. FILTRO FONTANEROS
 const especialistas = softwares.filter(s => 
     s.target_gremios && s.target_gremios.some(g => {
         const gremio = g.toLowerCase();
-        return ['jardineros', 'jardinería', 'paisajismo', 'piscinas', 'mantenimiento', 'exterior', 'autónomos'].some(term => gremio.includes(term));
+        return ['fontaneros', 'fontanería', 'calefacción', 'climatización', 'gas', 'pocería', 'desatascos'].some(term => gremio.includes(term));
     })
 );
 const topTable = especialistas.slice(0, 5);
 
-// 2. SCHEMA UPDATE: FAQs reales del sector jardinería
+// 2. SCHEMA UPDATE
 const schema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
   "mainEntity": [
-    { "@type": "Question", "name": "¿El software permite gestionar mantenimientos estacionales?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Permite programar tareas recurrentes como podas, abonados y tratamientos fitosanitarios, avisando al equipo automáticamente según la época del año." } },
-    { "@type": "Question", "name": "¿Se pueden gestionar rutas de mantenimiento?", "acceptedAnswer": { "@type": "Answer", "text": "Sí, los programas más avanzados incluyen geolocalización para optimizar los desplazamientos entre jardines y centros de trabajo, ahorrando tiempo y combustible." } }
+    { "@type": "Question", "name": "¿El software permite crear partes de trabajo desde el móvil?", "acceptedAnswer": { "@type": "Answer", "text": "Sí, permite que los fontaneros cierren partes, recojan firmas y adjunten fotos de la avería desde la vivienda del cliente." } },
+    { "@type": "Question", "name": "¿Incluye gestión de materiales y stock?", "acceptedAnswer": { "@type": "Answer", "text": "Sí, los programas especializados permiten descontar piezas del stock de la furgoneta al incluirlas en la factura." } }
   ]
 };
 ---
@@ -28,8 +28,8 @@ const schema = {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mejor Software para Jardineros 2025: Paisajismo y Mantenimiento</title>
-    <meta name="description" content="Comparativa de los mejores programas para jardineros y empresas de paisajismo en 2025. Gestión de mantenimientos, presupuestos, app móvil y Verifactu." />
+    <title>Mejor Software para Fontaneros 2025: Gestión y Facturación</title>
+    <meta name="description" content="Comparativa de los mejores programas para fontaneros y empresas de fontanería. Partes de trabajo, presupuestos, App móvil y Verifactu." />
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 </head>
 <body class="bg-slate-50 text-slate-900 font-sans">
@@ -39,10 +39,10 @@ const schema = {
     <header class="bg-blue-900 text-white py-16 px-6">
         <div class="max-w-4xl mx-auto">
             <h1 class="text-4xl md:text-5xl font-black mb-4 italic">
-                Programas de Gestión para Jardineros: <span class="text-blue-400">Organiza tu trabajo exterior.</span>
+                Software para Fontaneros: <span class="text-blue-400">Controla tus servicios.</span>
             </h1>
             <p class="text-lg text-blue-100 opacity-90">
-                Herramientas para paisajistas: gestión de mantenimientos periódicos, control de productos fitosanitarios y facturación Verifactu.
+                Optimiza tus avisos de fontanería, gestiona presupuestos a pie de obra y cumple con la Ley Verifactu.
             </p>
         </div>
     </header>
@@ -50,7 +50,7 @@ const schema = {
     <section class="max-w-6xl mx-auto px-6 -mt-10 relative z-20 mb-16">
         <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
             <div class="bg-slate-900 p-4 flex justify-between items-center">
-                <h2 class="text-white font-bold text-sm uppercase tracking-widest">Comparativa Rápida 2025</h2>
+                <h2 class="text-white font-bold text-sm uppercase tracking-widest">Top Software Fontanería</h2>
                 <span class="bg-green-600 text-white text-[10px] px-2 py-1 rounded font-bold animate-pulse">VERIFACTU READY</span>
             </div>
             <div class="overflow-x-auto">
@@ -88,7 +88,6 @@ const schema = {
             {especialistas.map((soft) => (
                 <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden hover:shadow-xl transition-shadow">
                     <div class="p-6 md:p-10">
-                        
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 relative">
                             <div class="flex items-center gap-6">
                                 <div class="w-24 h-24 bg-white rounded-xl flex items-center justify-center border border-slate-200 shadow-sm p-3 shrink-0 relative group">
@@ -98,7 +97,7 @@ const schema = {
                                     )}
                                 </div>
                                 <div>
-                                    <h3 class="text-3xl font-black text-slate-800"><a href={`/analisis/${soft.id}?sector=jardineros`} class="hover:text-blue-700">{soft.name}</a></h3>
+                                    <h3 class="text-3xl font-black text-slate-800"><a href={`/analisis/${soft.id}?sector=fontaneros`} class="hover:text-blue-700">{soft.name}</a></h3>
                                     <div class="flex flex-col gap-1 mt-2">
                                         {soft.legal_spain?.verifactu_ready && <span class="flex items-center text-green-700 font-bold text-xs bg-green-50 px-2 py-1 rounded border border-green-200">HOMOLOGADO VERIFACTU</span>}
                                     </div>
@@ -114,9 +113,9 @@ const schema = {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
                             <div class="space-y-6">
                                 <div class="prose prose-slate">
-                                    <h4 class="text-xl font-bold text-slate-800">¿Cómo ayuda a tu negocio?</h4>
+                                    <h4 class="text-xl font-bold text-slate-800">¿Por qué para fontaneros?</h4>
                                     <p class="text-slate-600 leading-relaxed text-sm">
-                                        {soft.opinion_experto_jardineros || soft.h2_ventajas_gremio || soft.short_description}
+                                        {soft.short_description}
                                     </p>
                                 </div>
                                 <div class="flex flex-wrap gap-2">
@@ -127,14 +126,14 @@ const schema = {
                             </div>
                             <div class="flex flex-col justify-center bg-slate-50 p-6 rounded-2xl border border-slate-100">
                                 <h4 class="font-bold text-slate-800 mb-4 text-center italic text-sm">
-                                    "Ideal para gestionar rutas y mantenimientos estacionales"
+                                    "Gestiona tus avisos y reparaciones con agilidad"
                                 </h4>
                                 <div class="space-y-3">
                                     <a href={soft.url_afiliado || "#"} target="_blank" class="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-xl text-lg shadow-xl shadow-blue-200 transition-transform active:scale-95">
                                         VER WEB DE {soft.name.toUpperCase()}
                                     </a>
-                                    <a href={`/analisis/${soft.id}?sector=jardineros`} class="block w-full text-center bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-50 transition-colors text-sm">
-                                        Leer nuestra opinión detallada
+                                    <a href={`/analisis/${soft.id}?sector=fontaneros`} class="block w-full text-center bg-white border-2 border-slate-200 text-slate-700 font-bold py-3 rounded-xl hover:bg-slate-50 transition-colors text-sm">
+                                        Leer análisis
                                     </a>
                                 </div>
                                 <p class="text-[10px] text-center text-slate-400 mt-4 uppercase font-bold tracking-widest">Enlace oficial verificado · 2025</p>
@@ -145,65 +144,51 @@ const schema = {
             ))}
         </div>
 
-        {/* --- GUÍA SEO EXPANDIDA --- */}
         <div class="mt-20 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden p-8 md:p-12">
-            
             <div class="prose prose-slate max-w-none">
-                <h2 class="text-3xl font-black text-slate-800 mb-6">Guía 2025: Cómo elegir el mejor software para jardineros y paisajistas</h2>
+                <h2 class="text-3xl font-black text-slate-800 mb-6">Guía 2025: Software para empresas de Fontanería</h2>
                 <p class="text-lg leading-relaxed text-slate-600">
-                    La jardinería profesional requiere una organización estricta marcada por las estaciones. No puedes olvidar una poda de invierno o un tratamiento fitosanitario. Un software especializado te permite automatizar el calendario de mantenimiento de tus clientes para que no dependas de una agenda de papel.
+                    La fontanería moderna requiere rapidez. Desde la rotura de una tubería hasta la instalación de un sistema de calefacción, necesitas tener tus presupuestos y partes de trabajo a mano. Un software en la nube te permite facturar antes de salir de la casa del cliente.
                 </p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 not-prose my-10 border-y border-slate-100 py-10">
                 <div class="p-6 bg-blue-50 rounded-2xl border border-blue-100">
-                    <div class="text-4xl mb-4">🗓️</div>
-                    <h4 class="font-bold text-blue-900 mb-3 text-lg">1. Mantenimientos Estacionales</h4>
+                    <div class="text-4xl mb-4">🔧</div>
+                    <h4 class="font-bold text-blue-900 mb-3 text-lg">1. Partes de Trabajo</h4>
                     <p class="text-sm text-blue-800 leading-relaxed">
-                        Programa avisos automáticos para riegos en verano, podas en otoño y abonados en primavera. Fideliza al cliente avisándole tú antes de que su jardín lo necesite.
+                        Olvídate del papel. Crea partes de averías desde el móvil, añade fotos de antes y después, y haz que el cliente firme en pantalla.
                     </p>
                 </div>
                 <div class="p-6 bg-green-50 rounded-2xl border border-green-100">
-                    <div class="text-4xl mb-4">🌱</div>
-                    <h4 class="font-bold text-green-900 mb-3 text-lg">2. Control de Insumos</h4>
+                    <div class="text-4xl mb-4">📦</div>
+                    <h4 class="font-bold text-green-900 mb-3 text-lg">2. Gestión de Almacén</h4>
                     <p class="text-sm text-green-800 leading-relaxed">
-                        Gestiona el stock de semillas, fertilizantes y herramientas. Imputa cada gramo de abono al presupuesto del cliente para asegurar que no pierdes margen en materiales.
+                        Controla el stock de grifería, tuberías y codos. Sabrás en todo momento qué materiales llevas en cada furgoneta para no retrasar un servicio.
                     </p>
                 </div>
                 <div class="p-6 bg-purple-50 rounded-2xl border border-purple-100">
-                    <div class="text-4xl mb-4">🚜</div>
-                    <h4 class="font-bold text-purple-900 mb-3 text-lg">3. Rutas Optimizadas</h4>
+                    <div class="text-4xl mb-4">🧾</div>
+                    <h4 class="font-bold text-purple-900 mb-3 text-lg">3. Facturación Verifactu</h4>
                     <p class="text-sm text-purple-800 leading-relaxed">
-                        Si tienes varios jardines en una zona, organiza las visitas por cercanía GPS para ahorrar tiempo de desplazamiento y combustible, mejorando la rentabilidad diaria.
+                        Genera facturas legales al instante. Cumple con la normativa española de 2025 y envía la factura por email al cliente antes de recoger las herramientas.
                     </p>
                 </div>
             </div>
 
             <div class="prose prose-slate max-w-none">
                 <h3 class="text-2xl font-bold text-slate-800">Preguntas Frecuentes</h3>
-                
                 <details class="group bg-slate-50 p-5 rounded-xl cursor-pointer mb-4 border border-slate-100">
                     <summary class="font-bold text-slate-800 flex justify-between items-center list-none text-lg">
-                        ¿Puedo usarlo para mantenimientos de piscinas?
+                        ¿Puedo llevar el control de revisiones de caldera?
                         <span class="text-blue-600 group-open:rotate-180 transition-transform">▼</span>
                     </summary>
                     <p class="text-slate-600 mt-3 leading-relaxed">
-                        Sí. Estos programas permiten llevar el registro de niveles de cloro, pH y visitas técnicas, enviando el informe legal al cliente por email de forma automática.
+                        Sí. Estos sistemas permiten programar recordatorios anuales para enviar avisos de mantenimiento a tus clientes de forma automática.
                     </p>
                 </details>
-
-                <details class="group bg-slate-50 p-5 rounded-xl cursor-pointer mb-4 border border-slate-100">
-                    <summary class="font-bold text-slate-800 flex justify-between items-center list-none text-lg">
-                        ¿Cómo ayuda la Ley Verifactu a un jardinero autónomo?
-                        <span class="text-blue-600 group-open:rotate-180 transition-transform">▼</span>
-                    </summary>
-                    <p class="text-slate-600 mt-3 leading-relaxed">
-                        Te protege ante Hacienda. El software genera facturas inalterables automáticamente, asegurando que cumples con la ley sin tener que dedicar horas a la contabilidad.
-                    </p>
-                </details>
-
-                <p className="text-sm italic text-slate-500 mt-8">
-                    * Metodología: En ObraDigital.es analizamos la capacidad de gestión de tareas recurrentes y la facilidad de uso de la app móvil en exteriores.
+                <p class="text-sm italic text-slate-500 mt-8">
+                    * Todos los programas analizados cumplen con la normativa de seguridad y privacidad vigente.
                 </p>
             </div>
         </div>

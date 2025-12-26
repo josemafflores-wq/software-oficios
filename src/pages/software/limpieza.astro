@@ -2,7 +2,7 @@
 // src/pages/software/limpieza.astro
 import softwares from '../../softwares.json';
 import '../../global.css';
-import Header from '../../components/Header.astro';
+import Header from '../../components/header.astro';
 
 // 1. FILTRO LIMPIEZA
 const especialistas = softwares.filter(s => 
@@ -88,7 +88,6 @@ const schema = {
             {especialistas.map((soft) => (
                 <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden hover:shadow-xl transition-shadow">
                     <div class="p-6 md:p-10">
-                        
                         <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8 relative">
                             <div class="flex items-center gap-6">
                                 <div class="w-24 h-24 bg-white rounded-xl flex items-center justify-center border border-slate-200 shadow-sm p-3 shrink-0 relative group">
@@ -145,9 +144,7 @@ const schema = {
             ))}
         </div>
 
-        {/* --- GUÍA SEO EXPANDIDA PARA LIMPIEZA --- */}
         <div class="mt-20 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden p-8 md:p-12">
-            
             <div class="prose prose-slate max-w-none">
                 <h2 class="text-3xl font-black text-slate-800 mb-6">Guía 2025: Cómo digitalizar tu empresa de limpieza y facility services</h2>
                 <p class="text-lg leading-relaxed text-slate-600">
@@ -181,7 +178,6 @@ const schema = {
 
             <div class="prose prose-slate max-w-none">
                 <h3 class="text-2xl font-bold text-slate-800">Preguntas Frecuentes del Sector Limpieza</h3>
-                
                 <details class="group bg-slate-50 p-5 rounded-xl cursor-pointer mb-4 border border-slate-100">
                     <summary class="font-bold text-slate-800 flex justify-between items-center list-none text-lg">
                         ¿Cómo ayuda el software a reducir el absentismo?
@@ -201,8 +197,7 @@ const schema = {
                         Sí. Los ERPs avanzados permiten gestionar el stock de químicos y útiles. Puedes asignar consumos por centro de trabajo para saber exactamente cuánto material estás gastando en cada cliente.
                     </p>
                 </details>
-
-                <p className="text-sm italic text-slate-500 mt-8">
+                <p class="text-sm italic text-slate-500 mt-8">
                     * Metodología: En ObraDigital.es analizamos la robustez del control horario y la facilidad para gestionar facturación masiva recurrente.
                 </p>
             </div>
