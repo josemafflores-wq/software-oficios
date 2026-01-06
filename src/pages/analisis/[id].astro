@@ -16,7 +16,7 @@ const precioDisplay = software.pricing?.start_price
   ? `${software.pricing.start_price}€` 
   : "Consultar";
 
-// --- CEREBRO DE OPINIONES ACTUALIZADO (Añadido Climatización) ---
+// --- CEREBRO DE OPINIONES ACTUALIZADO ---
 const opinionesData = {
     defecto: {
         titulo: "Análisis del Experto",
@@ -81,11 +81,24 @@ const opinionesData = {
 };
 
 const faqsFinales = [...(software.faqs_seo || [])];
+
+// 🔥 FIX VÍDEO SCHEMA: Añadimos datos estructurados del vídeo si existe
 const schema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": software.name,
-  "offers": { "@type": "Offer", "price": software.pricing?.start_price || "0", "priceCurrency": "EUR" }
+  "offers": { "@type": "Offer", "price": software.pricing?.start_price || "0", "priceCurrency": "EUR" },
+  ...(software.video_demo_id ? {
+    "subjectOf": {
+      "@type": "VideoObject",
+      "name": `Demo de ${software.name}`,
+      "description": `Vídeo demostración de las funcionalidades principales de ${software.name}.`,
+      "thumbnailUrl": `https://img.youtube.com/vi/${software.video_demo_id}/hqdefault.jpg`,
+      "uploadDate": "2024-01-01T08:00:00+08:00", // Fecha genérica requerida por Google
+      "contentUrl": `https://www.youtube.com/watch?v=${software.video_demo_id}`,
+      "embedUrl": `https://www.youtube.com/embed/${software.video_demo_id}`
+    }
+  } : {})
 };
 ---
 
