@@ -189,7 +189,7 @@ const schema = {
 
             {/* VÍDEO INTEGRADO */}
             {software.video_demo_id && (
-              <div class="mt-8">
+              <div class="mt-8 mb-8">
                 <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
                    <span>📺</span> Vídeo Demostración
                 </h3>
@@ -206,6 +206,29 @@ const schema = {
                 </div>
               </div>
             )}
+
+            {/* GALERÍA DE LA APP (NUEVO) */}
+            {software.screenshots && software.screenshots.length > 0 && (
+                <div class="mt-8 mb-8">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                        <span>📱</span> Así es la App por dentro
+                    </h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        {software.screenshots.map((img, index) => (
+                            <div class="rounded-xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition cursor-pointer group">
+                                <img 
+                                    src={img} 
+                                    alt={`Captura pantalla ${software.name} ${index + 1}`} 
+                                    class="w-full h-48 object-cover object-top group-hover:scale-105 transition-transform duration-500"
+                                    loading="lazy"
+                                />
+                            </div>
+                        ))}
+                    </div>
+                    <p class="text-xs text-gray-400 mt-2 text-center italic">Imágenes reales de la interfaz de usuario.</p>
+                </div>
+            )}
+
         </section>
 
         <section class="grid md:grid-cols-2 gap-6">

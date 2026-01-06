@@ -130,5 +130,57 @@
     "contenido_seo_extenso": "Taclia es la solución perfecta para el autónomo que huye de los programas complicados.",
     "opinion_experto_fontanero": "Perfecto para autónomos que quieren dejar el papel y facturar rápido.",
     "tabla_tecnica": { "tipo": "Cloud", "app_movil": true, "firma_digital": true, "soporte_tecnico": "Chat" }
+  },
+  {
+    "id": "houzz-pro",
+    "name": "Houzz Pro",
+    "short_description": "La suite definitiva para empresas de reformas, arquitectura y diseño de interiores.",
+    "web_oficial": "https://www.houzz.es/pro",
+    "url_afiliado": "https://www.houzz.es/pro",
+    "logo_url": "https://unavatar.io/houzz.com",
+    "video_demo_id": "rVdJ_C8Fj5s",
+    "kit_digital_eligible": true,
+    "nivel_dificultad": "Medio",
+    "faqs_seo": [
+      { "pregunta": "¿Incluye diseño 3D?", "respuesta": "Sí, es su gran ventaja. Puedes crear planos 3D rápidos para impresionar al cliente en el presupuesto." },
+      { "pregunta": "¿Sirve para fontaneros de urgencia?", "respuesta": "No es lo ideal. Está 100% pensado para reformas visuales, construcción y diseño." },
+      { "pregunta": "¿Tiene CRM para gestión de leads?", "respuesta": "Sí, centraliza todas las solicitudes de clientes y permite hacer seguimiento comercial." },
+      { "pregunta": "¿Puedo invitar al cliente a ver el proyecto?", "respuesta": "Sí, dispone de un portal de cliente donde pueden aprobar presupuestos y ver el avance de la obra." }
+    ],
+    "target_gremios": ["Reformas", "Arquitectos", "Interioristas", "Paisajistas", "Constructores"],
+    "pricing": { "start_price": 59, "currency": "EUR", "period": "mes", "has_free_trial": true, "trial_days": 30 },
+    "legal_spain": { "verifactu_ready": false, "ticketbai": false },
+    "features": ["Planos 3D", "Gestión de Obras", "Marketing Local", "Portal Cliente"],
+    "pros": ["Herramientas de diseño increíbles", "Atrae clientes de alto standing"],
+    "cons": ["Caro si solo haces reparaciones pequeñas"],
+    "contenido_seo_extenso": "Houzz Pro no es solo gestión, es una herramienta de ventas. Sus bocetos 3D ayudan a cerrar reformas de 50.000€ diferenciándote de la competencia que entrega excels.",
+    "opinion_experto_reformas": "Si quieres cobrar caro por tus reformas, presenta los presupuestos con esto.",
+    "tabla_tecnica": { "tipo": "Cloud + App", "app_movil": true, "firma_digital": true, "soporte_tecnico": "Teléfono" }
+  },
+  {
+    "id": "holded",
+    "name": "Holded",
+    "short_description": "El ERP de moda en España. Facturación bonita, fácil y contabilidad automatizada.",
+    "web_oficial": "https://www.holded.com",
+    "url_afiliado": "https://www.holded.com",
+    "logo_url": "https://unavatar.io/holded.com",
+    "video_demo_id": "bRKl1M6_wIE",
+    "kit_digital_eligible": true,
+    "nivel_dificultad": "Muy Bajo",
+    "faqs_seo": [
+      { "pregunta": "¿Es difícil de usar?", "respuesta": "Es el más fácil del mercado. Su interfaz es tipo Apple, muy limpia y moderna." },
+      { "pregunta": "¿Sirve para gestionar técnicos de calle?", "respuesta": "Se queda corto. Es genial para la oficina y facturas, pero flojo para partes de trabajo en ruta." },
+      { "pregunta": "¿Conecta con mi banco?", "respuesta": "Sí, se sincroniza automáticamente con casi todos los bancos españoles para conciliar pagos." },
+      { "pregunta": "¿Calcula los impuestos trimestrales?", "respuesta": "Sí, rellena automáticamente los modelos 303 y 111 de Hacienda." }
+    ],
+    "target_gremios": ["Autónomos", "Consultores", "Pequeñas Reformas", "Tiendas", "Agencias"],
+    "pricing": { "start_price": 29, "currency": "EUR", "period": "mes", "has_free_trial": true, "trial_days": 14 },
+    "legal_spain": { "verifactu_ready": true, "ticketbai": true },
+    "features": ["Sincronización Bancaria", "Contabilidad Auto", "CRM simple", "Inventario"],
+    "pros": ["Interfaz preciosa", "Automatiza la contabilidad"],
+    "cons": ["No tiene gestión de rutas GPS"],
+    "contenido_seo_extenso": "Holded es la opción segura para quien busca 'un programa de facturas' y no quiere complicarse la vida. Es el estándar moderno para pymes en España.",
+    "opinion_experto_fontanero": "Úsalo si trabajas solo y lo que más te preocupa es tener las cuentas claras con el gestor.",
+    "tabla_tecnica": { "tipo": "Cloud", "app_movil": true, "firma_digital": false, "soporte_tecnico": "Chat" }
   }
 ]
