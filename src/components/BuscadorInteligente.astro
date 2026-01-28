@@ -1,0 +1,132 @@
+---
+// src/components/BuscadorInteligente.astro
+import softwares from '../softwares.json';
+
+// DEFINIMOS LOS MISMOS FILTROS QUE EN [SECTOR].ASTRO PARA QUE COINCIDAN LOS NÚMEROS
+const filtros = {
+  fontaneros: ['fontaneros', 'fontanería', 'desatascos', 'pocería', 'calefacción'],
+  electricistas: ['electricistas', 'instalador', 'mantenimiento', 'telecomunicaciones', 'fotovoltaica'],
+  reformas: ['reformas', 'construcción', 'albañilería', 'pintores', 'interiorismo'],
+  climatizacion: ['climatización', 'aire acondicionado', 'hvac', 'frigoristas', 'calefacción'], // ID corto para uso interno
+  talleres: ['talleres', 'taller', 'mecánico', 'chapa', 'automoción'],
+  cerrajeros: ['cerrajeros', 'cerrajería', 'seguridad', 'puertas'],
+  carpinteros: ['carpinteros', 'carpintería', 'madera', 'aluminio', 'ebanistería'],
+  jardineros: ['jardineros', 'jardinería', 'paisajismo', 'piscinas'],
+  limpieza: ['limpieza', 'limpiezas', 'servicios', 'facility']
+};
+
+// Función auxiliar para contar coincidencias exactas
+const getStats = (keywords) => {
+  const matches = softwares.filter(s => 
+    s.target_gremios && s.target_gremios.some(g => {
+      const gLower = g.toLowerCase();
+      return keywords.some(k => gLower.includes(k));
+    })
+  );
+  
+  // Si no hay softwares, ponemos precio ficticio para no romper, si hay, sacamos el mínimo real.
+  const minPrice = matches.length > 0 
+    ? Math.min(...matches.map(s => s.pricing?.start_price || 99)) 
+    : 0;
+
+  return { count: matches.length, minPrice };
+};
+
+// Preparamos los datos
+const stats = {
+  fontaneros: getStats(filtros.fontaneros),
+  electricistas: getStats(filtros.electricistas),
+  reformas: getStats(filtros.reformas),
+  'climatizacion-y-aire-acondicionado': getStats(filtros.climatizacion), // OJO: Usamos la Key larga de la URL
+  talleres: getStats(filtros.talleres),
+  cerrajeros: getStats(filtros.cerrajeros),
+  carpinteros: getStats(filtros.carpinteros),
+  jardineros: getStats(filtros.jardineros),
+  limpieza: getStats(filtros.limpieza),
+  general: { count: softwares.length, minPrice: 20 }
+};
+---
+
+<div class="bg-white rounded-2xl shadow-xl border border-blue-100 p-6 md:p-8 max-w-3xl mx-auto -mt-24 relative z-20">
+  <div class="text-center mb-6">
+    <h2 class="text-2xl font-black text-slate-800 mb-2">💰 Calculadora de Software</h2>
+    <p class="text-slate-500 text-sm">Descubre cuánto cuesta digitalizar tu empresa en 2026</p>
+  </div>
+
+  <form id="calculatorForm" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    
+    <div class="space-y-2">
+      <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Soy...</label>
+      <select id="sectorSelect" class="w-full bg-slate-50 border border-slate-200 rounded-xl p-3 font-bold text-slate-700 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all">
+        <option value="" disabled selected>Elige tu oficio</option>
+        <option value="fontaneros">🔧 Fontanero</option>
+        <option value="electricistas">⚡ Electricista</option>
+        <option value="reformas">🧱 Reformista</option>
+        <option value="climatizacion-y-aire-acondicionado">❄️ Frigorista / RITE</option>
+        <option value="talleres">🚗 Taller Mecánico</option>
+        <option value="cerrajeros">🔑 Cerrajero</option>
+        <option value="carpinteros">🪚 Carpintero</option>
+        <option value="jardineros">🌿 Jardinero</option>
+        <option value="limpieza">✨ Empresa Limpieza</option>
+      </select>
+    </div>
+
+    <div class="md:col-span-2 bg-blue-50 rounded-xl p-4 flex items-center justify-between border border-blue-100 opacity-50 transition-all" id="resultBox">
+      <div>
+        <span class="block text-xs font-bold text-blue-400 uppercase mb-1" id="resultTitle">Selecciona un oficio...</span>
+        <div class="flex items-baseline gap-2">
+          <span class="text-3xl font-black text-blue-900" id="priceDisplay">--€</span>
+          <span class="text-sm text-blue-700 font-medium">/mes</span>
+        </div>
+      </div>
+      <div class="text-right">
+        <span class="block text-xs font-bold text-slate-400 uppercase">Opciones</span>
+        <span class="text-xl font-bold text-slate-700" id="countDisplay">0</span>
+      </div>
+    </div>
+
+    <button type="submit" id="submitBtn" class="md:col-span-3 w-full bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white font-black py-4 rounded-xl text-lg shadow-lg shadow-blue-200 transform hover:-translate-y-1 transition-all disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+      VER COMPARATIVA
+    </button>
+  </form>
+</div>
+
+<script define:vars={{ stats }}>
+  // Lógica Cliente (Se ejecuta en el navegador)
+  const select = document.getElementById('sectorSelect');
+  const resultBox = document.getElementById('resultBox');
+  const priceDisplay = document.getElementById('priceDisplay');
+  const countDisplay = document.getElementById('countDisplay');
+  const resultTitle = document.getElementById('resultTitle');
+  const btn = document.getElementById('submitBtn');
+
+  select.addEventListener('change', (e) => {
+    const sector = e.target.value;
+    // Si existe el sector en stats, lo usamos, si no, usamos general
+    let data = stats[sector] || stats.general;
+
+    // Efecto visual de "cálculo"
+    resultBox.classList.remove('opacity-50');
+    resultBox.classList.add('animate-pulse'); // Pequeño parpadeo
+    
+    setTimeout(() => {
+      resultBox.classList.remove('animate-pulse');
+      priceDisplay.innerText = `desde ${data.minPrice}€`;
+      countDisplay.innerText = `${data.count} Softwares`;
+      resultTitle.innerText = `Precios de mercado 2026:`;
+      
+      // Activar botón
+      btn.removeAttribute('disabled');
+      btn.innerText = `VER ${data.count} OPCIONES PARA ${sector.split('-')[0].toUpperCase()}`; // Truco visual para cortar nombres largos
+    }, 200);
+  });
+
+  // Redirección al hacer submit
+  document.getElementById('calculatorForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const sector = select.value;
+    if (sector) {
+      window.location.href = `/software/${sector}`;
+    }
+  });
+</script>

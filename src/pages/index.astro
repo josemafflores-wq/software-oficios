@@ -1,135 +1,188 @@
 ---
 // src/pages/index.astro
 import Layout from '../layouts/Layout.astro';
+import BuscadorInteligente from '../components/BuscadorInteligente.astro';
 import softwares from '../softwares.json';
 
-// Sacamos los 5 mejores para la tabla rápida
-const topGeneral = softwares.slice(0, 5);
-
-const sectores = [
-    { id: 'fontaneros', nombre: 'Fontaneros', emoji: '🔧', desc: 'Partes de trabajo y SAT.' },
-    { id: 'electricistas', nombre: 'Electricistas', emoji: '⚡', desc: 'Boletines y mantenimientos.' },
-    { id: 'reformas', nombre: 'Reformas', emoji: '🧱', desc: 'Presupuestos BC3 y obras.' },
-    { id: 'climatizacion-y-aire-acondicionado', nombre: 'Climatización', emoji: '❄️', desc: 'RITE y Gases Fluorados.' },
-    { id: 'cerrajeros', nombre: 'Cerrajeros', emoji: '🔑', desc: 'Urgencias 24h y GPS.' },
-    { id: 'carpinteros', nombre: 'Carpinteros', isSvg: true, desc: 'Medidas y fabricación.' },
-    { id: 'jardineros', nombre: 'Jardinería', emoji: '🌿', desc: 'Mantenimiento estacional.' },
-    { id: 'limpieza', nombre: 'Limpieza', emoji: '✨', desc: 'Cuadrantes y control horario.' },
-    { id: 'talleres', nombre: 'Talleres', emoji: '🚗', desc: 'Matrículas y recambios.' }
+// 1. DATOS PARA LA REJILLA DE OFICIOS (Colores intensificados)
+const oficios = [
+  { id: 'fontaneros', name: 'Fontaneros', icon: '🔧', color: 'bg-blue-100 text-blue-700' },
+  { id: 'electricistas', name: 'Electricistas', icon: '⚡', color: 'bg-yellow-100 text-yellow-700' },
+  { id: 'reformas', name: 'Reformas', icon: '🧱', color: 'bg-orange-100 text-orange-700' },
+  { id: 'climatizacion-y-aire-acondicionado', name: 'Climatización', icon: '❄️', color: 'bg-cyan-100 text-cyan-700' },
+  { id: 'cerrajeros', name: 'Cerrajeros', icon: '🔑', color: 'bg-slate-200 text-slate-700' },
+  { id: 'carpinteros', name: 'Carpinteros', icon: '🪚', color: 'bg-amber-100 text-amber-700' },
+  { id: 'jardineros', name: 'Jardinería', icon: '🌿', color: 'bg-green-100 text-green-700' },
+  { id: 'limpieza', name: 'Limpieza', icon: '✨', color: 'bg-purple-100 text-purple-700' },
+  { id: 'talleres', name: 'Talleres', icon: '🚗', color: 'bg-red-100 text-red-700' },
 ];
+
+// 2. DATOS PARA LA TABLA "MEJOR VALORADOS"
+const topIds = ['stel-order', 'taclia', 'fixner', 'tooltime', 'houzz-pro'];
+const mejoresDelMes = topIds.map(id => softwares.find(s => s.id === id)).filter(Boolean);
+
+// 3. DIRECTORIO RÁPIDO (Ordenado A-Z)
+const todosLosSoftwares = softwares.sort((a, b) => a.name.localeCompare(b.name));
 ---
 
-<Layout 
-    title="Comparador de Software para Profesionales 2026 | ObraDigital"
-    description="Encuentra el mejor software para tu oficio. Analizamos herramientas para fontaneros, aire acondicionado, reformas, cerrajeros y más. Adaptado a Verifactu."
->
-
-    <section class="bg-blue-900 text-white py-16 px-6 text-center relative overflow-hidden -mt-4">
-        <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
-        <div class="max-w-4xl mx-auto relative z-10">
-            <h1 class="text-4xl md:text-6xl font-black mb-6 tracking-tight leading-tight">
-                El Software perfecto para tu oficio <span class="text-blue-400">existe.</span>
-            </h1>
-            <p class="text-xl text-blue-100 max-w-2xl mx-auto leading-relaxed opacity-90">
-                Analizamos y filtramos las mejores herramientas para profesionales en España adaptadas a la <strong>Ley Verifactu 2026</strong>.
-            </p>
-            <div class="mt-8">
-                <a href="/guia-ley-verifactu-2026" class="inline-block bg-white text-blue-900 font-black px-8 py-3 rounded-xl shadow-xl hover:bg-blue-50 transition transform hover:-translate-y-1">
-                    📖 LEER GUÍA VERIFACTU 2026
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <div class="max-w-6xl mx-auto px-6 py-12">
-        
-        <div class="mb-16">
-            <h2 class="text-center text-slate-800 font-black text-2xl mb-8 uppercase tracking-wide">
-                👇 Elige tu gremio para empezar
-            </h2>
-            
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6">
-                {sectores.map(s => (
-                    <a href={`/software/${s.id}`} class="group bg-white p-8 rounded-2xl shadow-xl border border-slate-200 hover:-translate-y-1 transition-all duration-300 hover:border-blue-500">
-                        <div class="text-5xl mb-4 group-hover:scale-110 transition-transform">
-                            {s.isSvg ? (
-                                <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-slate-800" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 11l5 5L22 6l-5-5L7 11z"/><path d="M2 20l5-5"/><path d="M7 20l5-5"/><path d="M12 20l5-5"/><path d="M17 20l5-5"/><path d="M2 20v2h20v-2H2z"/></svg>
-                            ) : (
-                                s.emoji
-                            )}
-                        </div>
-                        <h3 class="text-2xl font-black text-slate-800 group-hover:text-blue-600 mb-2">
-                            {s.nombre}
-                        </h3>
-                        <p class="text-sm text-slate-500 font-medium">
-                            {s.desc}
-                        </p>
-                    </a>
-                ))}
-            </div>
-        </div>
-
-        <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden mb-16">
-            <div class="bg-slate-900 p-5">
-                <h2 class="font-bold text-lg text-white">🏆 Los Programas Mejor Valorados del Mes (2026)</h2>
-            </div>
-            <div class="overflow-x-auto">
-                <table class="w-full text-left">
-                    <thead class="bg-slate-50 text-xs uppercase text-slate-500 font-bold border-b border-slate-200">
-                        <tr>
-                            <th class="p-5">Software</th>
-                            <th class="p-5 hidden md:table-cell">Lo mejor</th>
-                            <th class="p-5 text-center">Precio</th>
-                            <th class="p-5"></th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-100 text-sm">
-                        {topGeneral.map(soft => (
-                            <tr class="hover:bg-blue-50/50 transition text-slate-800">
-                                <td class="p-5 font-bold flex items-center gap-3">
-                                    <img src={soft.logo_url} alt={soft.name} class="w-8 h-8 object-contain"/>
-                                    {soft.name}
-                                </td>
-                                <td class="p-5 text-slate-600 hidden md:table-cell italic">
-                                    {soft.short_description.slice(0, 60)}...
-                                </td>
-                                <td class="p-5 text-center font-black text-blue-700">
-                                    {soft.pricing?.start_price}€
-                                </td>
-                                <td class="p-5 text-right">
-                                    <a href={`/analisis/${soft.id}`} class="text-blue-600 font-bold hover:underline">Ver Análisis →</a>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
-            <div class="prose prose-slate">
-                <h2 class="text-3xl font-black text-slate-800">¿Por qué digitalizar tu empresa en 2026?</h2>
-                <p>
-                    Con la entrada en vigor de la <strong>Ley Verifactu</strong>, los autónomos que sigan usando papel tendrán problemas legales. Elige un software certificado.
-                </p>
-                <ul class="list-none pl-0 space-y-2">
-                    <li class="flex items-center gap-2">✅ Certificado por Hacienda (QR y Hash).</li>
-                    <li class="flex items-center gap-2">📱 App móvil para trabajo en campo.</li>
-                    <li class="flex items-center gap-2">☁️ Acceso total en la nube.</li>
-                </ul>
-            </div>
-            <div class="bg-slate-100 p-8 rounded-2xl border border-slate-200">
-                <h3 class="font-bold text-slate-800 mb-4 text-xl">Directorios Rápidos</h3>
-                <div class="flex flex-wrap gap-2">
-                    {softwares.map(soft => (
-                        <a href={`/analisis/${soft.id}`} class="px-3 py-1 bg-white border border-slate-300 rounded text-xs font-medium text-slate-600 hover:border-blue-500 hover:text-blue-600 transition uppercase">
-                            {soft.name}
-                        </a>
-                    ))}
-                </div>
-            </div>
-        </div>
-
+<Layout title="Comparador de Software para Oficios y Gremios 2026">
+  
+  {/* HERO HEADER */}
+  <header class="bg-blue-900 text-white pt-20 pb-32 px-6 text-center relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+    <div class="relative z-10 max-w-4xl mx-auto">
+      <span class="inline-block border border-blue-500 bg-blue-800 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-widest mb-6">
+        Actualizado Enero 2026
+      </span>
+      <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight tracking-tight">
+        Digitaliza tu empresa <br/><span class="text-blue-400">sin equivocarte.</span>
+      </h1>
+      <p class="text-xl text-blue-100 max-w-2xl mx-auto opacity-90 leading-relaxed">
+        Analizamos y filtramos el mejor software para fontaneros, electricistas y empresas de reformas. Ahorra tiempo y cumple la Ley Verifactu.
+      </p>
     </div>
+  </header>
+
+  {/* CALCULADORA FLOTANTE */}
+  <section class="px-6 relative z-20">
+    <BuscadorInteligente />
+  </section>
+
+  {/* GRID DE NAVEGACIÓN POR OFICIOS */}
+  <section class="max-w-6xl mx-auto px-6 pt-20 pb-12">
+    <div class="text-center mb-10">
+      <h2 class="text-2xl font-bold text-slate-800">¿Cuál es tu oficio?</h2>
+      <p class="text-slate-500">Selecciona tu sector para ver la comparativa especializada</p>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
+      {oficios.map((oficio) => (
+        <a href={`/software/${oficio.id}`} class="group bg-white border border-slate-200 rounded-xl p-6 hover:shadow-lg transition-all hover:-translate-y-1 flex flex-col items-center text-center">
+          {/* Aquí aplicamos el color de fondo y texto */}
+          <div class={`w-14 h-14 rounded-full flex items-center justify-center text-3xl mb-4 transition-transform group-hover:scale-110 ${oficio.color}`}>
+            {oficio.icon}
+          </div>
+          <h3 class="font-bold text-slate-800 group-hover:text-blue-700 transition-colors">{oficio.name}</h3>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  {/* 🏆 TABLA MEJOR VALORADOS DEL MES */}
+  <section class="max-w-5xl mx-auto px-6 py-12">
+    <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+      <div class="bg-slate-900 p-6 flex flex-col md:flex-row justify-between items-center gap-4">
+        <h2 class="text-2xl font-black text-white flex items-center gap-2">
+          🏆 Top Software del Mes
+        </h2>
+        <span class="bg-yellow-500 text-yellow-900 text-xs font-bold px-2 py-1 rounded uppercase">Selección Editorial</span>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-slate-50 text-xs font-bold uppercase text-slate-500 border-b border-slate-200">
+              <th class="p-4">Software</th>
+              <th class="p-4 hidden md:table-cell">Lo mejor</th>
+              <th class="p-4">Precio</th>
+              <th class="p-4"></th>
+            </tr>
+          </thead>
+          <tbody class="text-sm divide-y divide-slate-100">
+            {mejoresDelMes.map(soft => (
+              <tr class="hover:bg-blue-50/50 transition-colors group">
+                <td class="p-4 font-bold text-slate-800">
+                  <div class="flex items-center gap-3">
+                     {soft.logo_url && <img src={soft.logo_url} alt={soft.name} class="w-6 h-6 object-contain grayscale group-hover:grayscale-0 transition-all" />}
+                     <span>{soft.name}</span>
+                  </div>
+                  <div class="md:hidden text-xs font-normal text-slate-500 mt-1 line-clamp-2">{soft.short_description}</div>
+                </td>
+                <td class="p-4 text-slate-600 hidden md:table-cell max-w-xs">{soft.short_description}</td>
+                <td class="p-4 font-black text-blue-700 whitespace-nowrap">
+                    {soft.pricing?.start_price ? `${soft.pricing.start_price}€` : 'Gratis'}
+                </td>
+                <td class="p-4 text-right">
+                  <a href={`/analisis/${soft.id}`} class="text-blue-600 font-bold hover:underline text-xs uppercase bg-blue-50 px-3 py-2 rounded-lg hover:bg-blue-100 transition-colors">
+                    Ver Análisis
+                  </a>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  {/* 🚨 SECCIÓN VERIFACTU & INFO LEGAL */}
+  <section class="bg-slate-50 border-t border-slate-200 py-16 px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="bg-blue-50 border border-blue-200 rounded-2xl p-8 md:p-10 mb-12 relative overflow-hidden">
+        <div class="absolute -right-10 -top-10 w-40 h-40 bg-blue-100 rounded-full opacity-50"></div>
+        
+        <h2 class="text-3xl font-black text-blue-900 mb-4 relative z-10">¿Por qué digitalizar tu empresa en 2026?</h2>
+        <p class="text-lg text-blue-800 mb-8 leading-relaxed relative z-10">
+          Con la entrada en vigor de la <strong class="text-blue-900 bg-white px-1 rounded shadow-sm">Ley Verifactu</strong>, los autónomos que sigan usando papel o Excel tendrán problemas legales. Elige un software certificado para evitar multas de Hacienda.
+        </p>
+        
+        <div class="grid md:grid-cols-3 gap-4 relative z-10">
+          <div class="flex items-center gap-3 bg-white p-4 rounded-xl shadow-sm border border-blue-100">
+            <span class="text-2xl">✅</span>
+            <div class="leading-tight">
+                <span class="block text-xs text-slate-400 font-bold uppercase">Hacienda</span>
+                <span class="text-sm font-bold text-slate-700">Certificado QR</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 bg-white p-4 rounded-xl shadow-sm border border-blue-100">
+            <span class="text-2xl">📱</span>
+            <div class="leading-tight">
+                <span class="block text-xs text-slate-400 font-bold uppercase">Movilidad</span>
+                <span class="text-sm font-bold text-slate-700">App de Trabajo</span>
+            </div>
+          </div>
+          <div class="flex items-center gap-3 bg-white p-4 rounded-xl shadow-sm border border-blue-100">
+            <span class="text-2xl">☁️</span>
+            <div class="leading-tight">
+                <span class="block text-xs text-slate-400 font-bold uppercase">Accesible</span>
+                <span class="text-sm font-bold text-slate-700">Todo en Nube</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* ICONOS DE CONFIANZA (SIN GRAYSCALE PARA QUE SE VEAN VIVOS) */}
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+        <div>
+          <div class="text-4xl mb-4">🔍</div>
+          <h4 class="font-bold text-slate-900 mb-2">Análisis Reales</h4>
+          <p class="text-sm text-slate-500">Probamos las apps personalmente.</p>
+        </div>
+        <div>
+          <div class="text-4xl mb-4">⚖️</div>
+          <h4 class="font-bold text-slate-900 mb-2">100% Independientes</h4>
+          <p class="text-sm text-slate-500">Opiniones objetivas, sin casarnos con nadie.</p>
+        </div>
+        <div>
+          <div class="text-4xl mb-4">🇪🇸</div>
+          <h4 class="font-bold text-slate-900 mb-2">Ley Española</h4>
+          <p class="text-sm text-slate-500">Solo software compatible con TicketBAI/Verifactu.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* 📂 DIRECTORIO RÁPIDO (CENTRADO) */}
+  <section class="border-t border-slate-200 py-12 px-6 bg-white">
+    <div class="max-w-4xl mx-auto text-center">
+      <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">Directorio Rápido de Análisis</h3>
+      {/* AQUÍ ESTÁ EL CAMBIO: justify-center */}
+      <div class="flex flex-wrap justify-center gap-3">
+        {todosLosSoftwares.map(soft => (
+          <a href={`/analisis/${soft.id}`} class="text-sm font-medium text-slate-600 hover:text-blue-600 bg-slate-50 hover:bg-blue-50 px-3 py-1 rounded-full border border-slate-200 transition-colors">
+            {soft.name}
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
 
 </Layout>
