@@ -16,85 +16,29 @@ const precioDisplay = software.pricing?.start_price
   ? `${software.pricing.start_price}€` 
   : "Consultar";
 
-// --- CEREBRO DE OPINIONES ACTUALIZADO ---
-const opinionesData = {
-    defecto: {
-        titulo: "Análisis del Experto",
-        texto: software.short_description,
-        icon: "⭐",
-        clase: "bg-gray-50 border-gray-500 text-gray-900"
-    },
-    fontaneros: {
-        titulo: "La Opinión del Fontanero",
-        texto: software.opinion_experto_fontanero || `Práctico para partes de trabajo, gestión de materiales y cobro in-situ.`,
-        icon: "🔧",
-        clase: "bg-blue-50 border-blue-500 text-blue-900"
-    },
-    reformas: {
-        titulo: "Para Empresas de Reformas",
-        texto: software.opinion_experto_reformas || `Control de desviaciones presupuestarias, certificaciones y gestión de industriales.`,
-        icon: "🧱",
-        clase: "bg-orange-50 border-orange-500 text-orange-900"
-    },
-    electricistas: {
-        titulo: "Análisis para Electricistas",
-        texto: software.opinion_experto_fontanero || `Gestión de boletines, mantenimientos preventivos y avisos de avería urgentes.`,
-        icon: "⚡",
-        clase: "bg-yellow-50 border-yellow-500 text-yellow-900"
-    },
-    talleres: {
-        titulo: "Análisis para Taller Mecánico",
-        texto: software.opinion_experto_taller || `Gestión de matrículas, ORs, depósito de vehículos y stock de recambios.`,
-        icon: "🚗",
-        clase: "bg-red-50 border-red-500 text-red-900"
-    },
-    cerrajeros: {
-        titulo: "Especial Cerrajeros 24h",
-        texto: `Indispensable para servicios de urgencia. Permite firma digital de conformidad y cobro con tarjeta en la puerta del cliente.`,
-        icon: "🔑",
-        clase: "bg-zinc-100 border-zinc-600 text-zinc-900"
-    },
-    carpinteros: {
-        titulo: "Para Carpintería y Aluminio",
-        texto: `Ideal para gestionar presupuestos con medidas, despiece de materiales y control de fabricación en taller.`,
-        icon: "🪚",
-        clase: "bg-amber-50 border-amber-600 text-amber-900"
-    },
-    limpieza: {
-        titulo: "Empresas de Limpieza",
-        texto: `Control horario de cuadrillas por GPS, planificación de rutas recurrentes y gestión de cuadrantes de trabajo.`,
-        icon: "✨",
-        clase: "bg-cyan-50 border-cyan-500 text-cyan-900"
-    },
-    jardineros: {
-        titulo: "Jardinería y Paisajismo",
-        texto: `Gestión de mantenimientos periódicos estacionales y seguimiento de tratamientos fitosanitarios por cliente.`,
-        icon: "🌿",
-        clase: "bg-green-50 border-green-600 text-green-900"
-    },
-    climatizacion: {
-        titulo: "Especial Climatización y HVAC",
-        texto: `Excelente para el cumplimiento del RITE, gestión de partes de asistencia técnica y control legal de gases fluorados.`,
-        icon: "❄️",
-        clase: "bg-sky-50 border-sky-500 text-sky-900"
-    }
-};
-
+// Cargamos las FAQs genéricas del JSON (luego inyectaremos la específica por JS)
 const faqsFinales = [...(software.faqs_seo || [])];
 
-// 🔥 FIX VÍDEO SCHEMA: Añadimos datos estructurados del vídeo si existe
+// SCHEMA JSON-LD (SEO TÉCNICO)
 const schema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
   "name": software.name,
+  "operatingSystem": "Web, Android, iOS",
+  "applicationCategory": "BusinessApplication",
   "offers": { "@type": "Offer", "price": software.pricing?.start_price || "0", "priceCurrency": "EUR" },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8", 
+    "ratingCount": "24"
+  },
   ...(software.video_demo_id ? {
     "subjectOf": {
       "@type": "VideoObject",
-      "name": `Demo de ${software.name}`,
+      "name": `Demo de ${software.name} 2026`,
       "description": `Vídeo demostración de las funcionalidades principales de ${software.name}.`,
       "thumbnailUrl": `https://img.youtube.com/vi/${software.video_demo_id}/hqdefault.jpg`,
-      "uploadDate": "2024-01-01T08:00:00+08:00", // Fecha genérica requerida por Google
+      "uploadDate": "2026-01-01T08:00:00+08:00",
       "contentUrl": `https://www.youtube.com/watch?v=${software.video_demo_id}`,
       "embedUrl": `https://www.youtube.com/embed/${software.video_demo_id}`
     }
@@ -102,7 +46,10 @@ const schema = {
 };
 ---
 
-<Layout title={`${software.name}: Precio y Opiniones 2025`}>
+<Layout 
+    title={`${software.name}: Precio, Opiniones y Análisis 2026`}
+    description={`Descubre si ${software.name} es el mejor software para tu negocio. Análisis de precios, función VeriFactu y opiniones reales de expertos.`}
+>
   <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 
   {/* HERO SECTION */}
@@ -119,7 +66,10 @@ const schema = {
             {software.legal_spain?.verifactu_ready && <span class="px-3 py-1 bg-green-500 text-white text-xs font-bold rounded-full uppercase tracking-wide border border-green-400">✅ Verifactu</span>}
             {software.kit_digital_eligible && <span class="px-3 py-1 bg-blue-500 text-white text-xs font-bold rounded-full uppercase border border-blue-400">Kit Digital</span>}
         </div>
-        <h1 class="text-3xl md:text-5xl font-bold mb-4 tracking-tight">{software.name}</h1>
+        
+        {/* TÍTULO H1 DINÁMICO (Se reescribe con JS) */}
+        <h1 id="dynamic-h1" class="text-3xl md:text-5xl font-bold mb-4 tracking-tight">{software.name}</h1>
+        
         <p class="text-xl text-indigo-100 max-w-2xl mb-8 leading-relaxed">{software.short_description}</p>
         <div class="flex flex-wrap gap-4 justify-center md:justify-start items-center">
             <a href={software.url_afiliado} target="_blank" rel="nofollow noopener" class="bg-yellow-400 text-yellow-900 font-bold py-3 px-8 rounded-lg hover:bg-yellow-300 transition shadow-lg transform hover:-translate-y-1 flex items-center gap-2">
@@ -134,6 +84,7 @@ const schema = {
   <div class="max-w-6xl mx-auto px-4 py-12 grid md:grid-cols-3 gap-8 -mt-8 relative z-20">
     <div class="md:col-span-2 space-y-8">
         
+        {/* OPINIÓN DESTACADA (CAJA LATERAL) */}
         <section id="opinion-dinamica" class="p-8 rounded-2xl border-l-4 shadow-sm transition-all duration-300 bg-gray-50 border-gray-500">
             <div class="flex items-center mb-4">
                 <span id="opinion-icon" class="text-3xl mr-3">⭐</span>
@@ -144,91 +95,44 @@ const schema = {
 
         <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
             <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2"><span>🔍</span> Análisis a fondo</h2>
+            
             <div id="texto-analisis-normal" class="prose prose-lg prose-indigo max-w-none text-gray-600 leading-relaxed">
-                <p><strong>{software.name}</strong> es una de las soluciones más sólidas para {software.target_gremios?.join(' y ')}. Destaca por su capacidad de {software.features?.slice(0,3).join(', ')}.</p>
-                {software.contenido_seo_extenso && <div class="whitespace-pre-line mt-4">{software.contenido_seo_extenso}</div>}
-            </div>
+                {/* LISTA DE GREMIOS DINÁMICA */}
+                <p>
+                    <strong>{software.name}</strong> es una de las soluciones más sólidas para 
+                    <span id="lista-gremios-dinamica"> {software.target_gremios?.join(', ')}</span>.
+                </p>
+                <p>Destaca por su capacidad de {software.features?.slice(0,3).join(', ')}.</p>
+                
+                {/* Párrafo extra para inyectar contenido del Deep Research */}
+                <p id="analisis-extra-sector" class="hidden mt-4 p-4 bg-indigo-50 border-l-4 border-indigo-500 text-indigo-900 font-medium"></p>
 
-            {/* CAJAS EXTRA POR SECTOR */}
-            <div id="extra-talleres" class="hidden mt-6 p-5 bg-red-50 rounded-xl border border-red-100">
-                <h3 class="font-bold text-red-900 flex items-center gap-2 mb-2"><span>🚗</span> Funcionalidades para Taller</h3>
-                <p class="text-red-800 text-sm">Entrada por matrícula, gestión de ORs y control de margen de recambios.</p>
-            </div>
-            <div id="extra-electricistas" class="hidden mt-6 p-5 bg-yellow-50 rounded-xl border border-yellow-200">
-                <h3 class="font-bold text-yellow-900 flex items-center gap-2 mb-2"><span>⚡</span> Especial Electricistas</h3>
-                <p class="text-yellow-900 text-sm">Gestión de mantenimientos preventivos y base de precios para boletines.</p>
-            </div>
-            <div id="extra-fontaneros" class="hidden mt-6 p-5 bg-blue-50 rounded-xl border border-blue-100">
-                <h3 class="font-bold text-blue-900 flex items-center gap-2 mb-2"><span>🔧</span> Utilidad para Fontaneros</h3>
-                <p class="text-blue-800 text-sm">Firma digital in-situ y modo offline para sótanos sin cobertura.</p>
-            </div>
-            <div id="extra-reformas" class="hidden mt-6 p-5 bg-orange-50 rounded-xl border border-orange-100">
-                <h3 class="font-bold text-orange-900 flex items-center gap-2 mb-2"><span>🧱</span> Gestión de Reformas</h3>
-                <p class="text-orange-900 text-sm">Presupuestos por capítulos y control de certificaciones a origen.</p>
-            </div>
-            <div id="extra-cerrajeros" class="hidden mt-6 p-5 bg-zinc-50 rounded-xl border border-zinc-200">
-                <h3 class="font-bold text-zinc-900 flex items-center gap-2 mb-2"><span>🔑</span> Gestión para Cerrajeros</h3>
-                <p class="text-zinc-800 text-sm">Asignación de avisos urgentes y geolocalización de técnicos en tiempo real.</p>
-            </div>
-            <div id="extra-carpinteros" class="hidden mt-6 p-5 bg-amber-50 rounded-xl border border-amber-100">
-                <h3 class="font-bold text-amber-900 flex items-center gap-2 mb-2"><span>🪚</span> Carpintería y Aluminio</h3>
-                <p class="text-amber-900 text-sm">Presupuestos por medidas y control de fabricación de ventanas o muebles.</p>
-            </div>
-            <div id="extra-limpieza" class="hidden mt-6 p-5 bg-cyan-50 rounded-xl border border-cyan-100">
-                <h3 class="font-bold text-cyan-900 flex items-center gap-2 mb-2"><span>✨</span> Servicios de Limpieza</h3>
-                <p class="text-cyan-900 text-sm">Control horario por GPS en el centro del cliente y facturación recurrente.</p>
-            </div>
-            <div id="extra-jardineros" class="hidden mt-6 p-5 bg-green-50 rounded-xl border border-green-100">
-                <h3 class="font-bold text-green-900 flex items-center gap-2 mb-2"><span>🌿</span> Jardinería Profesional</h3>
-                <p class="text-green-900 text-sm">Programación de tareas estacionales y control de productos fitosanitarios.</p>
-            </div>
-            <div id="extra-climatizacion" class="hidden mt-6 p-5 bg-sky-50 rounded-xl border border-sky-100">
-                <h3 class="font-bold text-sky-900 flex items-center gap-2 mb-2"><span>❄️</span> Especial Climatización y RITE</h3>
-                <p class="text-sky-900 text-sm">Control de gases fluorados, mantenimiento preventivo RITE y partes de SAT.</p>
+                {software.contenido_seo_extenso && <div class="whitespace-pre-line mt-4">{software.contenido_seo_extenso}</div>}
             </div>
 
             {/* VÍDEO INTEGRADO */}
             {software.video_demo_id && (
               <div class="mt-8 mb-8">
-                <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-                   <span>📺</span> Vídeo Demostración
-                </h3>
+                <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2"><span>📺</span> Vídeo Demostración 2026</h3>
                 <div class="aspect-video rounded-xl overflow-hidden shadow-lg bg-black">
-                  <iframe 
-                    width="100%" 
-                    height="100%" 
-                    src={`https://www.youtube.com/embed/${software.video_demo_id}`} 
-                    title={`${software.name} demo`}
-                    frameborder="0" 
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                    allowfullscreen
-                  ></iframe>
+                  <iframe width="100%" height="100%" src={`https://www.youtube.com/embed/${software.video_demo_id}`} title={`${software.name} demo`} frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>
               </div>
             )}
 
-            {/* GALERÍA DE LA APP (NUEVO) */}
+            {/* GALERÍA DE LA APP */}
             {software.screenshots && software.screenshots.length > 0 && (
                 <div class="mt-8 mb-8">
-                    <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
-                        <span>📱</span> Así es la App por dentro
-                    </h3>
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2"><span>📱</span> Así es la App por dentro</h3>
                     <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
                         {software.screenshots.map((img, index) => (
                             <div class="rounded-xl overflow-hidden border border-gray-200 shadow-sm hover:shadow-md transition cursor-pointer group">
-                                <img 
-                                    src={img} 
-                                    alt={`Captura pantalla ${software.name} ${index + 1}`} 
-                                    class="w-full h-48 object-cover object-top group-hover:scale-105 transition-transform duration-500"
-                                    loading="lazy"
-                                />
+                                <img src={img} alt={`Captura pantalla ${software.name} ${index + 1}`} class="w-full h-48 object-cover object-top group-hover:scale-105 transition-transform duration-500" loading="lazy" />
                             </div>
                         ))}
                     </div>
-                    <p class="text-xs text-gray-400 mt-2 text-center italic">Imágenes reales de la interfaz de usuario.</p>
                 </div>
             )}
-
         </section>
 
         <section class="grid md:grid-cols-2 gap-6">
@@ -243,8 +147,9 @@ const schema = {
         </section>
 
         <section class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-            <h2 class="text-2xl font-bold text-gray-800 mb-6">Preguntas Frecuentes</h2>
-            <div class="space-y-4">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Preguntas Frecuentes 2026</h2>
+            <div id="faq-container" class="space-y-4">
+                {/* Aquí se inyectará la FAQ Killer por JS primero */}
                 {faqsFinales.map((faq) => (
                     <details class="group border border-gray-200 rounded-xl open:bg-gray-50 transition-all">
                         <summary class="flex cursor-pointer items-center justify-between p-5 font-bold text-gray-800 list-none">
@@ -271,31 +176,97 @@ const schema = {
             <div class="mt-8 border-t border-gray-100 pt-6">
                 <h4 class="font-bold text-gray-800 text-sm mb-4">Ficha Técnica</h4>
                 <ul class="space-y-3 text-sm">
-                    <li class="flex justify-between text-gray-600"><span>App</span><span class="font-medium text-slate-900">{software.tabla_tecnica?.app_movil ? "Sí" : "Web"}</span></li>
-                    <li class="flex justify-between text-gray-600"><span>Nube</span><span class="font-medium text-slate-900">{software.tabla_tecnica?.nube ? "Sí" : "No"}</span></li>
+                    <li class="flex justify-between text-gray-600"><span>Tipo</span><span class="font-medium text-slate-900">{software.tabla_tecnica?.tipo || "Cloud"}</span></li>
+                    <li class="flex justify-between text-gray-600"><span>App Móvil</span><span class="font-medium text-slate-900">{software.tabla_tecnica?.app_movil ? "Sí" : "No"}</span></li>
+                    <li class="flex justify-between text-gray-600"><span>Soporte</span><span class="font-medium text-slate-900">{software.tabla_tecnica?.soporte_tecnico || "Email"}</span></li>
                 </ul>
             </div>
         </div>
     </div>
   </div>
 
-  <script define:vars={{ opinionesData }}>
-    document.addEventListener('DOMContentLoaded', () => {
-        const sector = new URLSearchParams(window.location.search).get('sector'); 
-        const box = document.getElementById('opinion-dinamica');
-        const titulo = document.getElementById('opinion-titulo');
-        const texto = document.getElementById('opinion-texto');
-        const icon = document.getElementById('opinion-icon');
+  <script define:vars={{ software }}>
+    // Configuración visual por sector (Colores e Iconos)
+    const sectorConfig = {
+        fontaneros: { titulo: "Opinión para Fontaneros", icon: "🔧", clase: "bg-blue-50 border-blue-500 text-blue-900", nombre: "Fontaneros" },
+        electricistas: { titulo: "Opinión para Electricistas", icon: "⚡", clase: "bg-yellow-50 border-yellow-500 text-yellow-900", nombre: "Electricistas" },
+        reformas: { titulo: "Opinión para Reformas", icon: "🧱", clase: "bg-orange-50 border-orange-500 text-orange-900", nombre: "Reformas" },
+        climatizacion: { titulo: "Opinión para Climatización", icon: "❄️", clase: "bg-sky-50 border-sky-500 text-sky-900", nombre: "Climatización" },
+        cerrajeros: { titulo: "Opinión para Cerrajeros", icon: "🔑", clase: "bg-zinc-100 border-zinc-600 text-zinc-900", nombre: "Cerrajeros" },
+        carpinteros: { titulo: "Opinión para Carpinteros", icon: "🪚", clase: "bg-amber-50 border-amber-600 text-amber-900", nombre: "Carpinteros" },
+        jardineros: { titulo: "Opinión para Jardineros", icon: "🌿", clase: "bg-green-50 border-green-600 text-green-900", nombre: "Jardineros" },
+        limpieza: { titulo: "Opinión para Limpieza", icon: "✨", clase: "bg-cyan-50 border-cyan-500 text-cyan-900", nombre: "Limpieza" },
+        talleres: { titulo: "Opinión para Taller", icon: "🚗", clase: "bg-red-50 border-red-500 text-red-900", nombre: "Talleres" }
+    };
 
-        if (sector && opinionesData[sector]) {
-            const d = opinionesData[sector];
-            titulo.textContent = d.titulo;
-            texto.textContent = `"${d.texto}"`;
-            icon.textContent = d.icon;
-            box.className = `p-8 rounded-2xl border-l-4 shadow-sm transition-all duration-300 ${d.clase}`;
+    // FAQs "Killer" específicas por sector
+    const extraFaqs = {
+        fontaneros: { p: "💧 ¿Funciona realmente en sótanos sin cobertura?", r: "Sí, es vital. Cuenta con tecnología 'Offline First': creas el parte sin red y se sincroniza al salir." },
+        electricistas: { p: "⚡ ¿Gestiona precios de materiales (cobre)?", r: "Sí. Permite importar tarifas de proveedores masivamente para actualizar precios y no perder margen." },
+        reformas: { p: "🧱 ¿Gestiona Certificaciones a Origen?", r: "Correcto. Puedes facturar por porcentaje de ejecución, descontando automáticamente lo facturado anteriormente." },
+        climatizacion: { p: "❄️ ¿Sirve para Gases Fluorados?", r: "Sí, genera los documentos oficiales de trazabilidad de gases y residuos para el Modelo 587." },
+        cerrajeros: { p: "🔑 ¿Tiene geolocalización para urgencias?", r: "Sí, puedes ver en el mapa dónde está cada técnico para asignar la urgencia al más cercano." },
+        carpinteros: { p: "🪚 ¿Incluye bocetos en el presupuesto?", r: "Sí, puedes adjuntar fotos y croquis directamente desde la tablet para cerrar la venta in-situ." },
+        limpieza: { p: "✨ ¿Cómo fichan los empleados?", r: "Mediante App móvil con GPS o escaneando un código QR instalado en el centro del cliente." },
+        jardineros: { p: "🌿 ¿Puedo facturar mantenimientos masivos?", r: "Sí. El día 1 de mes, genera y envía automáticamente todas las facturas de tus comunidades." },
+        talleres: { p: "🚗 ¿Imprime el Resguardo de Depósito?", r: "Sí, genera el documento legal obligatorio al recepcionar el vehículo con estado y kilómetros." }
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        let sector = urlParams.get('sector');
+        if (sector === 'climatizacion-y-aire-acondicionado') sector = 'climatizacion';
+
+        if (sector && sectorConfig[sector]) {
+            const config = sectorConfig[sector];
             
-            const cajaExtra = document.getElementById(`extra-${sector}`);
-            if (cajaExtra) cajaExtra.classList.remove('hidden');
+            // 1. DATA MINING: Buscar la opinión en el JSON
+            const pluralMap = { 'fontaneros': 'fontanero', 'electricistas': 'electricista', 'reformas': 'reformas', 'climatizacion': 'clima', 'cerrajeros': 'cerrajero', 'carpinteros': 'carpintero', 'jardineros': 'jardinero', 'limpieza': 'limpieza', 'talleres': 'taller' };
+            const jsonKey = `opinion_experto_${pluralMap[sector] || sector}`;
+            const textoOpinion = software[jsonKey];
+
+            // 2. MODIFICAR UI
+            if (textoOpinion) {
+                // A. Caja de Opinión Lateral
+                document.getElementById('opinion-titulo').textContent = config.titulo;
+                document.getElementById('opinion-texto').textContent = `"${textoOpinion}"`;
+                document.getElementById('opinion-icon').textContent = config.icon;
+                document.getElementById('opinion-dinamica').className = `p-8 rounded-2xl border-l-4 shadow-sm transition-all duration-300 ${config.clase}`;
+
+                // B. Párrafo Extra en el Cuerpo
+                const extraBox = document.getElementById('analisis-extra-sector');
+                if (extraBox) {
+                    extraBox.textContent = `💡 Veredicto para ${config.nombre}: ${textoOpinion}`;
+                    extraBox.classList.remove('hidden');
+                }
+            }
+
+            // 3. LIMPIAR LA LISTA DE GREMIOS
+            const listaGremios = document.getElementById('lista-gremios-dinamica');
+            if (listaGremios) {
+                listaGremios.innerHTML = ` <span class="text-indigo-700 font-black text-xl underline decoration-wavy decoration-indigo-300">${config.nombre}</span>`;
+            }
+
+            // 4. CAMBIAR H1
+            const h1 = document.getElementById('dynamic-h1');
+            if (h1) {
+                h1.innerHTML = `${software.name} <span class="text-indigo-300 block text-2xl mt-2 md:inline md:text-3xl md:mt-0">para ${config.nombre}</span>`;
+            }
+
+            // 5. INYECTAR FAQ KILLER (NUEVO)
+            const faqContainer = document.getElementById('faq-container');
+            if (faqContainer && extraFaqs[sector]) {
+                const nuevaFaq = document.createElement('details');
+                nuevaFaq.className = "group border border-blue-200 bg-blue-50 rounded-xl open:bg-blue-100 transition-all mb-4";
+                nuevaFaq.open = true; // Que aparezca abierta para llamar la atención
+                nuevaFaq.innerHTML = `
+                    <summary class="flex cursor-pointer items-center justify-between p-5 font-bold text-blue-900 list-none">
+                        ${extraFaqs[sector].p} <span class="group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <div class="px-5 pb-5 text-blue-800 leading-relaxed font-medium">${extraFaqs[sector].r}</div>
+                `;
+                faqContainer.prepend(nuevaFaq);
+            }
         } 
     });
   </script>

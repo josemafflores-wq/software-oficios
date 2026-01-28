@@ -36,7 +36,7 @@
             </div>
 
             <div class="lg:hidden flex items-center">
-                <button id="mobile-menu-button" class="text-slate-600 p-2 focus:outline-none">
+                <button id="mobile-menu-button" class="text-slate-600 p-2 focus:outline-none" aria-label="Abrir menú">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
                     </svg>
@@ -61,3 +61,16 @@
         <a href="/" class="block text-center bg-blue-600 text-white font-black p-4 rounded-xl shadow-lg mt-6 uppercase tracking-tight">Volver a la Home</a>
     </div>
 </nav>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('mobile-menu-button');
+        const menu = document.getElementById('mobile-menu');
+
+        if (btn && menu) {
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+        }
+    });
+</script>

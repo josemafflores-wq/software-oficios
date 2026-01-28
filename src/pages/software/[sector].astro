@@ -1,0 +1,344 @@
+---
+// src/pages/software/[sector].astro
+import Layout from '../../layouts/Layout.astro';
+import softwares from '../../softwares.json';
+
+export async function getStaticPaths() {
+  const sectores = [
+    // 1. FONTANEROS (Híbrido: Software + App de Partes)
+    { 
+      id: 'fontaneros', 
+      nombre: 'Fontaneros', 
+      emoji: '🔧',
+      titulo: 'Software para Fontaneros y App de Partes de Trabajo',
+      desc: 'El mejor software y App móvil para gestionar avisos de fontanería, controlar el stock de la furgoneta y facturar sin internet.',
+      filtro: ['fontaneros', 'fontanería', 'desatascos', 'pocería', 'calefacción'],
+      faq: { p: '¿La App funciona en sótanos sin cobertura?', r: 'Sí, es vital. Los programas seleccionados tienen modo "Offline First" para garajes.' },
+      opinionKey: 'opinion_experto_fontanero',
+      guiaTitulo: 'Guía 2026: Cómo elegir App y Programa para Fontanería',
+      guiaTexto: 'La fontanería moderna requiere movilidad total. No basta con un programa de oficina; necesitas una <strong>App de partes de trabajo</strong> que permita geolocalizar al técnico y facturar in-situ.',
+      bloques: [
+        { icon: '📱', t: 'App de Partes', d: 'Crea partes con fotos del "antes y después", recoge la firma del cliente en la pantalla y ciérralos al momento.' },
+        { icon: '📦', t: 'Stock en Furgoneta', d: 'Controla el stock de grifería y cobre. Descuenta el material del almacén móvil automáticamente.' },
+        { icon: '🧾', t: 'Facturación Verifactu', d: 'Evita sanciones. A partir de 2026, tus facturas deben llevar un código QR y Huella digital.' }
+      ]
+    },
+    // 2. ELECTRICISTAS
+    { 
+      id: 'electricistas', 
+      nombre: 'Electricistas', 
+      emoji: '⚡',
+      titulo: 'Software para Instaladores Electricistas y SAT',
+      desc: 'Gestiona boletines, mantenimientos preventivos y actualiza el precio del cable al día. Cumple el REBT y Verifactu.',
+      filtro: ['electricistas', 'instalador', 'mantenimiento', 'telecomunicaciones', 'fotovoltaica'],
+      faq: { p: '¿Gestiona mantenimientos preventivos?', r: 'Sí, genera avisos automáticos para revisiones de cuadros y extintores.' },
+      opinionKey: 'opinion_experto_electricista',
+      guiaTitulo: 'Guía 2026: Digitalización para el Instalador Eléctrico',
+      guiaTexto: 'El sector eléctrico tiene particularidades críticas: normativas estrictas (REBT), precios de materiales volátiles (cobre) y entornos difíciles. Necesitas automatizar las revisiones para asegurar ingresos recurrentes.',
+      bloques: [
+        { icon: '🔄', t: 'Mantenimientos', d: 'El secreto de la rentabilidad. Avisos automáticos de revisión de cuadros, extintores o placas solares.' },
+        { icon: '🔦', t: 'Trabajo Offline', d: 'Imprescindible para trabajar en cuartos de contadores o garajes sin cobertura móvil.' },
+        { icon: '🔌', t: 'Tarifas Proveedor', d: 'Importa tarifas de proveedores en Excel para actualizar el precio del material y no perder margen.' }
+      ]
+    },
+    // 3. REFORMAS
+    { 
+      id: 'reformas', 
+      nombre: 'Reformas', 
+      emoji: '🧱',
+      titulo: 'ERP de Construcción y Reformas Integrales',
+      desc: 'Controla la desviación de costes, gestiona certificaciones a origen y retenciones de garantía. No pierdas dinero en la obra.',
+      filtro: ['reformas', 'construcción', 'albañilería', 'pintores', 'interiorismo'],
+      faq: { p: '¿Permite certificaciones a origen?', r: 'Sí, puedes facturar por porcentaje de avance de obra restando lo anterior.' },
+      opinionKey: 'opinion_experto_reformas',
+      guiaTitulo: 'Control de Costes en Obras y Reformas',
+      guiaTexto: 'El mayor peligro en una reforma es la desviación presupuestaria. Estos ERPs te permiten imputar horas y materiales a cada proyecto para saber si estás ganando o perdiendo dinero en tiempo real.',
+      bloques: [
+        { icon: '🏗️', t: 'Certificaciones', d: 'Factura por avance de obra (Certificaciones a Origen) sin pelearte con el Excel.' },
+        { icon: '📉', t: 'Control de Costes', d: 'Analiza la rentabilidad real. Compara lo presupuestado contra lo gastado en materiales y horas.' },
+        { icon: '🤝', t: 'Gestión de Subcontratas', d: 'Organiza a tus albañiles, pintores y fontaneros en un solo calendario compartido.' }
+      ]
+    },
+    // 4. CLIMATIZACIÓN
+    { 
+      id: 'climatizacion-y-aire-acondicionado', 
+      nombre: 'Climatización', 
+      emoji: '❄️',
+      titulo: 'Software para Frigoristas, RITE y Gases',
+      desc: 'Genera automáticamente los documentos de Gases Fluorados y contratos de mantenimiento RITE. Gestión SAT profesional.',
+      filtro: ['climatización', 'aire acondicionado', 'hvac', 'frigoristas', 'calefacción'],
+      faq: { p: '¿Controla los Gases Fluorados?', r: 'Sí, genera el libro de registro oficial de gases y residuos para el Modelo 587.' },
+      opinionKey: 'opinion_experto_clima',
+      guiaTitulo: 'Normativa RITE y Gases Fluorados 2026',
+      guiaTexto: 'Los frigoristas se enfrentan a una carga burocrática enorme. Necesitas un software que genere los documentos de trazabilidad de gases y los contratos de mantenimiento RITE automáticamente.',
+      bloques: [
+        { icon: '🧪', t: 'Gases Fluorados', d: 'Registro automático de carga, recuperación y residuos de gases refrigerantes para Hacienda.' },
+        { icon: '📝', t: 'Contratos RITE', d: 'Gestión de mantenimientos preventivos obligatorios de calderas y aire acondicionado.' },
+        { icon: '📱', t: 'Historial de Máquina', d: 'Escanea un QR en la máquina del cliente para ver todo su historial de reparaciones.' }
+      ]
+    },
+    // 5. CERRAJEROS (Híbrido: Prioridad APP para urgencias)
+    { 
+      id: 'cerrajeros', 
+      nombre: 'Cerrajeros', 
+      emoji: '🔑',
+      titulo: 'App para Cerrajeros 24h y Software de Gestión',
+      desc: 'Geolocalización de técnicos, cobro con tarjeta en la puerta y firma digital legal desde el móvil.',
+      filtro: ['cerrajeros', 'cerrajería', 'seguridad', 'puertas'],
+      faq: { p: '¿La App tiene geolocalización?', r: 'Sí, puedes ver en el mapa quién está más cerca de la urgencia para asignarla.' },
+      opinionKey: 'opinion_experto_cerrajero',
+      guiaTitulo: 'Gestión de Urgencias 24h para Cerrajeros',
+      guiaTexto: 'En la cerrajería de urgencia, la velocidad de respuesta es dinero. Necesitas una App que te permita cobrar el servicio antes de irte y recoger la firma de autorización digitalmente.',
+      bloques: [
+        { icon: '📍', t: 'Geolocalización GPS', d: 'Asigna el aviso al técnico que esté más cerca de la urgencia para llegar antes que la competencia.' },
+        { icon: '✍️', t: 'Firma Legal en App', d: 'Recoge la firma de autorización de apertura y conformidad del cliente directamente en la pantalla.' },
+        { icon: '💳', t: 'Cobro In-Situ', d: 'Integra pasarelas de pago para cobrar con tarjeta en la misma puerta.' }
+      ]
+    },
+    // 6. CARPINTEROS
+    { 
+      id: 'carpinteros', 
+      nombre: 'Carpinteros', 
+      emoji: '🪚',
+      titulo: 'Software para Carpintería y Aluminio',
+      desc: 'Presupuestos detallados por medidas, control de costes y gestión de fabricación en taller. Vende más con bocetos.',
+      filtro: ['carpinteros', 'carpintería', 'madera', 'aluminio', 'ebanistería'],
+      faq: { p: '¿Permite presupuestos por medidas?', r: 'Sí, calcula el precio final basándose en alto x ancho y m2 de material.' },
+      opinionKey: 'opinion_experto_carpintero',
+      guiaTitulo: 'Del Taller a la Obra: Digitalización',
+      guiaTexto: 'Ya sea madera o aluminio, el error en las medidas cuesta dinero. Usa herramientas que te permitan adjuntar fotos del hueco y bocetos directamente en el presupuesto.',
+      bloques: [
+        { icon: '📏', t: 'Presupuesto por Medidas', d: 'Crea artículos que calculan el precio automáticamente según alto x ancho.' },
+        { icon: '🎨', t: 'Bocetos y Fotos', d: 'Adjunta fotos del sitio y bocetos del mueble para evitar errores de fabricación.' },
+        { icon: '🏭', t: 'Orden de Taller', d: 'Genera automáticamente la orden de fabricación para los operarios del taller.' }
+      ]
+    },
+    // 7. JARDINEROS
+    { 
+      id: 'jardineros', 
+      nombre: 'Jardinería', 
+      emoji: '🌿',
+      titulo: 'Software de Gestión para Jardineros',
+      desc: 'Planifica rutas de mantenimiento, control de fitosanitarios y facturación recurrente por comunidades.',
+      filtro: ['jardineros', 'jardinería', 'paisajismo', 'piscinas'],
+      faq: { p: '¿Organiza las rutas diarias?', r: 'Sí, optimiza el recorrido diario de la cuadrilla para ahorrar gasolina.' },
+      opinionKey: 'opinion_experto_jardinero',
+      guiaTitulo: 'Gestión de Rutas y Mantenimientos Verdes',
+      guiaTexto: 'La rentabilidad en jardinería depende de la densidad de la ruta. Agrupa clientes por zonas y automatiza la facturación mensual de las comunidades de vecinos.',
+      bloques: [
+        { icon: '🚚', t: 'Rutas Inteligentes', d: 'Optimiza el orden de visita de los jardines y piscinas para ahorrar combustible.' },
+        { icon: '🔄', t: 'Facturación Recurrente', d: 'Genera y envía las 50 facturas de mantenimiento de tus comunidades en un clic.' },
+        { icon: '🧪', t: 'Fitosanitarios', d: 'Lleva un registro de los productos aplicados en cada cliente para cumplir la normativa.' }
+      ]
+    },
+    // 8. LIMPIEZA (Híbrido: Software + Control Horario)
+    { 
+      id: 'limpieza', 
+      nombre: 'Limpieza', 
+      emoji: '✨',
+      titulo: 'Software para Empresas de Limpieza y Control Horario',
+      desc: 'El mejor ERP y App de fichaje para controlar cuadrantes, geolocalizar empleados y gestionar la rentabilidad por servicio.',
+      filtro: ['limpieza', 'limpiezas', 'servicios', 'facility'],
+      faq: { p: '¿Cómo fichan los empleados en el cliente?', r: 'Mediante App móvil con geolocalización o escaneando un código QR pegado en la pared del centro.' },
+      opinionKey: 'opinion_experto_limpieza',
+      guiaTitulo: 'Control de Personal y Cuadrantes en Limpieza',
+      guiaTexto: 'En el sector limpieza, el margen se pierde si no controlas las horas reales. Olvida los partes en papel; necesitas una <strong>App de control horario</strong> que te diga en tiempo real quién ha llegado a su puesto.',
+      bloques: [
+        { icon: '📍', t: 'Fichaje GPS/QR', d: 'Control de presencia infalible. El empleado ficha desde su móvil al llegar, validando su ubicación GPS.' },
+        { icon: '📅', t: 'Gestión de Cuadrantes', d: 'Organiza turnos rotativos, bajas y vacaciones de forma visual para cubrir todos los servicios.' },
+        { icon: '💰', t: 'Rentabilidad por Centro', d: 'Analiza si un contrato es rentable cruzando horas trabajadas reales vs precio facturado al cliente.' }
+      ]
+    },
+    // 9. TALLERES
+    { 
+      id: 'talleres', 
+      nombre: 'Talleres', 
+      emoji: '🚗',
+      titulo: 'Programa de Gestión de Taller Mecánico',
+      desc: 'Recepción por matrícula, resguardo de depósito legal, Órdenes de Reparación (OR) y conexión con recambios.',
+      filtro: ['talleres', 'taller', 'mecánico', 'chapa', 'automoción'],
+      faq: { p: '¿Genera el Resguardo de Depósito?', r: 'Sí, imprime el documento legal obligatorio al dejar el vehículo.' },
+      opinionKey: 'opinion_experto_taller',
+      guiaTitulo: 'Digitalización del Taller Mecánico',
+      guiaTexto: 'Moderniza la recepción de vehículos. Entrega resguardos de depósito legales y avisa a tus clientes por WhatsApp cuando su coche esté listo para recoger.',
+      bloques: [
+        { icon: '🚗', t: 'Recepción por Matrícula', d: 'Consulta el historial del vehículo y crea la Orden de Reparación (OR) al instante.' },
+        { icon: '📄', t: 'Resguardo Depósito', d: 'Cumple con la ley de talleres entregando el resguardo obligatorio al recibir el coche.' },
+        { icon: '📲', t: 'Avisos Cliente', d: 'Envía SMS o WhatsApp automáticos cuando el vehículo está terminado.' }
+      ]
+    }
+  ];
+
+  return sectores.map((sector) => ({
+    params: { sector: sector.id },
+    props: { info: sector },
+  }));
+}
+
+const { info } = Astro.props;
+
+// FILTRADO INTELIGENTE
+const especialistas = softwares.filter(s => 
+    s.target_gremios && s.target_gremios.some(g => {
+        const gLower = g.toLowerCase();
+        return info.filtro.some(term => gLower.includes(term));
+    })
+);
+
+// ORDENAR: Verifactu primero + Lógica de negocio
+const topTable = especialistas
+    .sort((a, b) => (b.legal_spain?.verifactu_ready ? 1 : 0) - (a.legal_spain?.verifactu_ready ? 1 : 0))
+    .slice(0, 5);
+
+// SCHEMA DINÁMICO
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": info.faq.p, "acceptedAnswer": { "@type": "Answer", "text": info.faq.r } },
+    { "@type": "Question", "name": "¿Es obligatorio el software Verifactu?", "acceptedAnswer": { "@type": "Answer", "text": "A partir de 2026 será obligatorio para cumplir con la Ley Antifraude y evitar sanciones." } }
+  ]
+};
+---
+
+<Layout 
+    title={`${info.titulo} 2026 | Comparativa y Precios`}
+    description={`Los 7 mejores programas para ${info.nombre}. ${info.desc} Precios, opiniones y funciones Verifactu.`}
+>
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
+    {/* HERO HEADER */}
+    <header class="bg-blue-900 text-white py-16 px-6 relative overflow-hidden -mt-4">
+        <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+        <div class="max-w-4xl mx-auto relative z-10">
+            <div class="inline-block bg-blue-800 text-blue-200 text-xs font-bold px-3 py-1 rounded-full mb-4 border border-blue-700 uppercase">
+                {info.emoji} {info.nombre} 2026
+            </div>
+            <h1 class="text-3xl md:text-5xl font-black mb-4 tracking-tight leading-tight">
+                {info.titulo}
+            </h1>
+            <p class="text-lg text-blue-100 max-w-2xl opacity-90 leading-relaxed">
+                {info.desc}
+            </p>
+        </div>
+    </header>
+
+    {/* TABLA COMPARATIVA */}
+    <section class="max-w-6xl mx-auto px-6 -mt-10 relative z-20 mb-16">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
+            <div class="bg-slate-900 p-4 flex justify-between items-center">
+                <h2 class="text-white font-bold text-sm uppercase tracking-widest">Top {info.nombre}</h2>
+                <span class="bg-green-600 text-white text-[10px] px-2 py-1 rounded font-bold animate-pulse">VERIFACTU READY</span>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold uppercase text-slate-500">
+                            <th class="p-4 whitespace-nowrap">Software</th>
+                            <th class="p-4 whitespace-nowrap">Precio Base</th>
+                            <th class="p-4 text-center whitespace-nowrap">App Móvil</th>
+                            <th class="p-4"></th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm">
+                        {topTable.map((s) => (
+                            <tr class="border-b border-slate-100 hover:bg-blue-50/50 transition-colors">
+                                <td class="p-4 font-bold text-slate-800 flex items-center gap-3 whitespace-nowrap">
+                                    {s.logo_url ? <img src={s.logo_url} class="w-8 h-8 object-contain" alt="" /> : <span class="text-xl">📱</span>}
+                                    {s.name}
+                                </td>
+                                <td class="p-4 font-black text-blue-700 whitespace-nowrap">
+                                    {s.pricing?.start_price ? `${s.pricing.start_price}€` : '-'}
+                                </td>
+                                <td class="p-4 text-center text-lg">{s.tabla_tecnica?.app_movil ? '✅' : '❌'}</td>
+                                <td class="p-4 text-right">
+                                    <a href={s.url_afiliado} target="_blank" rel="nofollow noopener" class="inline-block bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black px-4 py-2 rounded uppercase transition-colors shadow-sm">
+                                        Ver Web
+                                    </a>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    {/* LISTADO TARJETAS */}
+    <main class="max-w-5xl mx-auto py-12 px-6">
+        <div class="space-y-12">
+            {especialistas.map((soft) => (
+                <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden hover:shadow-xl transition-shadow">
+                    <div class="p-6 md:p-10">
+                        <div class="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-8">
+                            <div class="flex items-start gap-6">
+                                <div class="w-20 h-20 bg-white rounded-xl flex items-center justify-center border border-slate-200 shadow-sm p-2 shrink-0">
+                                    {soft.logo_url ? <img src={soft.logo_url} alt={soft.name} class="w-full h-full object-contain" /> : <span class="text-3xl font-black text-slate-300">{soft.name[0]}</span>}
+                                </div>
+                                <div>
+                                    <h3 class="text-2xl font-black text-slate-800">
+                                        <a href={`/analisis/${soft.id}?sector=${info.id}`} class="hover:text-blue-700 underline decoration-blue-200 decoration-4 underline-offset-4 transition">{soft.name}</a>
+                                    </h3>
+                                    <div class="flex flex-wrap gap-2 mt-3">
+                                        {soft.legal_spain?.verifactu_ready && <span class="text-green-700 font-bold text-[10px] uppercase bg-green-50 px-2 py-1 rounded border border-green-200">✅ Verifactu</span>}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-3xl font-black text-slate-900">{soft.pricing?.start_price ? `${soft.pricing.start_price}€` : 'Consultar'}</span>
+                                {soft.pricing?.has_free_trial && <div class="text-blue-600 text-xs font-bold mt-1">Prueba {soft.pricing.trial_days} días</div>}
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <div class="md:col-span-2 space-y-4">
+                                <div class="prose prose-slate prose-sm">
+                                    <h4 class="text-lg font-bold text-slate-800 mb-1">Análisis para {info.nombre}</h4>
+                                    <p class="text-slate-600 leading-relaxed">
+                                        {/* Magia: Texto específico del JSON */}
+                                        {soft[info.opinionKey] || soft.short_description}
+                                    </p>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    {soft.features && soft.features.slice(0, 4).map(f => (
+                                        <span class="bg-slate-50 text-slate-700 text-xs font-bold px-2 py-1 rounded border border-slate-200 uppercase">{f}</span>
+                                    ))}
+                                </div>
+                            </div>
+                            <div class="flex flex-col gap-3 justify-center">
+                                <a href={soft.url_afiliado || "#"} target="_blank" rel="nofollow noopener" class="bg-blue-600 hover:bg-blue-700 text-white font-black py-3 rounded-xl text-center shadow-lg transition transform hover:-translate-y-1">
+                                    VISITAR WEB
+                                </a>
+                                <a href={`/analisis/${soft.id}?sector=${info.id}`} class="text-center text-slate-600 font-bold text-sm hover:underline">
+                                    Leer análisis completo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+
+        {/* GUÍA SEO DINÁMICA (Inyectada desde la constante sectores) */}
+        {info.guiaTitulo && (
+            <div class="mt-20 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden p-8 md:p-12">
+                <div class="prose prose-slate max-w-none">
+                    <h2 class="text-3xl font-black text-slate-800 mb-6">{info.guiaTitulo}</h2>
+                    <p class="text-lg leading-relaxed text-slate-600" set:html={info.guiaTexto}></p>
+                </div>
+
+                {info.bloques && (
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 not-prose my-10 border-y border-slate-100 py-10">
+                        {info.bloques.map(bloque => (
+                            <div class="p-6 bg-blue-50 rounded-2xl border border-blue-100">
+                                <div class="text-4xl mb-4">{bloque.icon}</div>
+                                <h4 class="font-bold text-blue-900 mb-3 text-lg">{bloque.t}</h4>
+                                <p class="text-sm text-blue-800 leading-relaxed">{bloque.d}</p>
+                            </div>
+                        ))}
+                    </div>
+                )}
+            </div>
+        )}
+    </main>
+</Layout>
