@@ -5,7 +5,7 @@ import softwares from '../../softwares.json';
 
 export async function getStaticPaths() {
   const sectores = [
-    // 1. FONTANEROS (Híbrido: Software + App de Partes)
+    // 1. FONTANEROS
     { 
       id: 'fontaneros', 
       nombre: 'Fontaneros', 
@@ -77,7 +77,7 @@ export async function getStaticPaths() {
         { icon: '📱', t: 'Historial de Máquina', d: 'Escanea un QR en la máquina del cliente para ver todo su historial de reparaciones.' }
       ]
     },
-    // 5. CERRAJEROS (Híbrido: Prioridad APP para urgencias)
+    // 5. CERRAJEROS
     { 
       id: 'cerrajeros', 
       nombre: 'Cerrajeros', 
@@ -131,7 +131,7 @@ export async function getStaticPaths() {
         { icon: '🧪', t: 'Fitosanitarios', d: 'Lleva un registro de los productos aplicados en cada cliente para cumplir la normativa.' }
       ]
     },
-    // 8. LIMPIEZA (Híbrido: Software + Control Horario)
+    // 8. LIMPIEZA
     { 
       id: 'limpieza', 
       nombre: 'Limpieza', 
@@ -177,18 +177,36 @@ export async function getStaticPaths() {
 
 const { info } = Astro.props;
 
-// FILTRADO INTELIGENTE
-const especialistas = softwares.filter(s => 
+// 1. FILTRADO (Buscamos los que corresponden al gremio)
+let especialistas = softwares.filter(s => 
     s.target_gremios && s.target_gremios.some(g => {
         const gLower = g.toLowerCase();
         return info.filtro.some(term => gLower.includes(term));
     })
 );
 
-// ORDENAR: Verifactu primero + Lógica de negocio
-const topTable = especialistas
-    .sort((a, b) => (b.legal_spain?.verifactu_ready ? 1 : 0) - (a.legal_spain?.verifactu_ready ? 1 : 0))
-    .slice(0, 5);
+// 2. ORDENACIÓN VIP (STEL y TACLIA siempre primero)
+const vipList = ['stel-order', 'taclia'];
+
+especialistas.sort((a, b) => {
+    const vipA = vipList.indexOf(a.id);
+    const vipB = vipList.indexOf(b.id);
+    
+    // Si ambos son VIP, respeta el orden de la lista vipList
+    if (vipA !== -1 && vipB !== -1) return vipA - vipB;
+    
+    // Si solo A es VIP, A va antes (-1)
+    if (vipA !== -1) return -1;
+    
+    // Si solo B es VIP, B va antes (1)
+    if (vipB !== -1) return 1;
+    
+    // Si ninguno es VIP, ordena por Verifactu (True primero)
+    return (b.legal_spain?.verifactu_ready ? 1 : 0) - (a.legal_spain?.verifactu_ready ? 1 : 0);
+});
+
+// 3. TOP TABLE (Coge los 5 primeros, que ya están ordenados con los VIP arriba)
+const topTable = especialistas.slice(0, 5);
 
 // SCHEMA DINÁMICO
 const schema = {
@@ -247,9 +265,13 @@ const schema = {
                                     {s.logo_url ? <img src={s.logo_url} class="w-8 h-8 object-contain" alt="" /> : <span class="text-xl">📱</span>}
                                     {s.name}
                                 </td>
+                                
                                 <td class="p-4 font-black text-blue-700 whitespace-nowrap">
-                                    {s.pricing?.start_price ? `${s.pricing.start_price}€` : '-'}
+                                    {s.pricing?.start_price === 0 
+                                      ? <span class="text-slate-900 uppercase">GRATIS</span> 
+                                      : (s.pricing?.start_price ? `${s.pricing.start_price}€` : '-')}
                                 </td>
+                                
                                 <td class="p-4 text-center text-lg">{s.tabla_tecnica?.app_movil ? '✅' : '❌'}</td>
                                 <td class="p-4 text-right">
                                     <a href={s.url_afiliado} target="_blank" rel="nofollow noopener" class="inline-block bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black px-4 py-2 rounded uppercase transition-colors shadow-sm">
@@ -285,7 +307,12 @@ const schema = {
                                 </div>
                             </div>
                             <div class="text-right">
-                                <span class="text-3xl font-black text-slate-900">{soft.pricing?.start_price ? `${soft.pricing.start_price}€` : 'Consultar'}</span>
+                                
+                                {soft.pricing?.start_price === 0 
+                                  ? <span class="text-3xl font-black text-slate-900">GRATIS</span> 
+                                  : <span class="text-3xl font-black text-slate-900">{soft.pricing?.start_price ? `${soft.pricing.start_price}€` : 'Consultar'}</span>
+                                }
+                                
                                 {soft.pricing?.has_free_trial && <div class="text-blue-600 text-xs font-bold mt-1">Prueba {soft.pricing.trial_days} días</div>}
                             </div>
                         </div>
@@ -319,7 +346,7 @@ const schema = {
             ))}
         </div>
 
-        {/* GUÍA SEO DINÁMICA (Inyectada desde la constante sectores) */}
+        {/* GUÍA SEO DINÁMICA */}
         {info.guiaTitulo && (
             <div class="mt-20 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden p-8 md:p-12">
                 <div class="prose prose-slate max-w-none">

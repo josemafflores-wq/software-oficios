@@ -22,7 +22,6 @@
     "pros": ["La mejor App offline del mercado", "Cumplimiento legal total (VeriFactu)", "Soporte telefónico en español"],
     "cons": ["Curva de aprendizaje inicial en la versión web"],
     "contenido_seo_extenso": "STEL Order es el todoterreno número 1 en España. Su app offline es la más robusta del mercado, permitiendo trabajar sin interrupciones en cualquier lugar.",
-    
     "opinion_experto_fontanero": "El mejor para trabajar en sótanos (grupos de presión). Si no tienes cobertura, sigues facturando y no pierdes albaranes.",
     "opinion_experto_electricista": "Imprescindible para gestionar precios de materiales (cobre) al importar tarifas de proveedores masivamente.",
     "opinion_experto_clima": "Incluye módulo específico de Gases Fluorados (Modelo 587) y gestiona el historial de máquinas instaladas.",
@@ -32,7 +31,6 @@
     "opinion_experto_jardinero": "Ideal para facturar mantenimientos recurrentes (igualas) a comunidades de vecinos masivamente el día 1 de mes.",
     "opinion_experto_carpintero": "Catálogo visual potente en la tablet para enseñar acabados y herrajes al cliente in-situ.",
     "opinion_experto_limpieza": "Control de presencia básico y gestión de productos consumidos por cliente.",
-
     "tabla_tecnica": { "tipo": "Cloud + App Nativa", "app_movil": true, "firma_digital": true, "soporte_tecnico": "Teléfono y Chat" }
   },
   {
@@ -42,7 +40,7 @@
     "web_oficial": "https://taclia.com",
     "url_afiliado": "https://taclia.com",
     "logo_url": "https://unavatar.io/taclia.com",
-    "video_demo_id": "D4L8ehnMEF0",
+    "video_demo_id": "inYgjdyglaM",
     "kit_digital_eligible": true,
     "nivel_dificultad": "Muy Bajo",
     "faqs_seo": [
@@ -57,14 +55,12 @@
     "pros": ["Plan Gratuito real", "Muy fácil de usar (sin manuales)", "Modularidad total"],
     "cons": ["Pocas opciones de stock avanzado"],
     "contenido_seo_extenso": "Taclia rompe barreras con su plan gratuito. La mejor opción si estás empezando y no quieres costes fijos.",
-    
     "opinion_experto_fontanero": "Perfecto para el fontanero autónomo de reparaciones rápidas que quiere dejar el papel sin pagar cuotas.",
     "opinion_experto_limpieza": "El mejor para el control horario. Fichaje por GPS o QR en el centro del cliente muy fácil de usar.",
     "opinion_experto_reformas": "Muy visual para presupuestos rápidos de pequeñas reformas o 'manitas'.",
     "opinion_experto_cerrajero": "Geolocalización rápida para asignar urgencias al técnico más cercano en tiempo real.",
     "opinion_experto_jardinero": "Organiza rutas de poda y riego arrastrando citas en el calendario visualmente.",
     "opinion_experto_electricista": "La mejor opción gratuita para el electricista autónomo que hace reparaciones domésticas sencillas.",
-
     "tabla_tecnica": { "tipo": "Cloud", "app_movil": true, "firma_digital": true, "soporte_tecnico": "Chat" }
   },
   {
@@ -74,7 +70,7 @@
     "web_oficial": "https://fixner.com/",
     "url_afiliado": "https://fixner.com/?ref=comparador",
     "logo_url": "https://unavatar.io/fixner.com",
-    "video_demo_id": "ypxPbFrLlw4",
+    "video_demo_id": "yakBpDhQTLA",
     "kit_digital_eligible": true,
     "nivel_dificultad": "Medio",
     "faqs_seo": [
@@ -89,14 +85,12 @@
     "pros": ["Automatización de facturas", "Soporte excelente", "Rentabilidad real"],
     "cons": ["Interfaz algo técnica"],
     "contenido_seo_extenso": "Fixner es la bestia de los mantenimientos recurrentes. Si vives de cuotas o revisiones, es tu software.",
-    
     "opinion_experto_clima": "Imbatible para gestionar contratos de mantenimiento RITE. Avisa cuando toca revisión de caldera automáticamente.",
     "opinion_experto_limpieza": "Permite gestionar cuadrantes de servicios recurrentes y analizar la rentabilidad real por centro de trabajo.",
     "opinion_experto_jardinero": "El mejor para planificar las visitas de poda y riego automatizadas.",
     "opinion_experto_reformas": "El único SaaS ligero que gestiona bien las Certificaciones a Origen y Retenciones de Garantía.",
     "opinion_experto_electricista": "Gestión de activos (cuadros eléctricos) brutal. Sabes qué componente instalaste hace 5 años.",
     "opinion_experto_taller": "Muy bueno gestionando el flujo de recepción de vehículos y avisos al cliente.",
-
     "tabla_tecnica": { "tipo": "Cloud", "app_movil": true, "firma_digital": true, "soporte_tecnico": "Chat y Email" }
   },
   {
@@ -121,11 +115,9 @@
     "pros": ["Interfaz moderna", "Configuración rápida", "Voz a texto"],
     "cons": ["Menos funciones contables profundas"],
     "contenido_seo_extenso": "ToolTime destaca por su calendario visual y su sencillez alemana adaptada a España.",
-    
     "opinion_experto_reformas": "Si odias los excels complicados, este planificador visual te enamorará. Documenta todo con fotos.",
     "opinion_experto_carpintero": "Muy visual para organizar las instalaciones de cocinas o armarios. El técnico ve las fotos del hueco antes de ir.",
     "opinion_experto_fontanero": "Genial para documentar averías con fotos y notas de voz (dictado) sin manchar el móvil.",
-    
     "tabla_tecnica": { "tipo": "Cloud", "app_movil": true, "firma_digital": true, "soporte_tecnico": "Chat" }
   },
   {
@@ -135,7 +127,7 @@
     "web_oficial": "https://www.houzz.es/pro",
     "url_afiliado": "https://www.houzz.es/pro",
     "logo_url": "https://unavatar.io/houzz.com",
-    "video_demo_id": "rVdJ_C8Fj5s",
+    "video_demo_id": "a-8zwJdZu2o",
     "kit_digital_eligible": true,
     "nivel_dificultad": "Medio",
     "faqs_seo": [
@@ -149,11 +141,9 @@
     "pros": ["Herramientas de diseño increíbles", "Atrae clientes premium", "Portal Cliente"],
     "cons": ["No adaptado a Verifactu aún", "Precio alto"],
     "contenido_seo_extenso": "Houzz Pro es una herramienta de ventas. Sus planos 3D venden obras solos.",
-    
     "opinion_experto_reformas": "Si quieres cobrar caro por tus reformas, presenta los presupuestos con sus planos 3D y portal de cliente.",
     "opinion_experto_carpintero": "Increíble para diseñar vestidores y cocinas en 3D delante del cliente y cerrar la venta ahí mismo.",
     "opinion_experto_jardinero": "Tiene herramientas de diseño de paisajismo en 3D que justifican su precio para obras de lujo.",
-    
     "tabla_tecnica": { "tipo": "Cloud + App", "app_movil": true, "firma_digital": true, "soporte_tecnico": "Teléfono" }
   },
   {
@@ -178,21 +168,19 @@
     "pros": ["Interfaz preciosa", "Automatiza la contabilidad", "Factura Electrónica B2B"],
     "cons": ["No tiene gestión de campo/SAT"],
     "contenido_seo_extenso": "Holded es el rey de la facturación y la contabilidad en la nube. Ideal si no necesitas partes de trabajo complejos.",
-    
     "opinion_experto_reformas": "Ideal para estudios de arquitectura o reformas que subcontratan todo y solo necesitan facturar y controlar el margen financiero.",
     "opinion_experto_carpintero": "Gestión de stock de materiales básica y facturación B2B muy potente para trabajar con constructoras.",
     "opinion_experto_taller": "Muy bueno para la gestión de inventario de piezas y facturación, aunque le falta módulo de taller específico.",
-    
     "tabla_tecnica": { "tipo": "Cloud", "app_movil": true, "firma_digital": false, "soporte_tecnico": "Chat" }
   },
-   {
+  {
     "id": "praxedo",
     "name": "Praxedo",
     "short_description": "Líder en gestión de servicios de campo (FSM) para medianas y grandes empresas.",
     "web_oficial": "https://www.praxedo.es",
     "url_afiliado": "https://www.praxedo.es",
     "logo_url": "https://unavatar.io/praxedo.es",
-    "video_demo_id": "1htwBFGLNY4",
+    "video_demo_id": "JLkhn9_eY7M",
     "kit_digital_eligible": true,
     "nivel_dificultad": "Alto",
     "faqs_seo": [
@@ -207,12 +195,10 @@
     "pros": ["Ahorro real en combustible", "App súper profesional", "SmartScheduler (IA)"],
     "cons": ["Requiere tiempo de implementación"],
     "contenido_seo_extenso": "Praxedo optimiza cada kilómetro de tus furgonetas con IA. Ideal para flotas medianas y grandes.",
-    
     "opinion_experto_fontanero": "Para flotas de más de 10 técnicos. Optimiza rutas inteligentes para ahorrar combustible en avisos.",
     "opinion_experto_electricista": "Potencia pura para grandes instaladoras. Se conecta con ERPs grandes como SAP y gestiona miles de activos.",
     "opinion_experto_clima": "El estándar para grandes empresas de servicios energéticos. Checklist RITE obligatorios en la app.",
     "opinion_experto_limpieza": "Garantiza el cumplimiento de SLAs en grandes contratos de facility services.",
-
     "tabla_tecnica": { "tipo": "Cloud", "app_movil": true, "firma_digital": true, "soporte_tecnico": "Soporte Enterprise" }
   }
 ]
