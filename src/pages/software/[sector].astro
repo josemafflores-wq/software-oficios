@@ -5,8 +5,6 @@ import softwares from '../../softwares.json';
 
 export async function getStaticPaths() {
   const sectores = [
-    // ... (Mantén aquí la lista de sectores: reformas, climatizacion, cerrajeros, carpinteros, jardineros, limpieza, talleres)
-    // Asegúrate de incluir todos los que tenías antes para que no den error 404
     { 
       id: 'reformas', 
       nombre: 'Reformas', 
@@ -19,14 +17,127 @@ export async function getStaticPaths() {
       guiaTexto: 'El mayor peligro en una reforma es la desviación presupuestaria. Estos ERPs permiten imputar horas y materiales a cada proyecto para saber si estás ganando o perdiendo dinero en tiempo real.',
       faqs: [
         { q: "¿Cómo controlo si estoy perdiendo dinero en una obra?", a: "Los softwares especializados permiten comparar en tiempo real el presupuesto aceptado contra el gasto real en materiales y horas de personal." },
-        { q: "¿Es posible hacer certificaciones parciales?", a: "Sí, el sistema permite generar facturas por porcentaje de avance de obra." }
+        { q: "¿Es posible hacer certificaciones parciales?", a: "Sí, el sistema permite generar facturas por porcentaje de avance de obra (Certificaciones a Origen) restando automáticamente lo ya facturado." }
       ],
       bloques: [
         { icon: '🏗️', t: 'Certificaciones', d: 'Factura por avance de obra sin errores manuales.' },
         { icon: '📉', t: 'Control de Costes', d: 'Analiza la rentabilidad real de cada proyecto al momento.' }
       ]
     },
-    // ... (Añade aquí el resto de objetos de sector: climatizacion, cerrajeros, carpinteros, jardineros, limpieza, talleres)
+    { 
+      id: 'climatizacion-y-aire-acondicionado', 
+      nombre: 'Climatización', 
+      emoji: '❄️',
+      titulo: 'Software para Frigoristas, RITE y Gases',
+      desc: 'Genera automáticamente los documentos de Gases Fluorados y contratos de mantenimiento RITE.',
+      filtro: ['climatización', 'aire acondicionado', 'hvac', 'frigoristas', 'calefacción'],
+      opinionKey: 'opinion_experto_clima',
+      guiaTitulo: 'Normativa RITE y Gases Fluorados 2026',
+      guiaTexto: 'Los frigoristas se enfrentan a una carga burocrática enorme. Necesitas un software que genere los documentos de trazabilidad de gases automáticamente.',
+      faqs: [
+        { q: "¿El programa genera el libro oficial de gases?", a: "Sí, automatizan el registro de carga, recuperación y residuos de gases refrigerantes para cumplir con el Modelo 587." },
+        { q: "¿Puedo llevar el historial de cada máquina?", a: "Sí, puedes crear una ficha por equipo con código QR para ver averías y mantenimientos pasados." }
+      ],
+      bloques: [
+        { icon: '🧪', t: 'Gases Fluorados', d: 'Registro automático de carga y residuos refrigerantes.' },
+        { icon: '📝', t: 'Contratos RITE', d: 'Gestión de mantenimientos preventivos obligatorios.' }
+      ]
+    },
+    { 
+      id: 'cerrajeros', 
+      nombre: 'Cerrajeros', 
+      emoji: '🔑',
+      titulo: 'App para Cerrajeros 24h y Gestión',
+      desc: 'Geolocalización de técnicos, cobro con tarjeta en la puerta y firma digital legal.',
+      filtro: ['cerrajeros', 'cerrajería', 'seguridad', 'puertas'],
+      opinionKey: 'opinion_experto_cerrajero',
+      guiaTitulo: 'Gestión de Urgencias 24h para Cerrajeros',
+      guiaTexto: 'En la cerrajería de urgencia, la velocidad es dinero. Necesitas una App que te permita cobrar el servicio antes de irte y recoger la firma digital.',
+      faqs: [
+        { q: "¿Cómo asigno una urgencia al técnico más cercano?", a: "Mediante el mapa de geolocalización GPS puedes ver en tiempo real qué operario está más cerca del aviso." },
+        { q: "¿Es legal la firma del cliente en el móvil?", a: "Sí, la firma digital capturada en la App tiene plena validez legal para la aceptación de presupuestos." }
+      ],
+      bloques: [
+        { icon: '📍', t: 'Geolocalización', d: 'Asigna avisos por cercanía y llega antes que nadie.' },
+        { icon: '💳', t: 'Cobro In-Situ', d: 'Acepta pagos con tarjeta desde la App del técnico.' }
+      ]
+    },
+    { 
+      id: 'carpinteros', 
+      nombre: 'Carpinteros', 
+      emoji: '🪚',
+      titulo: 'Software para Carpintería y Aluminio',
+      desc: 'Presupuestos detallados por medidas, control de costes y gestión de fabricación en taller.',
+      filtro: ['carpinteros', 'carpintería', 'madera', 'aluminio', 'ebanistería'],
+      opinionKey: 'opinion_experto_carpintero',
+      guiaTitulo: 'Del Taller a la Obra: Digitalización',
+      guiaTexto: 'Ya sea madera o aluminio, el error en las medidas cuesta dinero. Usa herramientas que te permitan adjuntar fotos y bocetos directamente.',
+      faqs: [
+        { q: "¿Permite presupuestos por medidas?", a: "Sí, puedes configurar artículos que calculen el precio final basándose en alto x ancho." },
+        { q: "¿Puedo enviar órdenes de fabricación al taller?", a: "Sí, el sistema genera la orden de trabajo detallada para los operarios al momento." }
+      ],
+      bloques: [
+        { icon: '📏', t: 'Medidas', d: 'Cálculo de precio automático según dimensiones.' },
+        { icon: '🏭', t: 'Taller', d: 'Genera órdenes de fabricación detalladas para el equipo.' }
+      ]
+    },
+    { 
+      id: 'jardineros', 
+      nombre: 'Jardinería', 
+      emoji: '🌿',
+      titulo: 'Software de Gestión para Jardineros',
+      desc: 'Planifica rutas de mantenimiento, control de fitosanitarios y facturación recurrente.',
+      filtro: ['jardineros', 'jardinería', 'paisajismo', 'piscinas'],
+      opinionKey: 'opinion_experto_jardinero',
+      guiaTitulo: 'Gestión de Rutas y Mantenimientos Verdes',
+      guiaTexto: 'La rentabilidad en jardinería depende de la densidad de la ruta. Agrupa clientes por zonas y automatiza la facturación mensual.',
+      faqs: [
+        { q: "¿Cómo se optimizan las rutas de trabajo?", a: "El software organiza los avisos diarios en el mapa para que la cuadrilla ahorre combustible." },
+        { q: "¿Lleva el registro de fitosanitarios?", a: "Sí, permite anotar qué productos se han aplicado en cada cliente para cumplir con la ley." }
+      ],
+      bloques: [
+        { icon: '🚚', t: 'Rutas', d: 'Optimiza el orden de visita de los jardines.' },
+        { icon: '🔄', t: 'Recurrencia', d: 'Facturación automática de mantenimientos mensuales.' }
+      ]
+    },
+    { 
+      id: 'limpieza', 
+      nombre: 'Limpieza', 
+      emoji: '✨',
+      titulo: 'Software para Empresas de Limpieza',
+      desc: 'Control de cuadrantes, geolocalización de empleados y rentabilidad por servicio.',
+      filtro: ['limpieza', 'limpiezas', 'servicios', 'facility'],
+      opinionKey: 'opinion_experto_limpieza',
+      guiaTitulo: 'Control de Personal y Cuadrantes',
+      guiaTexto: 'En el sector limpieza, el margen se pierde si no controlas las horas reales. Necesitas una App de control horario fiable.',
+      faqs: [
+        { q: "¿Cómo fichan los empleados?", a: "Pueden fichar mediante GPS o escaneando un código QR en el centro de trabajo." },
+        { q: "¿Veo la rentabilidad por contrato?", a: "Sí, el sistema cruza horas reales con lo presupuestado para analizar márgenes." }
+      ],
+      bloques: [
+        { icon: '📍', t: 'Fichaje GPS', d: 'Control de presencia real en casa del cliente.' },
+        { icon: '💰', t: 'Márgenes', d: 'Analiza la rentabilidad centro por centro.' }
+      ]
+    },
+    { 
+      id: 'talleres', 
+      nombre: 'Talleres', 
+      emoji: '🚗',
+      titulo: 'Programa de Gestión de Taller Mecánico',
+      desc: 'Recepción por matrícula, resguardo de depósito legal y órdenes de reparación.',
+      filtro: ['talleres', 'taller', 'mecánico', 'chapa', 'automoción'],
+      opinionKey: 'opinion_experto_taller',
+      guiaTitulo: 'Digitalización del Taller Mecánico',
+      guiaTexto: 'Moderniza la recepción de vehículos. Entrega resguardos de depósito legales y avisa por WhatsApp a tus clientes.',
+      faqs: [
+        { q: "¿Genera el Resguardo de Depósito?", a: "Sí, imprime el documento legal obligatorio que el cliente debe firmar al entregar el coche." },
+        { q: "¿Avisa al cliente por WhatsApp?", a: "Sí, permite enviar notificaciones automáticas cuando el vehículo está reparado." }
+      ],
+      bloques: [
+        { icon: '📄', t: 'Resguardos', d: 'Documentación legal obligatoria al instante.' },
+        { icon: '📲', t: 'Avisos', d: 'Mejora la atención avisando por WhatsApp.' }
+      ]
+    }
   ];
 
   return sectores.map((sector) => ({
@@ -37,11 +148,12 @@ export async function getStaticPaths() {
 
 const { info } = Astro.props;
 
-// FILTRADO Y ORDENACIÓN
+// FILTRADO
 let especialistas = softwares.filter(s => 
     s.target_gremios && s.target_gremios.some(g => info.filtro.some(term => g.toLowerCase().includes(term)))
 );
 
+// ORDENACIÓN VIP
 const vipList = ['stel-order', 'taclia'];
 especialistas.sort((a, b) => {
     const vipA = vipList.indexOf(a.id);
@@ -55,20 +167,20 @@ especialistas.sort((a, b) => {
 const topTable = especialistas.slice(0, 5);
 ---
 
-<Layout title={`Mejor Software para ${info.nombre} 2026`}>
+<Layout title={`Mejor Software para ${info.nombre} 2026 | Ranking`}>
     
     <header class="bg-blue-900 text-white pt-24 pb-20 px-6 relative overflow-hidden">
         <div class="absolute top-0 right-0 opacity-10 text-[200px] pointer-events-none italic font-black">{info.emoji}</div>
         <div class="max-w-4xl mx-auto relative z-10">
             <span class="bg-blue-800 text-blue-200 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block border border-blue-700">Especial {info.nombre} 2026</span>
             <h1 class="text-4xl md:text-6xl font-black mb-4 tracking-tighter leading-tight">{info.titulo}</h1>
-            <p class="text-xl text-blue-100 max-w-2xl opacity-90 leading-relaxed">{info.desc}</p>
+            <p class="text-xl text-blue-100 max-w-2xl opacity-90 leading-relaxed font-medium">{info.desc}</p>
         </div>
     </header>
 
     <main class="max-w-5xl mx-auto px-6 -mt-16 relative z-20 pb-20">
         
-        {/* TABLA COMPARATIVA */}
+        {/* TABLA COMPARATIVA TÉCNICA */}
         <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden mb-16">
             <div class="bg-slate-900 p-4"><h2 class="text-white font-bold text-xs uppercase tracking-widest text-center">Comparativa Técnica {info.nombre}</h2></div>
             <div class="overflow-x-auto">
@@ -117,14 +229,14 @@ const topTable = especialistas.slice(0, 5);
                                     </h3>
                                     <div class="flex flex-wrap gap-2 mt-5">
                                         {soft.legal_spain?.verifactu_ready && <span class="text-green-700 font-black text-[10px] uppercase bg-green-50 px-2 py-1 rounded-md border border-green-200 tracking-widest">✅ Verifactu Ready</span>}
-                                        <span class="text-blue-700 font-black text-[10px] uppercase bg-blue-50 px-2 py-1 rounded-md border border-blue-200 tracking-widest italic tracking-tighter">Análisis 2026</span>
+                                        <span class="text-blue-700 font-black text-[10px] uppercase bg-blue-50 px-2 py-1 rounded-md border border-blue-200 tracking-widest italic tracking-tighter font-bold">Análisis Expertos</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="bg-slate-50 p-4 rounded-2xl text-center min-w-[160px] border border-slate-100">
                                 <span class="block text-[10px] font-bold text-slate-400 uppercase mb-1">Desde</span>
                                 <span class="text-4xl font-black text-slate-900">{soft.pricing?.start_price === 0 ? 'GRATIS' : `${soft.pricing.start_price}€`}</span>
-                                {soft.pricing?.has_free_trial && <div class="text-blue-600 text-[10px] font-black mt-2 uppercase italic tracking-tighter">Prueba Gratuita</div>}
+                                {soft.pricing?.has_free_trial && <div class="text-blue-600 text-[10px] font-black mt-2 uppercase tracking-tighter italic">Prueba Gratuita</div>}
                             </div>
                         </div>
 
@@ -132,7 +244,6 @@ const topTable = especialistas.slice(0, 5);
                             <div class="md:col-span-2">
                                 <div class="flex items-center gap-2 mb-4">
                                     <span class="w-8 h-1 bg-blue-600 rounded-full"></span>
-                                    {/* 🚀 CAMBIO CLAVE AQUÍ: Título Dinámico basado en el sector */}
                                     <h4 class="text-xs font-black text-slate-400 uppercase tracking-widest italic tracking-tighter">¿Por qué para {info.nombre}?</h4>
                                 </div>
                                 <p class="text-slate-600 text-lg leading-relaxed mb-8 italic">"{soft[info.opinionKey] || soft.short_description}"</p>
@@ -152,10 +263,10 @@ const topTable = especialistas.slice(0, 5);
 
         {/* GUÍA DE AUTORIDAD + FAQs */}
         <section class="mt-20 bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden p-8 md:p-16">
-            <h2 class="text-4xl font-black text-slate-800 mb-6 tracking-tighter underline decoration-yellow-400 decoration-4">{info.guiaTitulo}</h2>
+            <h2 class="text-4xl font-black text-slate-900 mb-8 tracking-tighter underline decoration-yellow-400 decoration-4">{info.guiaTitulo}</h2>
             <p class="text-xl text-slate-600 mb-12 leading-relaxed" set:html={info.guiaTexto}></p>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 not-prose mb-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 not-prose mb-16 border-b border-slate-100 pb-16">
                 {info.bloques.map(bloque => (
                     <div class="p-8 bg-slate-50 rounded-2xl border border-slate-100 flex gap-6 items-start transition-transform hover:scale-[1.02]">
                         <div class="text-5xl">{bloque.icon}</div>
@@ -167,7 +278,7 @@ const topTable = especialistas.slice(0, 5);
                 ))}
             </div>
 
-            <div class="border-t border-slate-100 pt-12">
+            <div class="pt-4">
                 <h3 class="text-3xl font-black text-slate-900 mb-10 tracking-tighter">Dudas frecuentes sobre {info.nombre}</h3>
                 <div class="space-y-6">
                     {info.faqs.map(faq => (
