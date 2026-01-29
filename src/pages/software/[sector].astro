@@ -5,7 +5,7 @@ import softwares from '../../softwares.json';
 
 export async function getStaticPaths() {
   const sectores = [
-    // 🚨 Fontaneros y Electricistas BORRADOS (tienen archivo propio)
+    // 🚨 Fontaneros y Electricistas NO están aquí (tienen archivo propio)
     
     { 
       id: 'reformas', 
@@ -82,6 +82,63 @@ export async function getStaticPaths() {
         { icon: '📏', t: 'Medidas', d: 'Cálculo de precio automático según dimensiones.' },
         { icon: '🏭', t: 'Taller', d: 'Genera órdenes de fabricación detalladas para el equipo.' }
       ]
+    },
+    { 
+      id: 'jardineros', 
+      nombre: 'Jardinería', 
+      emoji: '🌿',
+      titulo: 'Software de Gestión para Jardineros',
+      desc: 'Planifica rutas de mantenimiento, control de fitosanitarios y facturación recurrente.',
+      filtro: ['jardineros', 'jardinería', 'paisajismo', 'piscinas'],
+      opinionKey: 'opinion_experto_jardinero',
+      guiaTitulo: 'Gestión de Rutas y Mantenimientos Verdes',
+      guiaTexto: 'La rentabilidad en jardinería depende de la densidad de la ruta. Agrupa clientes por zonas y automatiza la facturación mensual.',
+      faqs: [
+        { q: "¿Cómo se optimizan las rutas de trabajo?", a: "El software organiza los avisos diarios en el mapa para que la cuadrilla pase el menor tiempo posible conduciendo y ahorres en combustible." },
+        { q: "¿Lleva el registro de productos fitosanitarios?", a: "Sí, permite anotar qué productos se han aplicado en cada cliente para cumplir con el cuaderno de explotación legal." }
+      ],
+      bloques: [
+        { icon: '🚚', t: 'Rutas', d: 'Optimiza el orden de visita de los jardines.' },
+        { icon: '🔄', t: 'Recurrencia', d: 'Facturación automática de mantenimientos mensuales.' }
+      ]
+    },
+    { 
+      id: 'limpieza', 
+      nombre: 'Limpieza', 
+      emoji: '✨',
+      titulo: 'Software para Empresas de Limpieza',
+      desc: 'Control de cuadrantes, geolocalización de empleados y rentabilidad por servicio.',
+      filtro: ['limpieza', 'limpiezas', 'servicios', 'facility'],
+      opinionKey: 'opinion_experto_limpieza',
+      guiaTitulo: 'Control de Personal y Cuadrantes',
+      guiaTexto: 'En el sector limpieza, el margen se pierde si no controlas las horas reales. Necesitas una App de control horario que verifique la ubicación.',
+      faqs: [
+        { q: "¿Cómo fichan los empleados en cada cliente?", a: "Pueden fichar desde la App mediante GPS o escaneando un código QR pegado en el centro de trabajo del cliente." },
+        { q: "¿Puedo ver la rentabilidad de un contrato específico?", a: "Sí, el sistema cruza las horas trabajadas reales con lo presupuestado para decirte si estás ganando dinero en ese centro." }
+      ],
+      bloques: [
+        { icon: '📍', t: 'Fichaje GPS', d: 'Control de presencia real en casa del cliente.' },
+        { icon: '💰', t: 'Márgenes', d: 'Analiza la rentabilidad centro por centro.' }
+      ]
+    },
+    { 
+      id: 'talleres', 
+      nombre: 'Talleres', 
+      emoji: '🚗',
+      titulo: 'Programa de Gestión de Taller Mecánico',
+      desc: 'Recepción por matrícula, resguardo de depósito legal y órdenes de reparación.',
+      filtro: ['talleres', 'taller', 'mecánico', 'chapa', 'automoción'],
+      opinionKey: 'opinion_experto_taller',
+      guiaTitulo: 'Digitalización del Taller Mecánico',
+      guiaTexto: 'Moderniza la recepción de vehículos. Entrega resguardos de depósito legales y avisa a tus clientes por WhatsApp.',
+      faqs: [
+        { q: "¿Genera el Resguardo de Depósito obligatorio?", a: "Sí, al recibir el coche el sistema imprime el documento legal que el cliente debe firmar para cumplir con la ley de talleres." },
+        { q: "¿Se puede avisar al cliente por WhatsApp?", a: "Sí, los programas modernos permiten enviar una notificación automática al cliente cuando su vehículo está reparado y listo para recoger." }
+      ],
+      bloques: [
+        { icon: '📄', t: 'Resguardos', d: 'Documentación legal obligatoria al instante.' },
+        { icon: '📲', t: 'Avisos', d: 'Mejora la atención avisando por WhatsApp.' }
+      ]
     }
   ];
 
@@ -93,11 +150,12 @@ export async function getStaticPaths() {
 
 const { info } = Astro.props;
 
-// Filtrado y Ordenación
+// FILTRADO
 let especialistas = softwares.filter(s => 
     s.target_gremios && s.target_gremios.some(g => info.filtro.some(term => g.toLowerCase().includes(term)))
 );
 
+// ORDENACIÓN VIP
 const vipList = ['stel-order', 'taclia'];
 especialistas.sort((a, b) => {
     const vipA = vipList.indexOf(a.id);
@@ -115,7 +173,6 @@ const topTable = especialistas.slice(0, 5);
     title={`Mejor Software para ${info.nombre} 2026`}
     description={`Ranking de los mejores programas de ${info.nombre}. Precios y funciones Verifactu.`}
 >
-    {/* HERO y TABLA (Se mantienen igual) */}
     <header class="bg-blue-900 text-white py-16 px-6 relative overflow-hidden -mt-4 text-center md:text-left">
         <div class="max-w-4xl mx-auto relative z-10">
             <div class="inline-block bg-blue-800 text-blue-200 text-xs font-bold px-3 py-1 rounded-full mb-4 border border-blue-700 uppercase">
@@ -128,22 +185,23 @@ const topTable = especialistas.slice(0, 5);
 
     <section class="max-w-6xl mx-auto px-6 -mt-10 relative z-20 mb-16">
         <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden">
-             <div class="bg-slate-900 p-4 flex justify-between items-center">
-                <h2 class="text-white font-bold text-sm uppercase tracking-widest">Top {info.nombre}</h2>
+             <div class="bg-slate-900 p-4">
+                <h2 class="text-white font-bold text-sm uppercase tracking-widest text-center md:text-left">Comparativa Técnica {info.nombre}</h2>
             </div>
             <div class="overflow-x-auto">
-                <table class="w-full text-left">
+                <table class="w-full text-left text-sm">
                     <thead>
                         <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold uppercase text-slate-500">
                             <th class="p-4">Software</th>
-                            <th class="p-4">Precio Base</th>
+                            <th class="p-4">Precio</th>
                             <th class="p-4 text-center">App Móvil</th>
+                            <th class="p-4 text-center">Verifactu</th>
                             <th class="p-4"></th>
                         </tr>
                     </thead>
-                    <tbody class="text-sm text-slate-700">
+                    <tbody class="text-slate-700">
                         {topTable.map((s) => (
-                            <tr class="border-b border-slate-100 hover:bg-slate-50">
+                            <tr class="border-b border-slate-100 hover:bg-slate-50 transition-colors">
                                 <td class="p-4 font-bold flex items-center gap-3">
                                   {s.logo_url ? <img src={s.logo_url} class="w-8 h-8 object-contain" /> : "📱"} {s.name}
                                 </td>
@@ -151,6 +209,7 @@ const topTable = especialistas.slice(0, 5);
                                     {s.pricing?.start_price === 0 ? "GRATIS" : `${s.pricing?.start_price}€`}
                                 </td>
                                 <td class="p-4 text-center text-lg">{s.tabla_tecnica?.app_movil ? '✅' : '❌'}</td>
+                                <td class="p-4 text-center text-lg">{s.legal_spain?.verifactu_ready ? '✅' : '❌'}</td>
                                 <td class="p-4 text-right">
                                     <a href={s.url_afiliado} target="_blank" class="bg-blue-600 text-white text-[10px] font-black px-4 py-2 rounded uppercase shadow-sm">Ver Web</a>
                                 </td>
@@ -162,11 +221,10 @@ const topTable = especialistas.slice(0, 5);
         </div>
     </section>
 
-    {/* LISTADO DE TARJETAS (Se mantiene igual) */}
     <main class="max-w-5xl mx-auto py-12 px-6">
-        <div class="space-y-12">
+        <div class="space-y-12 mb-20">
             {especialistas.map((soft) => (
-                <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+                <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden hover:shadow-xl transition-shadow">
                     <div class="p-6 md:p-10">
                         <div class="flex flex-col md:flex-row justify-between gap-6 mb-8">
                             <div class="flex items-start gap-6">
@@ -188,7 +246,6 @@ const topTable = especialistas.slice(0, 5);
             ))}
         </div>
 
-        {/* GUÍA Y FAQS RECUPERADAS */}
         <section class="mt-20 bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden p-8 md:p-12">
             <h2 class="text-3xl font-black text-slate-800 mb-6">{info.guiaTitulo}</h2>
             <p class="text-lg leading-relaxed text-slate-600 mb-10" set:html={info.guiaTexto}></p>
@@ -205,11 +262,8 @@ const topTable = especialistas.slice(0, 5);
                 ))}
             </div>
 
-            {/* SECCIÓN VISUAL DE FAQS */}
             <div class="border-t border-slate-100 pt-12">
-                <h3 class="text-2xl font-black text-slate-800 mb-8 flex items-center gap-2">
-                    Dudas frecuentes sobre {info.nombre}
-                </h3>
+                <h3 class="text-2xl font-black text-slate-800 mb-8">Dudas frecuentes sobre {info.nombre}</h3>
                 <div class="space-y-4">
                     {info.faqs.map(faq => (
                         <details class="group bg-slate-50 border border-slate-200 rounded-xl transition-all">
@@ -222,7 +276,6 @@ const topTable = especialistas.slice(0, 5);
                             </div>
                         </details>
                     ))}
-                    {/* FAQ Legal Fija */}
                     <details class="group bg-slate-50 border border-slate-200 rounded-xl transition-all">
                         <summary class="p-5 font-bold text-slate-800 cursor-pointer list-none flex justify-between items-center group-open:bg-yellow-50 group-open:rounded-t-xl transition-colors">
                             ¿Es obligatorio el software Verifactu?
