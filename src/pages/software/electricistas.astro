@@ -11,10 +11,19 @@ const info = {
   emoji: '⚡',
   titulo: 'Software para Instaladores Electricistas y SAT',
   desc: 'Gestiona boletines, mantenimientos preventivos y actualiza el precio del cable al día. Cumple el REBT y la Ley Verifactu 2026.',
+  guiaTitulo: 'Guía 2026: Digitalización para el Instalador Eléctrico',
+  guiaTexto: 'El sector eléctrico tiene particularidades críticas: normativas estrictas (REBT), precios de materiales volátiles (cobre) y entornos difíciles. Necesitas automatizar las revisiones para asegurar ingresos recurrentes.',
   bloques: [
     { icon: '🔄', t: 'Mantenimientos', d: 'El secreto de la rentabilidad. Genera avisos automáticos para revisión de cuadros, extintores o fotovoltaica.' },
     { icon: '🔌', t: 'Tarifas Proveedor', d: 'Importa tarifas de proveedores (Excel) en segundos. Actualiza el precio del cobre y cable masivamente para no perder margen.' },
     { icon: '🔦', t: 'Trabajo Offline', d: 'Imprescindible para trabajar en cuartos de contadores, garajes o naves industriales sin cobertura móvil.' }
+  ],
+  // ⚡ FAQs ESTRATÉGICAS DE NEGOCIO PARA ELECTRICISTAS
+  faqs: [
+    { q: "¿Cómo puedo actualizar los precios de mis presupuestos si sube el cobre?", a: "Los programas especializados permiten importar las tarifas de tus proveedores (Excel) y aplicar un margen de beneficio automático. Así, tus presupuestos siempre reflejarán el precio actual del material sin perder margen." },
+    { q: "¿Qué software me ayuda con los certificados y boletines eléctricos?", a: "Aunque la mayoría de ERPs gestionan la facturación, los recomendados permiten adjuntar los PDF de tus boletines técnicos a la ficha del cliente o integrarse con herramientas de firma digital para legalizar la instalación al momento." },
+    { q: "¿Cómo puedo asegurar ingresos recurrentes en mi empresa?", a: "La clave está en los mantenimientos preventivos. El software te avisa automáticamente cuando toca revisar un cuadro eléctrico, extintores o una planta fotovoltaica, permitiéndote facturar visitas recurrentes sin esfuerzo comercial." },
+    { q: "¿Es obligatorio el sistema Verifactu para un instalador autónomo?", a: "Sí. A partir de 2026, cualquier instalador debe usar un software que garantice la trazabilidad de sus facturas y genere el código QR legal. Seguir facturando con Word o Excel será motivo de sanción." }
   ]
 };
 
@@ -36,21 +45,18 @@ const electricistasSoft = softwares
 
 const topTable = electricistasSoft.slice(0, 5);
 
-// 3. SCHEMA SEO
+// 3. SCHEMA SEO AMPLIADO CON FAQs
 const schema = {
   "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "name": "Mejor Software para Electricistas 2026: Tarifas y Boletines",
-  "description": "Ranking de software para empresas de electricidad. Gestión de tarifas de materiales, mantenimientos preventivos y Ley Verifactu.",
-  "mainEntity": {
-    "@type": "ItemList",
-    "itemListElement": electricistasSoft.slice(0, 5).map((s, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "name": s.name,
-      "url": `https://www.softwareoficios.es/analisis/${s.id}`
-    }))
-  }
+  "@type": "FAQPage",
+  "mainEntity": info.faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.a
+    }
+  }))
 };
 ---
 
@@ -61,20 +67,12 @@ const schema = {
   <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 
   {/* HERO HEADER */}
-  <header class="bg-blue-900 text-white pt-24 pb-20 px-6 relative overflow-hidden">
-    <div class="absolute top-0 right-0 opacity-10 pointer-events-none">
-        <span class="text-[200px]">⚡</span>
-    </div>
-    <div class="max-w-4xl mx-auto relative z-10 text-center md:text-left">
-      <span class="bg-yellow-500 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block shadow-lg shadow-yellow-500/20">
-        Especial Instaladores
-      </span>
-      <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight">
-        Software para <br/><span class="text-blue-400">Electricistas e Instaladores</span>
-      </h1>
-      <p class="text-xl text-blue-100 max-w-2xl mb-8 leading-relaxed">
-        Gestiona la volatilidad de los precios del material y automatiza tus mantenimientos. Digitaliza tu empresa con Apps que cumplen el <strong>REBT y Verifactu</strong>.
-      </p>
+  <header class="bg-blue-900 text-white pt-24 pb-20 px-6 relative overflow-hidden text-center md:text-left">
+    <div class="absolute top-0 right-0 opacity-10 pointer-events-none text-[200px]">⚡</div>
+    <div class="max-w-4xl mx-auto relative z-10">
+      <span class="bg-yellow-500 text-yellow-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block shadow-lg">Especial Instaladores</span>
+      <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight">Software para <br/><span class="text-blue-400">Electricistas e Instaladores</span></h1>
+      <p class="text-xl text-blue-100 max-w-2xl mb-8 leading-relaxed">Gestiona la volatilidad de los precios del material y automatiza tus mantenimientos bajo <strong>REBT y Verifactu</strong>.</p>
     </div>
   </header>
 
@@ -83,50 +81,45 @@ const schema = {
     {/* 1. CHEAT SHEET (VEREDICTO RÁPIDO) */}
     <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden mb-16">
         <div class="bg-slate-900 p-4 text-center">
-            <h2 class="text-white font-bold uppercase tracking-widest text-sm">🏆 Top 3: Recomendación Rápida</h2>
+            <h2 class="text-white font-bold uppercase tracking-widest text-sm text-center">🏆 Top 3 Recomendado</h2>
         </div>
         <div class="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-100">
-            {/* STEL ORDER */}
             <div class="p-6 text-center hover:bg-blue-50 transition-colors">
                 <div class="text-4xl mb-3">🥇</div>
-                <h3 class="font-black text-slate-800 text-lg mb-1">STEL Order</h3>
+                <h3 class="font-black text-slate-800 text-lg">STEL Order</h3>
                 <span class="inline-block bg-blue-100 text-blue-800 text-xs font-bold px-2 py-1 rounded mb-3">Más Completo</span>
-                <p class="text-sm text-slate-500 mb-4 h-12 line-clamp-2">Imbatible gestionando el catálogo de materiales y tarifas de proveedores masivas.</p>
-                <a href="/analisis/stel-order?sector=electricistas" class="text-blue-600 font-bold text-sm hover:underline">Ver Análisis →</a>
+                <p class="text-sm text-slate-500 mb-4 h-12 line-clamp-2 italic">Ideal para catálogos de materiales y tarifas de proveedores masivas.</p>
+                <a href="/analisis/stel-order?sector=electricistas" class="text-blue-600 font-bold text-sm">Ver Análisis →</a>
             </div>
-            
-            {/* TACLIA */}
             <div class="p-6 text-center hover:bg-green-50 transition-colors">
                 <div class="text-4xl mb-3">🔌</div>
-                <h3 class="font-black text-slate-800 text-lg mb-1">Taclia</h3>
+                <h3 class="font-black text-slate-800 text-lg">Taclia</h3>
                 <span class="inline-block bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded mb-3">Gratuito</span>
-                <p class="text-sm text-slate-500 mb-4 h-12 line-clamp-2">Perfecto para reparaciones domésticas rápidas y electricistas autónomos.</p>
-                <a href="/analisis/taclia?sector=electricistas" class="text-green-600 font-bold text-sm hover:underline">Ver Análisis →</a>
+                <p class="text-sm text-slate-500 mb-4 h-12 line-clamp-2 italic">Perfecto para reparaciones rápidas y electricistas autónomos.</p>
+                <a href="/analisis/taclia?sector=electricistas" class="text-green-600 font-bold text-sm">Ver Análisis →</a>
             </div>
-
-            {/* FIXNER */}
             <div class="p-6 text-center hover:bg-purple-50 transition-colors">
                 <div class="text-4xl mb-3">⚙️</div>
-                <h3 class="font-black text-slate-800 text-lg mb-1">Fixner</h3>
+                <h3 class="font-black text-slate-800 text-lg">Fixner</h3>
                 <span class="inline-block bg-purple-100 text-purple-800 text-xs font-bold px-2 py-1 rounded mb-3">Mantenimientos</span>
-                <p class="text-sm text-slate-500 mb-4 h-12 line-clamp-2">El mejor gestionando activos (cuadros, SAIs) y contratos de mantenimiento.</p>
-                <a href="/analisis/fixner?sector=electricistas" class="text-purple-600 font-bold text-sm hover:underline">Ver Análisis →</a>
+                <p class="text-sm text-slate-500 mb-4 h-12 line-clamp-2 italic">Gestión experta de activos y contratos de mantenimiento preventivo.</p>
+                <a href="/analisis/fixner?sector=electricistas" class="text-purple-600 font-bold text-sm">Ver Análisis →</a>
             </div>
         </div>
     </div>
 
     {/* 2. TABLA COMPARATIVA */}
     <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden mb-16">
-        <div class="bg-slate-100 p-4 border-b border-slate-200">
-            <h3 class="font-bold text-slate-700 uppercase text-xs tracking-wider">Tabla Comparativa Técnica</h3>
+        <div class="bg-slate-100 p-4 border-b border-slate-200 text-center md:text-left">
+            <h3 class="font-bold text-slate-700 uppercase text-xs tracking-wider tracking-tighter italic">Tabla Técnica para Instaladores</h3>
         </div>
         <div class="overflow-x-auto">
             <table class="w-full text-left">
-                <thead>
-                    <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold uppercase text-slate-500">
-                        <th class="p-4 whitespace-nowrap">Software</th>
-                        <th class="p-4 whitespace-nowrap">Precio Base</th>
-                        <th class="p-4 text-center whitespace-nowrap">App Móvil</th>
+                <thead class="bg-slate-50 border-b border-slate-200 text-xs font-bold uppercase text-slate-500 text-[10px]">
+                    <tr>
+                        <th class="p-4">Software</th>
+                        <th class="p-4">Precio</th>
+                        <th class="p-4 text-center">App</th>
                         <th class="p-4"></th>
                     </tr>
                 </thead>
@@ -134,19 +127,14 @@ const schema = {
                     {topTable.map((s) => (
                         <tr class="border-b border-slate-100 hover:bg-blue-50/50 transition-colors">
                             <td class="p-4 font-bold text-slate-800 flex items-center gap-3 whitespace-nowrap">
-                                {s.logo_url ? <img src={s.logo_url} class="w-8 h-8 object-contain" alt="" /> : <span class="text-xl">📱</span>}
-                                {s.name}
+                                {s.logo_url ? <img src={s.logo_url} class="w-8 h-8 object-contain" alt="" /> : "📱"} {s.name}
                             </td>
-                            <td class="p-4 font-black text-blue-700 whitespace-nowrap">
-                                {s.pricing?.start_price === 0 
-                                  ? <span class="text-slate-900 uppercase">GRATIS</span> 
-                                  : (s.pricing?.start_price ? `${s.pricing.start_price}€` : '-')}
+                            <td class="p-4 font-black text-blue-700">
+                                {s.pricing?.start_price === 0 ? "GRATIS" : `${s.pricing.start_price}€`}
                             </td>
-                            <td class="p-4 text-center text-lg">{s.tabla_tecnica?.app_movil ? '✅' : '❌'}</td>
+                            <td class="p-4 text-center">{s.tabla_tecnica?.app_movil ? '✅' : '❌'}</td>
                             <td class="p-4 text-right">
-                                <a href={s.url_afiliado} target="_blank" rel="nofollow noopener" class="inline-block bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black px-4 py-2 rounded uppercase transition-colors shadow-sm">
-                                    Ver Web
-                                </a>
+                                <a href={s.url_afiliado} target="_blank" class="bg-blue-600 text-white text-[10px] font-black px-4 py-2 rounded uppercase tracking-tighter">Ver Web</a>
                             </td>
                         </tr>
                     ))}
@@ -162,48 +150,29 @@ const schema = {
                 <div class="p-6 md:p-10">
                     <div class="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-8">
                         <div class="flex items-start gap-6">
-                            <div class="w-20 h-20 bg-white rounded-xl flex items-center justify-center border border-slate-200 shadow-sm p-2 shrink-0">
-                                {soft.logo_url ? <img src={soft.logo_url} alt={soft.name} class="w-full h-full object-contain" /> : <span class="text-3xl font-black text-slate-300">{soft.name[0]}</span>}
+                            <div class="w-20 h-20 bg-white rounded-xl flex items-center justify-center border border-slate-200 p-2 shrink-0">
+                                {soft.logo_url ? <img src={soft.logo_url} alt={soft.name} class="w-full h-full object-contain" /> : <span class="text-3xl text-slate-300">📱</span>}
                             </div>
                             <div>
-                                <h3 class="text-2xl font-black text-slate-800">
-                                    <a href={`/analisis/${soft.id}?sector=electricistas`} class="hover:text-blue-700 underline decoration-blue-200 decoration-4 underline-offset-4 transition">{soft.name}</a>
-                                </h3>
-                                <div class="flex flex-wrap gap-2 mt-3">
-                                    {soft.legal_spain?.verifactu_ready && <span class="text-green-700 font-bold text-[10px] uppercase bg-green-50 px-2 py-1 rounded border border-green-200">✅ Verifactu</span>}
-                                </div>
+                                <h3 class="text-2xl font-black text-slate-800 underline decoration-blue-200 decoration-4 underline-offset-4">{soft.name}</h3>
+                                {soft.legal_spain?.verifactu_ready && <span class="text-green-700 font-bold text-[10px] uppercase bg-green-50 px-2 py-1 rounded border border-green-200 mt-2 inline-block">✅ Verifactu</span>}
                             </div>
                         </div>
                         <div class="text-right">
-                            {soft.pricing?.start_price === 0 
-                              ? <span class="text-3xl font-black text-slate-900">GRATIS</span> 
-                              : <span class="text-3xl font-black text-slate-900">{soft.pricing?.start_price ? `${soft.pricing.start_price}€` : 'Consultar'}</span>
-                            }
-                            {soft.pricing?.has_free_trial && <div class="text-blue-600 text-xs font-bold mt-1">Prueba {soft.pricing.trial_days} días</div>}
+                            <span class="text-3xl font-black text-slate-900">{soft.pricing?.start_price === 0 ? 'GRATIS' : `${soft.pricing?.start_price}€`}</span>
+                            {soft.pricing?.has_free_trial && <div class="text-blue-600 text-xs font-bold mt-1 italic">Prueba {soft.pricing.trial_days} días</div>}
                         </div>
                     </div>
-
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="md:col-span-2 space-y-4">
-                            <div class="prose prose-slate prose-sm">
-                                <h4 class="text-lg font-bold text-slate-800 mb-1">Análisis para Electricistas</h4>
-                                <p class="text-slate-600 leading-relaxed">
-                                    {soft.opinion_experto_electricista || soft.short_description}
-                                </p>
-                            </div>
+                        <div class="md:col-span-2">
+                            <p class="text-slate-600 leading-relaxed mb-4">{soft.opinion_experto_electricista || soft.short_description}</p>
                             <div class="flex flex-wrap gap-2">
-                                {soft.features?.slice(0, 4).map(f => (
-                                    <span class="bg-slate-50 text-slate-700 text-xs font-bold px-2 py-1 rounded border border-slate-200 uppercase">{f}</span>
-                                ))}
+                                {soft.features?.slice(0, 4).map(f => <span class="bg-slate-50 text-slate-700 text-[10px] font-bold px-2 py-1 rounded border border-slate-100 uppercase">{f}</span>)}
                             </div>
                         </div>
                         <div class="flex flex-col gap-3 justify-center">
-                            <a href={soft.url_afiliado || "#"} target="_blank" rel="nofollow noopener" class="bg-blue-600 hover:bg-blue-700 text-white font-black py-3 rounded-xl text-center shadow-lg transition transform hover:-translate-y-1">
-                                VISITAR WEB
-                            </a>
-                            <a href={`/analisis/${soft.id}?sector=electricistas`} class="text-center text-slate-600 font-bold text-sm hover:underline">
-                                Leer análisis completo
-                            </a>
+                            <a href={soft.url_afiliado || "#"} target="_blank" class="bg-blue-600 hover:bg-blue-700 text-white font-black py-3 rounded-xl text-center shadow-lg transition">PROBAR WEB</a>
+                            <a href={`/analisis/${soft.id}?sector=electricistas`} class="text-center text-slate-500 font-bold text-sm hover:underline italic tracking-tighter italic">Análisis completo →</a>
                         </div>
                     </div>
                 </div>
@@ -211,67 +180,41 @@ const schema = {
         ))}
     </div>
 
-    {/* 4. GUÍA SEO (SILO DE AUTORIDAD) */}
-    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden p-8 md:p-12">
+    {/* 4. GUÍA SEO + BLOQUES + FAQs */}
+    <section class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden p-8 md:p-12">
         <div class="prose prose-slate max-w-none">
-            <h2 class="text-3xl font-black text-slate-800 mb-6">Digitalización para Instaladores Eléctricos</h2>
-            
-            <h3>El problema de las tarifas de proveedores</h3>
-            <p>
-                El sector eléctrico sufre una volatilidad de precios brutal (especialmente el cobre y el cable). Si tu software no te permite importar el Excel de tu proveedor en 3 clics y actualizar tus precios de venta automáticamente, <strong>estás perdiendo margen en cada presupuesto</strong>.
-            </p>
-            <p>
-                Por eso, en este ranking hemos priorizado herramientas (como STEL Order) que tienen un importador de tarifas potente y gestión de stock real.
-            </p>
-
-            <h3>Mantenimientos Preventivos</h3>
-            <p>
-                La verdadera rentabilidad de una empresa instaladora está en los contratos recurrentes (mantenimiento de comunidades, luces de emergencia, centros de transformación). Necesitas un software que genere los avisos de revisión automáticamente ("Cada 6 meses") para que no se te olvide facturar ni una visita.
-            </p>
+            <h2 class="text-3xl font-black text-slate-800 mb-6">{info.guiaTitulo}</h2>
+            <p class="text-lg leading-relaxed text-slate-600 mb-10">{info.guiaTexto}</p>
         </div>
 
-        {/* BLOQUES DE ICONOS (ESPECÍFICOS) */}
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 not-prose my-10 border-y border-slate-100 py-10">
-            <div class="p-6 bg-blue-50 rounded-2xl border border-blue-100">
-                <div class="text-4xl mb-4">🔄</div>
-                <h4 class="font-bold text-blue-900 mb-3 text-lg">Mantenimientos</h4>
-                <p class="text-sm text-blue-800 leading-relaxed">Automatiza las revisiones periódicas de tus clientes.</p>
-            </div>
-            <div class="p-6 bg-blue-50 rounded-2xl border border-blue-100">
-                <div class="text-4xl mb-4">🔌</div>
-                <h4 class="font-bold text-blue-900 mb-3 text-lg">Tarifas Excel</h4>
-                <p class="text-sm text-blue-800 leading-relaxed">Actualiza precios de materiales masivamente con un clic.</p>
-            </div>
-            <div class="p-6 bg-blue-50 rounded-2xl border border-blue-100">
-                <div class="text-4xl mb-4">🔦</div>
-                <h4 class="font-bold text-blue-900 mb-3 text-lg">Offline Mode</h4>
-                <p class="text-sm text-blue-800 leading-relaxed">Trabaja en cuartos de contadores sin cobertura.</p>
-            </div>
+        {/* 3 BLOQUES DE ICONOS (ESTRATÉGICOS) */}
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 border-y border-slate-100 py-10">
+            {info.bloques.map(b => (
+                <div class="text-center md:text-left">
+                    <div class="text-4xl mb-4">{b.icon}</div>
+                    <h4 class="font-bold text-slate-900 mb-2">{b.t}</h4>
+                    <p class="text-sm text-slate-600">{b.d}</p>
+                </div>
+            ))}
         </div>
 
-        {/* FAQs */}
         <div class="prose prose-slate max-w-none">
-            <h3>Preguntas Frecuentes</h3>
-            <details class="bg-slate-50 border border-slate-200 rounded-lg mb-3 open:shadow-sm">
-                <summary class="font-bold text-slate-800 p-4 cursor-pointer list-none flex justify-between items-center">
-                    ¿Permite gestionar precios de materiales?
-                    <span class="text-slate-400">▼</span>
-                </summary>
-                <div class="p-4 pt-0 text-slate-600 text-sm">
-                    Sí. La gestión de tarifas es crítica. Estos programas permiten importar catálogos de proveedores (Excel/CSV) y aplicar un margen de beneficio automático.
-                </div>
-            </details>
-            <details class="bg-slate-50 border border-slate-200 rounded-lg open:shadow-sm">
-                <summary class="font-bold text-slate-800 p-4 cursor-pointer list-none flex justify-between items-center">
-                    ¿Sirve para el REBT y Boletines?
-                    <span class="text-slate-400">▼</span>
-                </summary>
-                <div class="p-4 pt-0 text-slate-600 text-sm">
-                    La mayoría de estos softwares gestionan la parte administrativa y de facturación. Para rellenar el Certificado de Instalación (Boletín), suelen integrarse con programas técnicos específicos o permitir adjuntar el PDF final al cliente.
-                </div>
-            </details>
+            <h3 class="text-2xl font-black text-slate-800 mb-8">Dudas frecuentes sobre gestión eléctrica</h3>
         </div>
-    </div>
+        <div class="space-y-4">
+            {info.faqs.map(faq => (
+                <details class="group bg-slate-50 border border-slate-200 rounded-xl transition-all">
+                    <summary class="p-6 font-bold text-slate-800 cursor-pointer list-none flex justify-between items-center group-open:bg-blue-50 group-open:rounded-t-xl">
+                        {faq.q}
+                        <span class="text-blue-600 transition-transform group-open:rotate-180">▼</span>
+                    </summary>
+                    <div class="p-6 text-slate-600 leading-relaxed bg-white rounded-b-xl border-t border-slate-100 text-sm md:text-base">
+                        {faq.a}
+                    </div>
+                </details>
+            ))}
+        </div>
+    </section>
 
   </main>
 </Layout>

@@ -1,10 +1,7 @@
 ---
-// src/pages/software/fontaneros.astro
-// 🚨 PÁGINA PILAR (SILO) - Fusión: Estructura Genérica + Contenido Deep Research
 import Layout from '../../layouts/Layout.astro';
 import softwares from '../../softwares.json';
 
-// 1. DATOS ESPECÍFICOS PARA FONTANEROS (Sustituye a la prop 'info')
 const info = {
   id: 'fontaneros',
   nombre: 'Fontaneros',
@@ -19,10 +16,14 @@ const info = {
     { icon: '📱', t: 'App de Partes', d: 'Crea partes con fotos del "antes y después", recoge la firma del cliente en la pantalla y ciérralos al momento.' },
     { icon: '📦', t: 'Stock en Furgoneta', d: 'Controla el stock de grifería y cobre. Descuenta el material del almacén móvil automáticamente.' },
     { icon: '🧾', t: 'Facturación Verifactu', d: 'Evita sanciones. A partir de 2026, tus facturas deben llevar un código QR y Huella digital.' }
+  ],
+  faqs: [
+    { q: "¿Es legal facturar con Excel tras la Ley Verifactu?", a: "No. A partir de 2026/27, el uso de Excel será ilegal ya que no garantiza la inalterabilidad. Necesitas un software homologado con código QR." },
+    { q: "¿Cómo controlo el material de cada operario?", a: "Los programas recomendados permiten gestionar 'almacenes móviles'. El stock se descuenta de la furgoneta al cerrar el parte de trabajo." },
+    { q: "¿Qué pasa en sótanos sin cobertura?", a: "Las mejores Apps son 'Offline First'. Permiten trabajar sin conexión y sincronizan los datos automáticamente al recuperar señal." }
   ]
 };
 
-// 2. FILTRADO Y ORDENACIÓN VIP (STEL y Taclia primero)
 const vipList = ['stel-order', 'taclia'];
 const fontanerosSoft = softwares
   .filter(s => s.target_gremios.some(g => g.toLowerCase().includes('fontane')))
@@ -35,231 +36,107 @@ const fontanerosSoft = softwares
       return (b.legal_spain?.verifactu_ready ? 1 : 0) - (a.legal_spain?.verifactu_ready ? 1 : 0);
   });
 
-// Top 5 para la tabla pequeña
 const topTable = fontanerosSoft.slice(0, 5);
 
-// 3. SCHEMA SEO (CollectionPage)
 const schema = {
   "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "name": "Mejor Software para Fontaneros 2026: App Offline y Partes",
-  "description": "Comparativa de programas para fontanería. Apps que funcionan sin internet en sótanos, gestión de stock en furgoneta y Ley Verifactu.",
-  "mainEntity": {
-    "@type": "ItemList",
-    "itemListElement": fontanerosSoft.slice(0, 5).map((s, index) => ({
-      "@type": "ListItem",
-      "position": index + 1,
-      "name": s.name,
-      "url": `https://www.softwareoficios.es/analisis/${s.id}`
-    }))
-  }
+  "@type": "FAQPage",
+  "mainEntity": info.faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.q,
+    "acceptedAnswer": { "@type": "Answer", "text": faq.a }
+  }))
 };
 ---
 
-<Layout 
-  title="Mejor Software para Fontaneros 2026: Apps Offline y Precios"
-  description="¿Trabajas en sótanos sin cobertura? Ranking de los 7 mejores programas para fontaneros. Apps con modo offline, control de stock y Verifactu."
->
+<Layout title="Mejor Software para Fontaneros 2026 | Apps Offline">
   <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 
-  {/* HERO HEADER (Estilo Deep Research: Específico) */}
-  <header class="bg-blue-900 text-white pt-24 pb-20 px-6 relative overflow-hidden">
-    <div class="absolute top-0 right-0 opacity-10 pointer-events-none">
-        <span class="text-[200px]">🔧</span>
-    </div>
-    <div class="max-w-4xl mx-auto relative z-10 text-center md:text-left">
-      <span class="bg-blue-800 text-blue-200 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-blue-600 mb-4 inline-block">
-        Especial Vertical Fontanería
-      </span>
-      <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight">
-        El Mejor Software para <br/><span class="text-blue-400">Fontaneros y Calefactores</span>
-      </h1>
-      <p class="text-xl text-blue-100 max-w-2xl mb-8 leading-relaxed">
-        Deja de perder dinero con partes en papel mojados. Digitaliza tu empresa con Apps que funcionan <strong>en sótanos sin cobertura</strong>, controlan el stock de la furgoneta y cumplen con Verifactu.
-      </p>
+  <header class="bg-blue-900 text-white pt-24 pb-20 px-6 relative overflow-hidden text-center md:text-left">
+    <div class="absolute top-0 right-0 opacity-10 text-[200px]">🔧</div>
+    <div class="max-w-4xl mx-auto relative z-10">
+      <span class="bg-blue-800 text-blue-200 text-xs font-bold px-3 py-1 rounded-full uppercase mb-4 inline-block tracking-widest">Especial Fontanería</span>
+      <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight">Software para <br/><span class="text-blue-400">Fontaneros y Calefactores</span></h1>
+      <p class="text-xl text-blue-100 max-w-2xl leading-relaxed">{info.desc}</p>
     </div>
   </header>
 
   <main class="max-w-5xl mx-auto px-6 -mt-16 relative z-20 pb-20">
-
-    {/* 1. VEREDICTO RÁPIDO (LO NUEVO DEL DEEP RESEARCH) */}
+    {/* VEREDICTO RÁPIDO */}
     <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden mb-16">
-        <div class="bg-slate-900 p-4 text-center">
-            <h2 class="text-white font-bold uppercase tracking-widest text-sm">🏆 Veredicto Rápido: ¿Cuál elijo?</h2>
-        </div>
+        <div class="bg-slate-900 p-4 text-center"><h2 class="text-white font-bold uppercase tracking-widest text-sm">🏆 Veredicto Rápido</h2></div>
         <div class="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-slate-100">
-            {/* GANADOR GLOBAL */}
-            <div class="p-6 text-center hover:bg-blue-50 transition-colors">
-                <div class="text-4xl mb-3">🥇</div>
-                <h3 class="font-black text-slate-800 text-lg mb-1">STEL Order</h3>
-                <span class="inline-block bg-blue-100 text-blue-800 text-xs font-bold px-2 py-1 rounded mb-3">Mejor Global</span>
-                <p class="text-sm text-slate-500 mb-4 h-10 line-clamp-2">La mejor App Offline. Funciona perfecto en garajes y grupos de presión.</p>
-                <a href="/analisis/stel-order?sector=fontaneros" class="text-blue-600 font-bold text-sm hover:underline">Ver Análisis →</a>
+            <div class="p-6 text-center">
+                <div class="text-3xl mb-2">🥇</div>
+                <h3 class="font-black text-slate-800">STEL Order</h3>
+                <p class="text-xs text-slate-500 mb-4">La mejor App Offline para garajes.</p>
+                <a href="/analisis/stel-order?sector=fontaneros" class="text-blue-600 font-bold text-sm">Ver Análisis →</a>
             </div>
-            
-            {/* MEJOR PRECIO */}
-            <div class="p-6 text-center hover:bg-green-50 transition-colors">
-                <div class="text-4xl mb-3">🚀</div>
-                <h3 class="font-black text-slate-800 text-lg mb-1">Taclia</h3>
-                <span class="inline-block bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded mb-3">Opción Gratuita</span>
-                <p class="text-sm text-slate-500 mb-4 h-10 line-clamp-2">Ideal para empezar. Gestión de avisos sencilla y sin coste fijo.</p>
-                <a href="/analisis/taclia?sector=fontaneros" class="text-green-600 font-bold text-sm hover:underline">Ver Análisis →</a>
+            <div class="p-6 text-center">
+                <div class="text-3xl mb-2">🚀</div>
+                <h3 class="font-black text-slate-800">Taclia</h3>
+                <p class="text-xs text-slate-500 mb-4">Gestión sencilla y gratuita.</p>
+                <a href="/analisis/taclia?sector=fontaneros" class="text-green-600 font-bold text-sm">Ver Análisis →</a>
             </div>
-
-            {/* MEJOR MANTENIMIENTO */}
-            <div class="p-6 text-center hover:bg-purple-50 transition-colors">
-                <div class="text-4xl mb-3">⚙️</div>
-                <h3 class="font-black text-slate-800 text-lg mb-1">Fixner</h3>
-                <span class="inline-block bg-purple-100 text-purple-800 text-xs font-bold px-2 py-1 rounded mb-3">Mantenimientos</span>
-                <p class="text-sm text-slate-500 mb-4 h-10 line-clamp-2">El mejor para contratos recurrentes de calderas y climatización.</p>
-                <a href="/analisis/fixner?sector=fontaneros" class="text-purple-600 font-bold text-sm hover:underline">Ver Análisis →</a>
+            <div class="p-6 text-center">
+                <div class="text-3xl mb-2">⚙️</div>
+                <h3 class="font-black text-slate-800">Fixner</h3>
+                <p class="text-xs text-slate-500 mb-4">Ideal para mantenimientos.</p>
+                <a href="/analisis/fixner?sector=fontaneros" class="text-purple-600 font-bold text-sm">Ver Análisis →</a>
             </div>
         </div>
     </div>
 
-    {/* 2. TABLA COMPARATIVA (RECUPERADA DEL GENÉRICO) */}
-    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden mb-16">
-        <div class="bg-slate-100 p-4 border-b border-slate-200">
-            <h3 class="font-bold text-slate-700 uppercase text-xs tracking-wider">Comparativa Técnica Detallada</h3>
-        </div>
-        <div class="overflow-x-auto">
-            <table class="w-full text-left">
-                <thead>
-                    <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold uppercase text-slate-500">
-                        <th class="p-4 whitespace-nowrap">Software</th>
-                        <th class="p-4 whitespace-nowrap">Precio Base</th>
-                        <th class="p-4 text-center whitespace-nowrap">App Móvil</th>
-                        <th class="p-4"></th>
-                    </tr>
-                </thead>
-                <tbody class="text-sm">
-                    {topTable.map((s) => (
-                        <tr class="border-b border-slate-100 hover:bg-blue-50/50 transition-colors">
-                            <td class="p-4 font-bold text-slate-800 flex items-center gap-3 whitespace-nowrap">
-                                {s.logo_url ? <img src={s.logo_url} class="w-8 h-8 object-contain" alt="" /> : <span class="text-xl">📱</span>}
-                                {s.name}
-                            </td>
-                            <td class="p-4 font-black text-blue-700 whitespace-nowrap">
-                                {s.pricing?.start_price === 0 
-                                  ? <span class="text-slate-900 uppercase">GRATIS</span> 
-                                  : (s.pricing?.start_price ? `${s.pricing.start_price}€` : '-')}
-                            </td>
-                            <td class="p-4 text-center text-lg">{s.tabla_tecnica?.app_movil ? '✅' : '❌'}</td>
-                            <td class="p-4 text-right">
-                                <a href={s.url_afiliado} target="_blank" rel="nofollow noopener" class="inline-block bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black px-4 py-2 rounded uppercase transition-colors shadow-sm">
-                                    Ver Web
-                                </a>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    {/* 3. LISTADO TARJETAS (ESTRUCTURA GENÉRICA + CONTENIDO FONTANERO) */}
+    {/* LISTADO TARJETAS */}
     <div class="space-y-12 mb-20">
         {fontanerosSoft.map((soft) => (
-            <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden hover:shadow-xl transition-shadow">
-                <div class="p-6 md:p-10">
-                    <div class="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-8">
-                        <div class="flex items-start gap-6">
-                            <div class="w-20 h-20 bg-white rounded-xl flex items-center justify-center border border-slate-200 shadow-sm p-2 shrink-0">
-                                {soft.logo_url ? <img src={soft.logo_url} alt={soft.name} class="w-full h-full object-contain" /> : <span class="text-3xl font-black text-slate-300">{soft.name[0]}</span>}
-                            </div>
-                            <div>
-                                <h3 class="text-2xl font-black text-slate-800">
-                                    <a href={`/analisis/${soft.id}?sector=fontaneros`} class="hover:text-blue-700 underline decoration-blue-200 decoration-4 underline-offset-4 transition">{soft.name}</a>
-                                </h3>
-                                <div class="flex flex-wrap gap-2 mt-3">
-                                    {soft.legal_spain?.verifactu_ready && <span class="text-green-700 font-bold text-[10px] uppercase bg-green-50 px-2 py-1 rounded border border-green-200">✅ Verifactu</span>}
-                                </div>
-                            </div>
+            <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden">
+                <div class="p-6 md:p-10 flex flex-col md:flex-row justify-between gap-6">
+                    <div class="flex items-start gap-6">
+                        <div class="w-20 h-20 bg-white rounded-xl flex items-center justify-center border border-slate-200 p-2 shrink-0">
+                            {soft.logo_url ? <img src={soft.logo_url} alt={soft.name} class="w-full h-full object-contain" /> : "📱"}
                         </div>
-                        <div class="text-right">
-                            {soft.pricing?.start_price === 0 
-                              ? <span class="text-3xl font-black text-slate-900">GRATIS</span> 
-                              : <span class="text-3xl font-black text-slate-900">{soft.pricing?.start_price ? `${soft.pricing.start_price}€` : 'Consultar'}</span>
-                            }
-                            {soft.pricing?.has_free_trial && <div class="text-blue-600 text-xs font-bold mt-1">Prueba {soft.pricing.trial_days} días</div>}
+                        <div>
+                            <h3 class="text-2xl font-black text-slate-800">{soft.name}</h3>
+                            <p class="text-slate-600 mt-4 leading-relaxed">{soft.opinion_experto_fontanero || soft.short_description}</p>
                         </div>
                     </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="md:col-span-2 space-y-4">
-                            <div class="prose prose-slate prose-sm">
-                                <h4 class="text-lg font-bold text-slate-800 mb-1">Opinión para Fontaneros</h4>
-                                <p class="text-slate-600 leading-relaxed">
-                                    {/* Muestra la opinión específica de fontanero del JSON */}
-                                    {soft.opinion_experto_fontanero || soft.short_description}
-                                </p>
-                            </div>
-                            <div class="flex flex-wrap gap-2">
-                                {soft.features?.slice(0, 4).map(f => (
-                                    <span class="bg-slate-50 text-slate-700 text-xs font-bold px-2 py-1 rounded border border-slate-200 uppercase">{f}</span>
-                                ))}
-                            </div>
-                        </div>
-                        <div class="flex flex-col gap-3 justify-center">
-                            <a href={soft.url_afiliado || "#"} target="_blank" rel="nofollow noopener" class="bg-blue-600 hover:bg-blue-700 text-white font-black py-3 rounded-xl text-center shadow-lg transition transform hover:-translate-y-1">
-                                VISITAR WEB
-                            </a>
-                            <a href={`/analisis/${soft.id}?sector=fontaneros`} class="text-center text-slate-600 font-bold text-sm hover:underline">
-                                Leer análisis completo
-                            </a>
-                        </div>
+                    <div class="flex flex-col gap-3 min-w-[140px]">
+                        <span class="text-3xl font-black text-center text-slate-900">{soft.pricing?.start_price === 0 ? 'GRATIS' : `${soft.pricing.start_price}€`}</span>
+                        <a href={soft.url_afiliado || "#"} target="_blank" class="bg-blue-600 text-white font-black py-3 rounded-xl text-center shadow-lg">PRUEBA GRATIS</a>
                     </div>
                 </div>
             </div>
         ))}
     </div>
 
-    {/* 4. GUÍA SEO ESPECÍFICA (SILO) + BLOQUES */}
-    <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden p-8 md:p-12">
-        <div class="prose prose-slate max-w-none">
-            <h2 class="text-3xl font-black text-slate-800 mb-6">{info.guiaTitulo}</h2>
-            <p class="text-lg leading-relaxed text-slate-600" set:html={info.guiaTexto}></p>
-            
-            <h3>El problema de la cobertura en sótanos</h3>
-            <p>
-                Uno de los mayores retos del gremio es trabajar en cuartos de contadores, garajes o salas de calderas donde no hay señal móvil. Si eliges un software 100% Cloud que necesita internet constante, <strong>no podrás abrir ni cerrar partes</strong>.
-            </p>
-        </div>
+    {/* 🚨 GUÍA RECUPERADA + ICONOS + FAQs 🚨 */}
+    <section class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden p-8 md:p-12">
+        <h2 class="text-3xl font-black text-slate-800 mb-6">{info.guiaTitulo}</h2>
+        <p class="text-lg leading-relaxed text-slate-600 mb-10" set:html={info.guiaTexto}></p>
 
-        {/* BLOQUES DE ICONOS */}
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 not-prose my-10 border-y border-slate-100 py-10">
-            {info.bloques.map((bloque) => (
-                <div class="p-6 bg-blue-50 rounded-2xl border border-blue-100">
-                    <div class="text-4xl mb-4">{bloque.icon}</div>
-                    <h4 class="font-bold text-blue-900 mb-3 text-lg">{bloque.t}</h4>
-                    <p class="text-sm text-blue-800 leading-relaxed">{bloque.d}</p>
+        {/* 3 BLOQUES DE ICONOS */}
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12 border-y border-slate-100 py-10">
+            {info.bloques.map(b => (
+                <div class="text-center md:text-left">
+                    <div class="text-4xl mb-4">{b.icon}</div>
+                    <h4 class="font-bold text-slate-900 mb-2">{b.t}</h4>
+                    <p class="text-sm text-slate-600">{b.d}</p>
                 </div>
             ))}
         </div>
 
-        {/* FAQs ESPECÍFICAS DE FONTANEROS */}
-        <div class="prose prose-slate max-w-none">
-            <h3>Preguntas Frecuentes</h3>
-            <details class="bg-slate-50 border border-slate-200 rounded-lg mb-3 open:shadow-sm">
-                <summary class="font-bold text-slate-800 p-4 cursor-pointer list-none flex justify-between items-center">
-                    ¿La App funciona en sótanos sin cobertura?
-                    <span class="text-slate-400">▼</span>
-                </summary>
-                <div class="p-4 pt-0 text-slate-600 text-sm">
-                    Sí, es vital. Los programas seleccionados (como STEL Order) tienen modo "Offline First". Guardan los datos en el móvil y los suben cuando sales a la calle.
-                </div>
-            </details>
-            <details class="bg-slate-50 border border-slate-200 rounded-lg open:shadow-sm">
-                <summary class="font-bold text-slate-800 p-4 cursor-pointer list-none flex justify-between items-center">
-                    ¿Puedo subir fotos de la avería?
-                    <span class="text-slate-400">▼</span>
-                </summary>
-                <div class="p-4 pt-0 text-slate-600 text-sm">
-                    Sí, todos los programas de esta lista permiten adjuntar fotos ilimitadas al parte de trabajo para justificar la reparación ante el cliente o el seguro.
-                </div>
-            </details>
+        <h3 class="text-2xl font-black text-slate-800 mb-8">Dudas frecuentes sobre Fontanería</h3>
+        <div class="space-y-4">
+            {info.faqs.map(faq => (
+                <details class="group bg-slate-50 border border-slate-200 rounded-xl transition-all">
+                    <summary class="p-6 font-bold text-slate-800 cursor-pointer list-none flex justify-between items-center group-open:bg-blue-50 group-open:rounded-t-xl">
+                        {faq.q} <span class="text-blue-600 group-open:rotate-180 transition-transform">▼</span>
+                    </summary>
+                    <div class="p-6 text-slate-600 bg-white rounded-b-xl border-t border-slate-100 text-sm">{faq.a}</div>
+                </details>
+            ))}
         </div>
-    </div>
-
+    </section>
   </main>
 </Layout>
