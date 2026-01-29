@@ -12,9 +12,10 @@ export async function getStaticPaths() {
 
 const { software } = Astro.props;
 
-const precioDisplay = software.pricing?.start_price 
-  ? `${software.pricing.start_price}€` 
-  : "Consultar";
+// CORRECCIÓN DE PRECIO: Si es 0, mostramos "GRATIS", si no, el precio.
+const precioDisplay = software.pricing?.start_price === 0 
+  ? "GRATIS" 
+  : (software.pricing?.start_price ? `${software.pricing.start_price}€` : "Consultar");
 
 // Cargamos las FAQs genéricas del JSON (luego inyectaremos la específica por JS)
 const faqsFinales = [...(software.faqs_seo || [])];
@@ -75,7 +76,7 @@ const schema = {
             <a href={software.url_afiliado} target="_blank" rel="nofollow noopener" class="bg-yellow-400 text-yellow-900 font-bold py-3 px-8 rounded-lg hover:bg-yellow-300 transition shadow-lg transform hover:-translate-y-1 flex items-center gap-2">
                 Ver Oferta Oficial <span class="text-xl">→</span>
             </a>
-            <div class="text-indigo-200 text-sm flex items-center gap-1">Desde <span class="text-white text-2xl font-bold">{precioDisplay}</span> /mes</div>
+            <div class="text-indigo-200 text-sm flex items-center gap-1">Desde <span class="text-white text-2xl font-bold">{precioDisplay}</span> {software.pricing?.start_price > 0 && '/mes'}</div>
         </div>
       </div>
     </div>
@@ -167,10 +168,16 @@ const schema = {
             <div class="text-center mb-6">
                 <p class="text-xs font-bold text-gray-400 uppercase tracking-widest">Plan Inicial</p>
                 <div class="flex justify-center items-baseline gap-1">
-                    <span class="text-5xl font-extrabold text-gray-900">{software.pricing?.start_price || "?"}</span>
-                    <span class="text-2xl font-bold text-gray-500">€</span>
+                    {/* AQUÍ ESTÁ LA CORRECCIÓN: Si es 0, ponemos GRATIS en gris oscuro, si no, el número */}
+                    {software.pricing?.start_price === 0 
+                        ? <span class="text-5xl font-extrabold text-slate-900 uppercase">GRATIS</span>
+                        : <>
+                            <span class="text-5xl font-extrabold text-gray-900">{software.pricing?.start_price || "?"}</span>
+                            <span class="text-2xl font-bold text-gray-500">€</span>
+                          </>
+                    }
                 </div>
-                <p class="text-gray-400 text-sm mt-1">/ {software.pricing?.period || "mes"}</p>
+                {software.pricing?.start_price > 0 && <p class="text-gray-400 text-sm mt-1">/ {software.pricing?.period || "mes"}</p>}
             </div>
             <a href={software.url_afiliado} target="_blank" class="block w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-xl text-center shadow-md transition-all active:scale-95">Probar Gratis Ahora</a>
             <div class="mt-8 border-t border-gray-100 pt-6">
