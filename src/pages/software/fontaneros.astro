@@ -4,7 +4,25 @@
 import Layout from '../../layouts/Layout.astro';
 import softwares from '../../softwares.json';
 
-// 1. FILTRADO Y ORDENACIÓN VIP (STEL y Taclia primero)
+// 1. DATOS ESPECÍFICOS PARA FONTANEROS (Sustituye a la prop 'info')
+const info = {
+  id: 'fontaneros',
+  nombre: 'Fontaneros',
+  emoji: '🔧',
+  titulo: 'Software para Fontaneros y App de Partes de Trabajo',
+  desc: 'El mejor software y App móvil para gestionar avisos de fontanería, controlar el stock de la furgoneta y facturar sin internet.',
+  filtro: ['fontaneros', 'fontanería', 'desatascos', 'pocería', 'calefacción'],
+  opinionKey: 'opinion_experto_fontanero',
+  guiaTitulo: 'Guía 2026: Cómo elegir App y Programa para Fontanería',
+  guiaTexto: 'La fontanería moderna requiere movilidad total. No basta con un programa de oficina; necesitas una <strong>App de partes de trabajo</strong> que permita geolocalizar al técnico y facturar in-situ.',
+  bloques: [
+    { icon: '📱', t: 'App de Partes', d: 'Crea partes con fotos del "antes y después", recoge la firma del cliente en la pantalla y ciérralos al momento.' },
+    { icon: '📦', t: 'Stock en Furgoneta', d: 'Controla el stock de grifería y cobre. Descuenta el material del almacén móvil automáticamente.' },
+    { icon: '🧾', t: 'Facturación Verifactu', d: 'Evita sanciones. A partir de 2026, tus facturas deben llevar un código QR y Huella digital.' }
+  ]
+};
+
+// 2. FILTRADO Y ORDENACIÓN VIP (STEL y Taclia primero)
 const vipList = ['stel-order', 'taclia'];
 const fontanerosSoft = softwares
   .filter(s => s.target_gremios.some(g => g.toLowerCase().includes('fontane')))
@@ -20,7 +38,7 @@ const fontanerosSoft = softwares
 // Top 5 para la tabla pequeña
 const topTable = fontanerosSoft.slice(0, 5);
 
-// 2. SCHEMA SEO (CollectionPage)
+// 3. SCHEMA SEO (CollectionPage)
 const schema = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
@@ -51,10 +69,10 @@ const schema = {
     </div>
     <div class="max-w-4xl mx-auto relative z-10 text-center md:text-left">
       <span class="bg-blue-800 text-blue-200 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-blue-600 mb-4 inline-block">
-        Actualizado 2026
+        Especial Vertical Fontanería
       </span>
       <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight">
-        Software para <br/><span class="text-blue-400">Fontaneros y Calefactores</span>
+        El Mejor Software para <br/><span class="text-blue-400">Fontaneros y Calefactores</span>
       </h1>
       <p class="text-xl text-blue-100 max-w-2xl mb-8 leading-relaxed">
         Deja de perder dinero con partes en papel mojados. Digitaliza tu empresa con Apps que funcionan <strong>en sótanos sin cobertura</strong>, controlan el stock de la furgoneta y cumplen con Verifactu.
@@ -199,34 +217,24 @@ const schema = {
     {/* 4. GUÍA SEO ESPECÍFICA (SILO) + BLOQUES */}
     <div class="bg-white rounded-2xl shadow-lg border border-slate-200 overflow-hidden p-8 md:p-12">
         <div class="prose prose-slate max-w-none">
-            <h2 class="text-3xl font-black text-slate-800 mb-6">Guía 2026: Cómo elegir App para Fontanería</h2>
-            <p class="text-lg leading-relaxed text-slate-600">
-                La fontanería moderna requiere movilidad total. No basta con un programa de oficina; necesitas una <strong>App de partes de trabajo</strong> que permita geolocalizar al técnico y facturar in-situ.
-            </p>
+            <h2 class="text-3xl font-black text-slate-800 mb-6">{info.guiaTitulo}</h2>
+            <p class="text-lg leading-relaxed text-slate-600" set:html={info.guiaTexto}></p>
             
             <h3>El problema de la cobertura en sótanos</h3>
             <p>
-                Uno de los mayores retos del gremio es trabajar en cuartos de contadores, garajes o salas de calderas donde no hay señal móvil. Si eliges un software 100% Cloud que necesita internet constante, <strong>no podrás abrir ni cerrar partes</strong>. Por eso priorizamos Apps "Offline First".
+                Uno de los mayores retos del gremio es trabajar en cuartos de contadores, garajes o salas de calderas donde no hay señal móvil. Si eliges un software 100% Cloud que necesita internet constante, <strong>no podrás abrir ni cerrar partes</strong>.
             </p>
         </div>
 
-        {/* BLOQUES DE ICONOS (RECUPERADOS PERO ESPECÍFICOS) */}
+        {/* BLOQUES DE ICONOS */}
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 not-prose my-10 border-y border-slate-100 py-10">
-            <div class="p-6 bg-blue-50 rounded-2xl border border-blue-100">
-                <div class="text-4xl mb-4">📱</div>
-                <h4 class="font-bold text-blue-900 mb-3 text-lg">App de Partes</h4>
-                <p class="text-sm text-blue-800 leading-relaxed">Crea partes con fotos del "antes y después" y recoge la firma del cliente.</p>
-            </div>
-            <div class="p-6 bg-blue-50 rounded-2xl border border-blue-100">
-                <div class="text-4xl mb-4">📦</div>
-                <h4 class="font-bold text-blue-900 mb-3 text-lg">Stock Furgoneta</h4>
-                <p class="text-sm text-blue-800 leading-relaxed">Controla el stock de grifería y cobre. Descuenta el material del almacén móvil automáticamente.</p>
-            </div>
-            <div class="p-6 bg-blue-50 rounded-2xl border border-blue-100">
-                <div class="text-4xl mb-4">🧾</div>
-                <h4 class="font-bold text-blue-900 mb-3 text-lg">Factura Verifactu</h4>
-                <p class="text-sm text-blue-800 leading-relaxed">Evita sanciones. A partir de 2026, tus facturas deben llevar un código QR.</p>
-            </div>
+            {info.bloques.map((bloque) => (
+                <div class="p-6 bg-blue-50 rounded-2xl border border-blue-100">
+                    <div class="text-4xl mb-4">{bloque.icon}</div>
+                    <h4 class="font-bold text-blue-900 mb-3 text-lg">{bloque.t}</h4>
+                    <p class="text-sm text-blue-800 leading-relaxed">{bloque.d}</p>
+                </div>
+            ))}
         </div>
 
         {/* FAQs ESPECÍFICAS DE FONTANEROS */}
