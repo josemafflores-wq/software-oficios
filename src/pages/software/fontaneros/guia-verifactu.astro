@@ -2,216 +2,317 @@
 // src/pages/software/fontaneros/guia-verifactu.astro
 import Layout from '../../../layouts/Layout.astro';
 
-// ⚙️ METADATOS SEO: Optimizados para la intención de búsqueda real
-const title = "Ley Verifactu y Fontaneros: El peligro de seguir con Excel en 2027";
-const description = "Aunque Verifactu se retrasa a 2027, la Ley Antifraude ya multa el uso de Excel. Aprende a protegerte y digitaliza tu negocio gratis con el Kit Digital.";
+// ✅ METADATOS SEO (mejor intención + CTR)
+const title =
+  "Guía VeriFactu para fontaneros 2026–2027: evita multas, deja Excel y factura incluso sin internet";
+const description =
+  "Guía práctica para fontaneros: qué es VeriFactu, por qué Excel ya es un riesgo, cómo facturar bien y qué debe tener un software (modo offline, QR, rectificativas) para evitar sanciones.";
 
-// ⚙️ SCHEMA.ORG
-const schema = {
+// ✅ SCHEMA: Article + FAQPage (separados y limpios)
+const articleSchema = {
   "@context": "https://schema.org",
   "@type": "Article",
-  "headline": "Ley Verifactu para Fontaneros: Guía de Supervivencia",
+  "headline":
+    "Guía VeriFactu para fontaneros 2026–2027: evita multas y deja Excel",
   "datePublished": "2026-02-01",
+  "dateModified": "2026-02-01",
   "author": { "@type": "Organization", "name": "SoftwareOficios" },
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "¿Me pueden multar hoy por usar Excel?",
-      "acceptedAnswer": { "@type": "Answer", "text": "Sí. La Ley 11/2021 prohíbe el software que permita ocultar ventas. Excel entra en esta categoría y la sanción es de hasta 50.000€ por tenencia." }
-    }
-  ]
+  "publisher": { "@type": "Organization", "name": "SoftwareOficios" },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.softwareoficios.es/software/fontaneros/guia-verifactu/"
+  }
+};
+
+const faqItems = [
+  {
+    q: "¿Me pueden multar hoy por usar Excel para facturar?",
+    a: "El riesgo existe porque Excel permite modificar facturas sin dejar rastro. La normativa antifraude exige registros íntegros e inalterables; por eso, si hay inspección, usar herramientas que permitan “borrar el pasado” puede darte problemas. La forma segura es usar un software que bloquee la factura y gestione rectificativas."
+  },
+  {
+    q: "Si VeriFactu se retrasa, ¿puedo seguir igual hasta 2027?",
+    a: "No conviene. Aunque haya cambios de calendario, la dirección es clara: facturas trazables, registros inalterables y procesos que no dependan de Excel. Esperar al último momento suele salir caro (prisas, malas decisiones y menos ayudas disponibles)."
+  },
+  {
+    q: "¿Qué pasa si me equivoco en una factura?",
+    a: "La solución correcta no es borrar y rehacer: se emite una factura rectificativa. Un buen software te obliga a hacerlo así para que quede rastro y sea defendible ante Hacienda."
+  },
+  {
+    q: "Trabajo en sótanos sin cobertura: ¿cómo facturo con VeriFactu?",
+    a: "Necesitas una app con enfoque “offline first”: permite crear partes, recoger firmas y preparar facturas sin internet. Luego, cuando el móvil recupera señal, sincroniza y completa el envío/registro necesario."
+  },
+  {
+    q: "¿Qué debe tener un software para fontaneros para estar tranquilo?",
+    a: "Tres cosas: (1) facturas inalterables y trazables, (2) rectificativas bien resueltas, (3) funcionamiento real en movilidad (modo offline), además de extras muy útiles como partes, firmas y control de material en furgoneta."
+  },
+  {
+    q: "¿Qué hago hoy si sigo con papel y Excel?",
+    a: "Plan simple: 1) elige un software que cumpla trazabilidad y rectificativas, 2) prueba el flujo móvil (sin cobertura), 3) empieza por partes/albaranes y luego facturas, 4) usa una guía/ranking para no perderte y no comprar algo que te deje tirado."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": { "@type": "Answer", "text": item.a }
+  }))
 };
 ---
 
 <Layout title={title} description={description}>
-  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
   {/* NAVEGACIÓN */}
   <nav class="bg-white border-b border-slate-200 py-4 px-6 text-xs font-bold text-slate-500 uppercase tracking-widest overflow-x-auto whitespace-nowrap">
     <div class="max-w-4xl mx-auto flex gap-2 items-center">
-        <a href="/" class="hover:text-blue-600">Inicio</a> <span>/</span>
-        <a href="/software/fontaneros/" class="hover:text-blue-600">Software Fontaneros</a> <span>/</span>
-        <span class="text-blue-900 bg-blue-50 px-2 py-1 rounded">Guía Verifactu</span>
+      <a href="/" class="hover:text-blue-600">Inicio</a> <span>/</span>
+      <a href="/software/fontaneros/" class="hover:text-blue-600">Software Fontaneros</a> <span>/</span>
+      <span class="text-blue-900 bg-blue-50 px-2 py-1 rounded">Guía VeriFactu</span>
     </div>
   </nav>
 
   <main class="max-w-4xl mx-auto px-6 py-16 text-slate-800 font-sans leading-relaxed">
-    
-    <header class="mb-16 text-center">
+
+    <header class="mb-14 text-center">
       <div class="inline-flex items-center gap-2 bg-green-100 text-green-800 text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-widest mb-6">
-        <span class="w-2 h-2 bg-green-600 rounded-full animate-pulse"></span> Última Hora: Aplazamiento 2027
+        <span class="w-2 h-2 bg-green-600 rounded-full animate-pulse"></span>
+        Última hora: cambios de calendario
       </div>
-      <h1 class="text-4xl md:text-6xl font-black tracking-tighter mb-8 text-slate-900 leading-[1.1]">
-        Hacienda retrasa la fecha,<br/> <span class="text-blue-600">pero mantiene las multas</span>
+
+      {/* ✅ H1 SEO explícito */}
+      <h1 class="text-3xl md:text-5xl font-black tracking-tighter mb-6 text-slate-900 leading-[1.1]">
+        Guía VeriFactu para fontaneros 2026–2027:
+        <span class="text-blue-600"> evita multas y deja Excel</span>
       </h1>
+
+      {/* Mantengo tu titular “periodístico” como subtítulo (no se pierde) */}
       <p class="text-xl text-slate-600 max-w-2xl mx-auto font-medium">
-        Muchos fontaneros respiran aliviados por el retraso de Verifactu a 2027. <strong>Es una trampa.</strong> Te explicamos por qué tu Excel sigue siendo una "bomba de relojería" hoy mismo.
+        Hacienda puede mover fechas, pero la idea de fondo no cambia: facturas trazables e inalterables.
+        Si sigues con Excel “porque aún no toca”, te puedes meter en un lío.
       </p>
+
+      {/* ✅ Bloque de acción inmediata (muy útil y mejora UX) */}
+      <div class="mt-10 max-w-3xl mx-auto text-left bg-slate-50 border border-slate-200 rounded-2xl p-6">
+        <h2 class="text-lg font-black text-slate-900 m-0 mb-3">
+          Qué hacer hoy si eres fontanero y sigues con Excel
+        </h2>
+        <ol class="m-0 pl-5 text-slate-700 space-y-2">
+          <li>Elige un software que <strong>bloquee facturas</strong> y gestione <strong>rectificativas</strong>.</li>
+          <li>Comprueba que funciona en movilidad: <strong>modo offline</strong> en sótanos y cuartos de contadores.</li>
+          <li>Empieza por <strong>partes/albaranes + firma</strong>, y pasa a facturas cuando el flujo sea cómodo.</li>
+          <li>Si no quieres perder tiempo comparando, ve directo al ranking de fontaneros.</li>
+        </ol>
+        <div class="mt-5 flex flex-col sm:flex-row gap-3">
+          <a href="/software/fontaneros/" class="inline-block bg-yellow-400 hover:bg-yellow-300 text-yellow-900 font-black py-3 px-5 rounded-xl transition-all hover:scale-[1.02]">
+            Ver ranking de software para fontaneros →
+          </a>
+          <a href="/software/fontaneros/plantilla-factura/" class="inline-block bg-white hover:bg-slate-100 text-slate-900 font-bold py-3 px-5 rounded-xl border border-slate-200">
+            Descargar plantilla de factura →
+          </a>
+        </div>
+      </div>
     </header>
 
     <article class="prose prose-lg max-w-none prose-slate prose-headings:font-black prose-p:text-slate-600 prose-a:text-blue-600 prose-a:no-underline hover:prose-a:underline">
-      
-      {/* 1. EL GANCHO: REALIDAD VS FICCIÓN */}
+
+      {/* ✅ H2 de intención (captura PAA y long tail) */}
+      <h2>¿Qué es VeriFactu y por qué afecta a los fontaneros?</h2>
+      <p>
+        VeriFactu es, en la práctica, un sistema orientado a que las facturas sean <strong>trazables</strong> y
+        que no puedas “cambiar el pasado” sin dejar rastro. Para un fontanero, esto toca justo donde más duele:
+        facturas rápidas, cobros en el momento, y trabajo en movilidad (a veces sin cobertura).
+      </p>
+
+      {/* 1. EL GANCHO */}
       <div class="bg-slate-50 border-l-4 border-slate-900 p-8 mb-12 rounded-r-xl">
-        <h3 class="text-slate-900 font-bold text-xl m-0 mb-2">🛑 Lo que piensa la mayoría:</h3>
-        <p class="italic text-slate-500 mb-6">"Como se retrasa a 2027, puedo seguir con mis albaranes de papel y mi Excel dos años más."</p>
-        
-        <h3 class="text-red-700 font-bold text-xl m-0 mb-2">⚠️ La realidad legal:</h3>
+        <h3 class="text-slate-900 font-bold text-xl m-0 mb-2">Lo que piensa mucha gente</h3>
+        <p class="italic text-slate-500 mb-6">“Como se retrasa, sigo con mis albaranes de papel y mi Excel un tiempo más.”</p>
+
+        <h3 class="text-red-700 font-bold text-xl m-0 mb-2">La realidad práctica</h3>
         <p class="m-0 font-medium text-slate-800">
-            El retraso afecta a la <em>conexión</em> con Hacienda. Pero la <strong>Ley Antifraude (vigente desde 2021)</strong> ya prohíbe tener programas que permitan modificar facturas sin dejar rastro. Si tienes una inspección hoy, <strong>el Excel es sancionable con 50.000€</strong>.
+          El problema de Excel es que <strong>permite modificar registros sin huella</strong>. Eso choca de frente con el objetivo
+          de la normativa antifraude. Traducido: si un día te piden justificar cambios, Excel te deja vendido.
         </p>
       </div>
 
-      <h2>¿Por qué Excel se considera "Software Ilegal"?</h2>
+      <h2>¿Por qué Excel se considera un riesgo?</h2>
       <p>
-        Parece exagerado, pero para Hacienda, un Excel es un "Software de Doble Uso". 
-        La razón es simple: <strong>permite borrar el pasado</strong>.
-      </p>
-      <p>
-        Puedes abrir una factura de hace dos meses, cambiar el importe, guardarla y nadie sabrá nunca que antes ponía otra cosa. Eso es lo que la ley quiere erradicar. Los nuevos programas <strong>bloquean la factura</strong> al emitirla. Si te equivocas, te obligan a hacer una rectificativa.
+        Parece exagerado, pero el punto es simple: Excel permite editar una factura antigua y guardarla como si nada.
+        Eso es justo lo que la normativa quiere evitar. Los programas “serios” <strong>bloquean la factura</strong> cuando la emites,
+        y si hay un error, te obligan a hacer una <strong>rectificativa</strong>.
       </p>
 
-      {/* 2. PARTE CENTRAL VISUAL MEJORADA */}
+      {/* ✅ Mini tabla/chuleta (mejora UX y ayuda a featured snippets) */}
+      <div class="not-prose my-10 overflow-x-auto">
+        <table class="w-full text-sm border border-slate-200 rounded-xl overflow-hidden">
+          <thead class="bg-slate-100">
+            <tr>
+              <th class="p-3 text-left font-black text-slate-900">Situación típica</th>
+              <th class="p-3 text-left font-black text-slate-900">Qué hacer</th>
+              <th class="p-3 text-left font-black text-slate-900">Riesgo si sigues igual</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white">
+            <tr class="border-t border-slate-200">
+              <td class="p-3">“Luego en casa lo paso a Excel”</td>
+              <td class="p-3">Usa app que genere registro y permita rectificativas</td>
+              <td class="p-3">Inconsistencias y difícil defensa ante revisión</td>
+            </tr>
+            <tr class="border-t border-slate-200">
+              <td class="p-3">“Me equivoqué en el importe”</td>
+              <td class="p-3">Rectificativa, no borrar/recrear</td>
+              <td class="p-3">Rastro confuso / riesgo de sanción por manipulación</td>
+            </tr>
+            <tr class="border-t border-slate-200">
+              <td class="p-3">Sótano sin cobertura</td>
+              <td class="p-3">Software “offline first” + sincronización</td>
+              <td class="p-3">No puedes cerrar parte/factura en el momento</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      {/* 2. PARTE CENTRAL VISUAL (la mantengo, es buena) */}
       <div class="my-20 not-prose">
         <div class="text-center mb-10">
-             <h2 class="text-3xl md:text-4xl font-black text-slate-900 mb-4">Tu cliente será tu inspector</h2>
-             <p class="text-slate-500 max-w-lg mx-auto">A partir de la fecha límite, cada factura llevará una "matrícula" única (QR). Así es como funciona:</p>
+          <h2 class="text-3xl md:text-4xl font-black text-slate-900 mb-4">Tu cliente será tu inspector</h2>
+          <p class="text-slate-500 max-w-lg mx-auto">
+            A medida que se endurezca el sistema, cada factura llevará un identificador (por ejemplo, QR) que facilita comprobarla.
+          </p>
         </div>
-        
-        <div class="bg-gradient-to-br from-slate-100 to-white rounded-3xl p-6 md:p-12 border border-slate-200 shadow-xl relative overflow-hidden">
-          
-          <div class="flex flex-col md:flex-row gap-12 items-center relative z-10">
-              
-              {/* LA FACTURA (Izquierda) */}
-              <div class="w-full md:w-1/2 relative group perspective-1000">
-                <div class="bg-white p-6 rounded-lg shadow-2xl border border-slate-100 transform transition-transform duration-500 group-hover:rotate-1 group-hover:scale-105">
-                    {/* Cabecera Factura */}
-                    <div class="flex justify-between border-b border-slate-100 pb-4 mb-4">
-                        <div class="space-y-2">
-                            <div class="w-8 h-8 bg-blue-600 rounded-md"></div>
-                            <div class="w-24 h-2 bg-slate-200 rounded"></div>
-                        </div>
-                        <div class="text-right">
-                            <div class="text-[10px] uppercase font-bold text-slate-400">Factura</div>
-                            <div class="text-sm font-black text-slate-800">2027/A-001</div>
-                        </div>
-                    </div>
-                    {/* Líneas */}
-                    <div class="space-y-3 mb-6">
-                        <div class="flex justify-between text-xs text-slate-500">
-                            <span>Mano de obra (Urgencia)</span> <span>150€</span>
-                        </div>
-                        <div class="flex justify-between text-xs text-slate-500">
-                            <span>Sustitución Llave Paso</span> <span>45€</span>
-                        </div>
-                        <div class="border-t border-slate-100 my-2"></div>
-                        <div class="flex justify-between font-black text-slate-800">
-                            <span>TOTAL</span> <span>195€</span>
-                        </div>
-                    </div>
-                    {/* EL QR PROTAGONISTA */}
-                    <div class="bg-slate-900 rounded-lg p-4 flex gap-4 items-center text-white relative overflow-hidden">
-                        <div class="absolute top-0 right-0 bg-yellow-400 text-yellow-900 text-[9px] font-black px-2 py-0.5">OBLIGATORIO</div>
-                        <div class="w-16 h-16 bg-white p-1 rounded-sm shrink-0 grid grid-cols-4 gap-0.5">
-                             {/* QR Generado por CSS */}
-                             <div class="col-span-2 row-span-2 bg-black"></div><div class="bg-black"></div><div class="bg-gray-300"></div>
-                             <div class="bg-gray-300"></div><div class="bg-black"></div>
-                             <div class="col-span-2 row-span-2 bg-black col-start-3 row-start-3"></div>
-                             <div class="bg-black"></div><div class="bg-gray-300"></div>
-                        </div>
-                        <div>
-                            <p class="text-xs font-bold text-blue-200 uppercase tracking-wider mb-1">Veri*Factu</p>
-                            <p class="text-[10px] text-slate-300 leading-tight">Huella digital única. Garantiza remisión a la AEAT.</p>
-                        </div>
-                    </div>
-                </div>
-                {/* Sombra decorativa */}
-                <div class="absolute -bottom-6 -right-6 w-full h-full bg-slate-200 rounded-lg -z-10"></div>
-              </div>
 
-              {/* LOS TEXTOS (Derecha) */}
-              <div class="w-full md:w-1/2 space-y-8">
-                  <div class="flex gap-4">
-                      <div class="w-10 h-10 bg-red-100 text-red-600 rounded-full flex items-center justify-center font-bold text-lg shrink-0">1</div>
-                      <div>
-                          <h4 class="font-bold text-slate-900">Fiscalización Ciudadana</h4>
-                          <p class="text-sm text-slate-600 leading-relaxed">Cualquier cliente podrá escanear ese QR con su móvil. Si la factura no aparece en Hacienda, saltará una alerta roja.</p>
-                      </div>
+        <div class="bg-gradient-to-br from-slate-100 to-white rounded-3xl p-6 md:p-12 border border-slate-200 shadow-xl relative overflow-hidden">
+          <div class="flex flex-col md:flex-row gap-12 items-center relative z-10">
+
+            {/* LA FACTURA (Izquierda) */}
+            <div class="w-full md:w-1/2 relative group perspective-1000">
+              <div class="bg-white p-6 rounded-lg shadow-2xl border border-slate-100 transform transition-transform duration-500 group-hover:rotate-1 group-hover:scale-105">
+                <div class="flex justify-between border-b border-slate-100 pb-4 mb-4">
+                  <div class="space-y-2">
+                    <div class="w-8 h-8 bg-blue-600 rounded-md"></div>
+                    <div class="w-24 h-2 bg-slate-200 rounded"></div>
                   </div>
-                  <div class="flex gap-4">
-                      <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-lg shrink-0">2</div>
-                      <div>
-                          <h4 class="font-bold text-slate-900">Fin del "Ya te la daré"</h4>
-                          <p class="text-sm text-slate-600 leading-relaxed">La ley exige que el código se genere <strong>en el momento</strong>. No vale hacer la factura por la noche en casa.</p>
-                      </div>
+                  <div class="text-right">
+                    <div class="text-[10px] uppercase font-bold text-slate-400">Factura</div>
+                    <div class="text-sm font-black text-slate-800">2027/A-001</div>
                   </div>
+                </div>
+
+                <div class="space-y-3 mb-6">
+                  <div class="flex justify-between text-xs text-slate-500">
+                    <span>Mano de obra (Urgencia)</span> <span>150€</span>
+                  </div>
+                  <div class="flex justify-between text-xs text-slate-500">
+                    <span>Sustitución Llave Paso</span> <span>45€</span>
+                  </div>
+                  <div class="border-t border-slate-100 my-2"></div>
+                  <div class="flex justify-between font-black text-slate-800">
+                    <span>TOTAL</span> <span>195€</span>
+                  </div>
+                </div>
+
+                <div class="bg-slate-900 rounded-lg p-4 flex gap-4 items-center text-white relative overflow-hidden">
+                  <div class="absolute top-0 right-0 bg-yellow-400 text-yellow-900 text-[9px] font-black px-2 py-0.5">OBLIGATORIO</div>
+                  <div class="w-16 h-16 bg-white p-1 rounded-sm shrink-0 grid grid-cols-4 gap-0.5">
+                    <div class="col-span-2 row-span-2 bg-black"></div><div class="bg-black"></div><div class="bg-gray-300"></div>
+                    <div class="bg-gray-300"></div><div class="bg-black"></div>
+                    <div class="col-span-2 row-span-2 bg-black col-start-3 row-start-3"></div>
+                    <div class="bg-black"></div><div class="bg-gray-300"></div>
+                  </div>
+                  <div>
+                    <p class="text-xs font-bold text-blue-200 uppercase tracking-wider mb-1">Veri*Factu</p>
+                    <p class="text-[10px] text-slate-300 leading-tight">
+                      Identificador que facilita trazabilidad y control.
+                    </p>
+                  </div>
+                </div>
               </div>
+              <div class="absolute -bottom-6 -right-6 w-full h-full bg-slate-200 rounded-lg -z-10"></div>
+            </div>
+
+            {/* LOS TEXTOS (Derecha) */}
+            <div class="w-full md:w-1/2 space-y-8">
+              <div class="flex gap-4">
+                <div class="w-10 h-10 bg-red-100 text-red-600 rounded-full flex items-center justify-center font-bold text-lg shrink-0">1</div>
+                <div>
+                  <h4 class="font-bold text-slate-900">Trazabilidad</h4>
+                  <p class="text-sm text-slate-600 leading-relaxed">
+                    La clave es que la factura quede registrada y sea defendible: menos “arreglos” y más rectificativas.
+                  </p>
+                </div>
+              </div>
+              <div class="flex gap-4">
+                <div class="w-10 h-10 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center font-bold text-lg shrink-0">2</div>
+                <div>
+                  <h4 class="font-bold text-slate-900">Fin del “luego te la paso”</h4>
+                  <p class="text-sm text-slate-600 leading-relaxed">
+                    El sistema empuja a emitir documentación en el momento o, como mínimo, a que quede registrada sin manipulación.
+                  </p>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
 
-      {/* 3. PROBLEMA REAL: SÓTANOS Y COBERTURA */}
-      <h2>El pánico del "Sin Cobertura"</h2>
+      <h2>El pánico del “sin cobertura”</h2>
       <p>
-        Sabemos lo que estás pensando: <em>"Trabajo en cuartos de contadores (-2) y calderas donde no tengo señal. ¿Cómo narices voy a conectar con Hacienda?"</em>
+        Si trabajas en cuartos de contadores, sótanos o salas de calderas, lo sabes: ahí no hay señal. Y por eso necesitas
+        un software que no sea “solo web”, sino una app preparada para funcionar sin internet.
       </p>
-      <p>
-        Es el problema nº1 del fontanero. Si compras un software barato (basado en web), te quedarás tirado. No podrás facturar hasta salir a la calle.
-      </p>
-      <p>
-        <strong>La solución técnica:</strong> Necesitas Apps con tecnología <strong>"Offline First"</strong>.
-      </p>
+      <p><strong>La solución técnica:</strong> busca enfoque <strong>offline first</strong>.</p>
       <ul class="list-none pl-0 space-y-2 bg-green-50 p-6 rounded-xl border border-green-100">
-         <li class="flex items-start gap-2">
-            <span class="text-green-600 font-bold">✓</span>
-            <span>Permiten crear partes, recoger firmas y facturar <strong>sin internet</strong>.</span>
-         </li>
-         <li class="flex items-start gap-2">
-            <span class="text-green-600 font-bold">✓</span>
-            <span>Guardan la "huella digital" en tu dispositivo legalmente.</span>
-         </li>
-         <li class="flex items-start gap-2">
-            <span class="text-green-600 font-bold">✓</span>
-            <span>En cuanto el móvil pilla señal (al subir al ascensor), se sincronizan solos.</span>
-         </li>
+        <li class="flex items-start gap-2"><span class="text-green-600 font-bold">✓</span><span>Crear partes, recoger firmas y preparar factura <strong>sin internet</strong>.</span></li>
+        <li class="flex items-start gap-2"><span class="text-green-600 font-bold">✓</span><span>Guardar registros en el dispositivo y sincronizar cuando vuelve la señal.</span></li>
+        <li class="flex items-start gap-2"><span class="text-green-600 font-bold">✓</span><span>Evitar quedarte tirado por “una web barata” que depende de conexión constante.</span></li>
       </ul>
 
-      {/* 4. GESTIÓN DE STOCK (BENEFICIO REAL) */}
       <h2>Tu dinero se escapa por la furgoneta</h2>
       <p>
-        Más allá de las multas, digitalizarse tiene una ventaja egoísta: <strong>dejar de perder dinero en material</strong>.
-      </p>
-      <p>
-        El "robo hormiga" o el olvido de cobrar piezas pequeñas (un latiguillo, tres codos de cobre) suma miles de euros al año. El software moderno te permite tener <strong>"Almacenes Móviles"</strong>: cada furgoneta es un almacén. Al usar una pieza en el parte de trabajo, se descuenta sola. Sabes lo que gastas al milímetro.
+        Digitalizarse no es solo “cumplir”: también es <strong>cobrar todo</strong>. El material pequeño olvidado (latiguillos, codos,
+        juntas) suma mucho. Un software con almacén móvil te ayuda a controlar stock y reducir pérdidas.
       </p>
 
-      {/* 5. CIERRE CON KIT DIGITAL */}
-      <h2>No pagues la licencia: Que pague Europa</h2>
+      <h2>No pagues la licencia a ciegas</h2>
       <p>
-        El gobierno sabe que esto es un cambio duro. Por eso existe el <strong>Kit Digital</strong>.
+        Si vas a cambiar, hazlo con cabeza: elige una herramienta que no solo “facture”, sino que te sirva en obra:
+        partes, firma, modo offline y un flujo rápido desde el móvil.
       </p>
       <p>
-        Si solicitas el bono ahora, puedes conseguir el software <strong>GRATIS durante 12 meses</strong>. Los programas que recomendamos gestionan ellos mismos el papeleo (son Agentes Digitalizadores).
+        Si quieres ir a lo práctico, aquí tienes la comparativa y el ranking específico para fontaneros:
+        <a href="/software/fontaneros/">software para fontaneros</a>.
       </p>
-      <p>
-        <strong>Consejo de experto:</strong> No esperes a 2027. Cuando sea obligatorio para todos, los fondos europeos se habrán agotado y los instaladores estarán colapsados. Hazlo ahora que es gratis y sin prisas.
-      </p>
+
+      {/* ✅ FAQ visible (además de schema) */}
+      <h2>Preguntas frecuentes sobre VeriFactu para fontaneros</h2>
+      <div class="not-prose mt-6 space-y-4">
+        {faqItems.map((item) => (
+          <details class="bg-white border border-slate-200 rounded-xl p-5">
+            <summary class="font-black text-slate-900 cursor-pointer">{item.q}</summary>
+            <p class="mt-3 text-slate-700 leading-relaxed">{item.a}</p>
+          </details>
+        ))}
+      </div>
 
     </article>
 
     {/* BLOQUE FINAL DE CONVERSIÓN */}
     <div class="mt-20 bg-slate-900 rounded-3xl p-8 md:p-14 text-center text-white shadow-2xl relative overflow-hidden">
       <div class="relative z-10">
-        <h3 class="text-3xl font-black mb-6">¿Qué App elijo?</h3>
+        <h3 class="text-3xl font-black mb-6">¿Qué app elijo si soy fontanero?</h3>
         <p class="mb-10 text-slate-300 text-lg max-w-2xl mx-auto leading-relaxed">
-          Hemos analizado las 3 mejores herramientas que funcionan <strong>sin internet</strong>, gestionan stock y ya están adaptadas a la ley.
+          Si trabajas sin cobertura y quieres estar tranquilo con la normativa, aquí tienes el ranking con las mejores opciones
+          (modo offline, partes, stock y facturación bien montada).
         </p>
         <a href="/software/fontaneros/" class="inline-block bg-yellow-400 hover:bg-yellow-300 text-yellow-900 font-black py-5 px-10 rounded-xl text-xl transition-all hover:scale-105 shadow-[0_0_30px_rgba(250,204,21,0.3)]">
-          Ver Ranking Fontaneros 2026 →
+          Ver ranking fontaneros 2026 →
         </a>
       </div>
-      
-      {/* Fondo abstracto */}
       <div class="absolute top-0 left-0 w-full h-full opacity-20 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-700 via-slate-900 to-black"></div>
     </div>
 

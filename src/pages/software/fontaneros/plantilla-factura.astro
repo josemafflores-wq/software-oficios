@@ -1,0 +1,267 @@
+---
+// src/pages/software/fontaneros/plantilla-factura.astro
+import Layout from '../../../layouts/Layout.astro';
+
+// ✅ SEO
+const title = "Plantilla factura fontanero (Excel/Word) 2026 + alternativa legal sin Excel (VeriFactu)";
+const description =
+  "Modelo de factura para fontaneros (vista previa para copiar/imprimir) y guía rápida para facturar bien en 2026. Aviso importante: por qué Excel es un riesgo con VeriFactu y cómo solucionarlo.";
+
+// ✅ Schema (Article + FAQPage para captar PAA)
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Plantilla de factura para fontaneros (Excel/Word) y modelo 2026",
+  "description":
+    "Modelo de factura para fontanería con desglose de mano de obra y materiales + guía rápida para facturar correctamente en 2026.",
+  "author": { "@type": "Organization", "name": "SoftwareOficios" },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://www.softwareoficios.es/software/fontaneros/plantilla-factura/"
+  }
+};
+
+const faqItems = [
+  {
+    q: "¿Esta plantilla sirve para cumplir VeriFactu?",
+    a: "No. Una plantilla en Excel/Word es útil como ejemplo, pero no garantiza inalterabilidad ni trazabilidad. Para estar tranquilo necesitas un software de facturación que bloquee facturas y gestione rectificativas."
+  },
+  {
+    q: "¿Qué datos mínimos debe tener una factura de fontanería?",
+    a: "Datos del emisor y cliente (NIF), número de factura correlativo, fecha, concepto claro, base imponible, IVA, total, y forma de pago. Separar mano de obra y materiales ayuda a evitar líos."
+  },
+  {
+    q: "¿Qué IVA aplico como fontanero: 21% o 10%?",
+    a: "Depende del tipo de trabajo y del caso (vivienda, reforma, materiales, etc.). Si no lo tienes claro, lo más seguro es confirmarlo con tu asesor. Un software te reduce errores, pero la regla fiscal depende del servicio."
+  },
+  {
+    q: "Trabajo en sitios sin cobertura, ¿cómo facturo desde el móvil?",
+    a: "Busca una app con modo offline (offline first): puedes hacer parte/firma y preparar factura sin internet, y sincroniza al recuperar señal."
+  }
+];
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": { "@type": "Answer", "text": item.a }
+  }))
+};
+---
+
+<Layout title={title} description={description}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+  {/* Breadcrumb simple (UX + SEO interno) */}
+  <nav class="bg-white border-b border-slate-200 py-4 px-6 text-xs font-bold text-slate-500 uppercase tracking-widest overflow-x-auto whitespace-nowrap">
+    <div class="max-w-4xl mx-auto flex gap-2 items-center">
+      <a href="/" class="hover:text-blue-600">Inicio</a> <span>/</span>
+      <a href="/software/fontaneros/" class="hover:text-blue-600">Software Fontaneros</a> <span>/</span>
+      <span class="text-blue-900 bg-blue-50 px-2 py-1 rounded">Plantilla factura</span>
+    </div>
+  </nav>
+
+  <header class="bg-slate-900 text-white pt-24 pb-16 px-6 text-center">
+    <div class="max-w-3xl mx-auto">
+      <span class="bg-green-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4 inline-block">
+        Recurso (ejemplo) + guía práctica
+      </span>
+      <h1 class="text-3xl md:text-5xl font-black mb-6">
+        Plantilla de factura para <span class="text-blue-400">fontaneros</span> (modelo 2026)
+      </h1>
+      <p class="text-xl text-slate-300">
+        Vista previa para copiar/imprimir + lo importante: cómo evitar líos con Excel y facturar bien, incluso sin cobertura.
+      </p>
+
+      <div class="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="/software/fontaneros/" class="inline-block bg-yellow-400 hover:bg-yellow-300 text-yellow-900 font-black py-3 px-6 rounded-xl transition-all hover:scale-[1.02]">
+          Ver ranking de software para fontaneros →
+        </a>
+        <a href="/software/fontaneros/guia-verifactu/" class="inline-block bg-white/10 hover:bg-white/15 text-white font-bold py-3 px-6 rounded-xl border border-white/20">
+          Leer guía VeriFactu →
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-4xl mx-auto px-6 py-12">
+
+    {/* Aviso (más “ético” y más creíble: sin alarmismo absoluto) */}
+    <div class="bg-yellow-50 border-l-8 border-yellow-500 p-8 rounded-r-xl shadow-lg mb-12">
+      <h2 class="text-yellow-900 font-black text-xl mb-2">
+        Aviso importante: esto es un ejemplo, no una solución “VeriFactu”
+      </h2>
+      <p class="text-yellow-800 mb-4">
+        Esta plantilla te puede servir para salir del paso y entender la estructura de una factura, pero <strong>Excel/Word no garantizan trazabilidad ni inalterabilidad</strong>.
+        Si quieres estar tranquilo con el rumbo de la normativa, lo razonable es usar un software que bloquee facturas y gestione rectificativas.
+      </p>
+      <p class="text-yellow-900 font-bold mb-4">
+        Si eres fontanero y trabajas en sótanos o cuartos de contadores, además necesitas <strong>modo offline</strong>.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href="/software/fontaneros/" class="bg-slate-900 text-white px-6 py-3 rounded-lg font-bold hover:bg-slate-700 transition">
+          Ver opciones recomendadas (fontaneros)
+        </a>
+        <a href="/software/fontaneros/guia-verifactu/" class="bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition">
+          Entender VeriFactu sin líos
+        </a>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-12">
+
+      {/* COLUMNA 1: PLANTILLA VISUAL */}
+      <section>
+        <h2 class="text-2xl font-black text-slate-900 mb-6">Vista previa del modelo (para copiar/imprimir)</h2>
+
+        <div class="bg-white border border-slate-300 p-8 shadow-xl text-xs md:text-sm font-mono text-slate-600 relative">
+          <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5">
+            <span class="text-6xl font-black -rotate-12">EJEMPLO</span>
+          </div>
+
+          <div class="flex justify-between mb-8">
+            <div>
+              <p class="font-bold text-slate-900 text-lg">FONTANERÍA PÉREZ</p>
+              <p>C/ Tubería, 12, Madrid</p>
+              <p>NIF: 12345678X</p>
+              <p>Tel: 600 000 000</p>
+            </div>
+            <div class="text-right">
+              <p class="font-bold text-slate-900 text-lg">FACTURA Nº: 2026/001</p>
+              <p>Fecha: 29/01/2026</p>
+            </div>
+          </div>
+
+          <div class="mb-8 border-t border-b border-slate-200 py-4">
+            <p class="font-bold text-slate-900">Cliente:</p>
+            <p>Comunidad Propietarios</p>
+            <p>C/ Mayor, 1</p>
+            <p>NIF: H12345678</p>
+          </div>
+
+          <table class="w-full mb-8 text-left">
+            <thead>
+              <tr class="border-b border-slate-900 text-slate-900">
+                <th class="py-2 w-1/2">Concepto</th>
+                <th class="py-2 text-right">Cant.</th>
+                <th class="py-2 text-right">Precio</th>
+                <th class="py-2 text-right">Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-slate-100">
+                <td class="py-2">Mano de obra oficial 1ª</td>
+                <td class="py-2 text-right">2h</td>
+                <td class="py-2 text-right">45€</td>
+                <td class="py-2 text-right">90€</td>
+              </tr>
+              <tr class="border-b border-slate-100">
+                <td class="py-2">Bomba de agua 1CV</td>
+                <td class="py-2 text-right">1</td>
+                <td class="py-2 text-right">180€</td>
+                <td class="py-2 text-right">180€</td>
+              </tr>
+              <tr class="border-b border-slate-100">
+                <td class="py-2">Pequeño material</td>
+                <td class="py-2 text-right">1</td>
+                <td class="py-2 text-right">15€</td>
+                <td class="py-2 text-right">15€</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="flex justify-end">
+            <div class="w-1/2">
+              <div class="flex justify-between py-1">
+                <span>Base Imponible:</span>
+                <span class="font-bold">285,00€</span>
+              </div>
+              <div class="flex justify-between py-1">
+                <span>IVA:</span>
+                <span>59,85€</span>
+              </div>
+              <div class="flex justify-between py-2 border-t border-slate-900 mt-2 text-lg font-black text-slate-900">
+                <span>TOTAL:</span>
+                <span>344,85€</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mt-6 text-center">
+          <button onclick="window.print()" class="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold py-2 px-6 rounded-lg transition flex items-center justify-center gap-2 w-full">
+            Imprimir modelo
+          </button>
+          <p class="text-xs text-slate-400 mt-2">Consejo: úsalo como ejemplo, y pásate a software cuando puedas.</p>
+        </div>
+      </section>
+
+      {/* COLUMNA 2: VALOR + CONVERSIÓN */}
+      <aside class="space-y-8">
+        <div class="bg-white p-6 rounded-2xl shadow-lg border border-slate-100">
+          <h2 class="text-xl font-black text-slate-900 mb-4">Por qué Excel te puede meter en un lío</h2>
+          <ul class="space-y-4">
+            <li class="flex gap-3">
+              <span class="text-2xl">❌</span>
+              <p class="text-slate-600 text-sm"><strong>Editable sin rastro:</strong> puedes cambiar una factura antigua y nadie sabe que existió otra versión. Eso es justo lo que se persigue.</p>
+            </li>
+            <li class="flex gap-3">
+              <span class="text-2xl">❌</span>
+              <p class="text-slate-600 text-sm"><strong>Errores humanos:</strong> un IVA mal calculado o una numeración con saltos te puede dar un susto.</p>
+            </li>
+            <li class="flex gap-3">
+              <span class="text-2xl">❌</span>
+              <p class="text-slate-600 text-sm"><strong>No sirve en obra:</strong> sin cobertura, te quedas tirado; con software “offline first”, cierras parte y factura en el momento.</p>
+            </li>
+          </ul>
+        </div>
+
+        <div class="bg-blue-900 text-white p-8 rounded-2xl shadow-xl text-center">
+          <h2 class="text-2xl font-black mb-4">La alternativa inteligente (sin papel y sin líos)</h2>
+          <p class="text-blue-200 mb-6">
+            Un buen software para fontaneros te permite: hacer parte, firma, factura desde el móvil y guardar trazabilidad.
+            Si además funciona sin internet, no dependes de la cobertura del sótano.
+          </p>
+          <a href="/software/fontaneros/" class="inline-block bg-white text-blue-900 font-black py-3 px-8 rounded-xl hover:bg-blue-50 transition transform hover:-translate-y-1 shadow-lg">
+            Ver ranking recomendado →
+          </a>
+        </div>
+      </aside>
+
+    </div>
+
+    {/* SEO CONTENT */}
+    <article class="mt-20 prose prose-slate max-w-none">
+      <h2>Cómo hacer una factura de fontanería correcta</h2>
+      <p>
+        Si vas a usar un método manual (como ejemplo o transición), asegúrate de incluir estos mínimos:
+      </p>
+      <ol>
+        <li><strong>Datos completos</strong> del emisor y del cliente (nombre, dirección, NIF/CIF).</li>
+        <li><strong>Número correlativo</strong> (sin saltos) y fecha de emisión/operación.</li>
+        <li><strong>Conceptos claros</strong> y desglose entre mano de obra y materiales.</li>
+        <li><strong>Base imponible, IVA</strong> y total final.</li>
+      </ol>
+
+      <h3>Preguntas frecuentes</h3>
+      <div class="not-prose mt-6 space-y-4">
+        {faqItems.map((item) => (
+          <details class="bg-white border border-slate-200 rounded-xl p-5">
+            <summary class="font-black text-slate-900 cursor-pointer">{item.q}</summary>
+            <p class="mt-3 text-slate-700 leading-relaxed">{item.a}</p>
+          </details>
+        ))}
+      </div>
+
+      <h3>Enlaces útiles</h3>
+      <ul>
+        <li><a href="/software/fontaneros/guia-verifactu/">Guía VeriFactu para fontaneros</a></li>
+        <li><a href="/software/fontaneros/">Ranking de software para fontaneros</a></li>
+      </ul>
+    </article>
+
+  </main>
+</Layout>
