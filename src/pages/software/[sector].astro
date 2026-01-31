@@ -165,9 +165,26 @@ especialistas.sort((a, b) => {
 });
 
 const topTable = especialistas.slice(0, 5);
+
+// 🔥 SEO: GENERACIÓN DINÁMICA DE SCHEMA
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": info.faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.a
+    }
+  }))
+};
 ---
 
 <Layout title={`Mejor Software para ${info.nombre} 2026 | Ranking`}>
+    
+    {/* 🔥 INYECCIÓN DE SCHEMA EN EL HEAD */}
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
     
     <header class="bg-blue-900 text-white pt-24 pb-20 px-6 relative overflow-hidden">
         <div class="absolute top-0 right-0 opacity-10 text-[200px] pointer-events-none italic font-black">{info.emoji}</div>
@@ -225,7 +242,7 @@ const topTable = especialistas.slice(0, 5);
                                 </div>
                                 <div>
                                     <h3 class="text-3xl font-black text-slate-800">
-                                        <a href={`/analisis/${soft.id}?sector=${info.id}`} class="hover:text-blue-700 underline decoration-blue-200 decoration-8 underline-offset-8 transition-all">{soft.name}</a>
+                                        <a href={`/analisis/${soft.id}/?sector=${info.id}`} class="hover:text-blue-700 underline decoration-blue-200 decoration-8 underline-offset-8 transition-all">{soft.name}</a>
                                     </h3>
                                     <div class="flex flex-wrap gap-2 mt-5">
                                         {soft.legal_spain?.verifactu_ready && <span class="text-green-700 font-black text-[10px] uppercase bg-green-50 px-2 py-1 rounded-md border border-green-200 tracking-widest">✅ Verifactu Ready</span>}
@@ -253,7 +270,7 @@ const topTable = especialistas.slice(0, 5);
                             </div>
                             <div class="flex flex-col gap-4">
                                 <a href={soft.url_afiliado || "#"} target="_blank" rel="nofollow noopener" class="bg-blue-600 hover:bg-blue-800 text-white font-black py-5 rounded-2xl text-center shadow-xl shadow-blue-200 transition-all transform hover:-translate-y-1 uppercase tracking-widest text-sm">Visitar Web Oficial</a>
-                                <a href={`/analisis/${soft.id}?sector=${info.id}`} class="text-center text-slate-400 font-bold text-xs hover:text-blue-600 hover:underline underline-offset-4 transition-all uppercase tracking-tighter italic">Análisis completo →</a>
+                                <a href={`/analisis/${soft.id}/?sector=${info.id}`} class="text-center text-slate-400 font-bold text-xs hover:text-blue-600 hover:underline underline-offset-4 transition-all uppercase tracking-tighter italic">Análisis completo →</a>
                             </div>
                         </div>
                     </div>

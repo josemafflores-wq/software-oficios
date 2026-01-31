@@ -1,6 +1,6 @@
 ---
 // src/pages/software/electricistas.astro
-// 🚨 PÁGINA PILAR DEFINITIVA - Restauración Total: Diseño PRO + Tabla Técnica + FAQs
+// 🚨 PÁGINA PILAR DEFINITIVA - Restauración Total: Diseño PRO + Tabla Técnica + FAQs + Schema
 import Layout from '../../layouts/Layout.astro';
 import softwares from '../../softwares.json';
 
@@ -24,6 +24,20 @@ const info = {
   ]
 };
 
+// 🔥 SEO: DATOS ESTRUCTURADOS AUTOMÁTICOS (Schema FAQPage)
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": info.faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.a
+    }
+  }))
+};
+
 const vipList = ['stel-order', 'taclia'];
 const electricistasSoft = softwares
   .filter(s => s.target_gremios.some(g => {
@@ -43,6 +57,9 @@ const topTable = electricistasSoft.slice(0, 5);
 ---
 
 <Layout title="Mejor Software para Electricistas 2026 | Tarifas y REBT">
+  
+  {/* 🔥 INYECCIÓN DE SCHEMA EN EL HEAD (Vital para Rich Snippets) */}
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   
   {/* HERO HEADER PRO */}
   <header class="bg-blue-900 text-white pt-24 pb-20 px-6 relative overflow-hidden">
@@ -65,26 +82,26 @@ const topTable = electricistasSoft.slice(0, 5);
                 <h3 class="font-black text-slate-800 text-lg">STEL Order</h3>
                 <span class="text-[10px] font-bold text-blue-600 uppercase tracking-tighter">Líder en Tarifas</span>
                 <p class="text-xs text-slate-500 mt-3 italic line-clamp-2">Imbatible para catálogos masivos y actualización de cable.</p>
-                <div class="mt-4"><a href="/analisis/stel-order?sector=electricistas" class="text-blue-600 font-bold text-sm hover:underline">Ver Análisis →</a></div>
+                <div class="mt-4"><a href="/analisis/stel-order/?sector=electricistas" class="text-blue-600 font-bold text-sm hover:underline">Ver Análisis →</a></div>
             </div>
             <div class="p-8 text-center hover:bg-green-50/50 transition-colors">
                 <div class="text-4xl mb-3">🔌</div>
                 <h3 class="font-black text-slate-800 text-lg">Taclia</h3>
                 <span class="text-[10px] font-bold text-green-600 uppercase tracking-tighter">Fácil y Gratis</span>
                 <p class="text-xs text-slate-500 mt-3 italic line-clamp-2">Perfecto para autónomos que solo necesitan facturar rápido.</p>
-                <div class="mt-4"><a href="/analisis/taclia?sector=electricistas" class="text-green-600 font-bold text-sm hover:underline">Ver Análisis →</a></div>
+                <div class="mt-4"><a href="/analisis/taclia/?sector=electricistas" class="text-green-600 font-bold text-sm hover:underline">Ver Análisis →</a></div>
             </div>
             <div class="p-8 text-center hover:bg-purple-50/50 transition-colors">
                 <div class="text-4xl mb-3">⚙️</div>
                 <h3 class="font-black text-slate-800 text-lg">Fixner</h3>
                 <span class="text-[10px] font-bold text-purple-600 uppercase tracking-tighter">Rey del SAT</span>
                 <p class="text-xs text-slate-500 mt-3 italic line-clamp-2">El mejor para mantenimientos de cuadros y plantas.</p>
-                <div class="mt-4"><a href="/analisis/fixner?sector=electricistas" class="text-purple-600 font-bold text-sm hover:underline">Ver Análisis →</a></div>
+                <div class="mt-4"><a href="/analisis/fixner/?sector=electricistas" class="text-purple-600 font-bold text-sm hover:underline">Ver Análisis →</a></div>
             </div>
         </div>
     </div>
 
-    {/* 2. 🚨 TABLA COMPARATIVA TÉCNICA (RECUPERADA) 🚨 */}
+    {/* 2. TABLA COMPARATIVA TÉCNICA */}
     <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden mb-16">
         <div class="bg-slate-100 p-4 border-b border-slate-200 text-center md:text-left">
             <h3 class="font-bold text-slate-700 uppercase text-xs tracking-wider">Comparativa Técnica Eléctrica</h3>
@@ -133,7 +150,7 @@ const topTable = electricistasSoft.slice(0, 5);
                             </div>
                             <div>
                                 <h3 class="text-3xl font-black text-slate-800">
-                                    <a href={`/analisis/${soft.id}?sector=electricistas`} class="hover:text-blue-700 underline decoration-blue-200 decoration-8 underline-offset-8 transition-all">{soft.name}</a>
+                                    <a href={`/analisis/${soft.id}/?sector=electricistas`} class="hover:text-blue-700 underline decoration-blue-200 decoration-8 underline-offset-8 transition-all">{soft.name}</a>
                                 </h3>
                                 <div class="flex flex-wrap gap-2 mt-5">
                                     {soft.legal_spain?.verifactu_ready && <span class="text-green-700 font-black text-[10px] uppercase bg-green-50 px-2 py-1 rounded-md border border-green-200 tracking-widest">✅ Verifactu Ready</span>}
@@ -161,7 +178,7 @@ const topTable = electricistasSoft.slice(0, 5);
                         </div>
                         <div class="flex flex-col gap-4">
                             <a href={soft.url_afiliado || "#"} target="_blank" rel="nofollow noopener" class="bg-blue-600 hover:bg-blue-800 text-white font-black py-5 rounded-2xl text-center shadow-xl shadow-blue-200 transition-all transform hover:-translate-y-1 uppercase tracking-widest text-sm">Visitar Web Oficial</a>
-                            <a href={`/analisis/${soft.id}?sector=electricistas`} class="text-center text-slate-400 font-bold text-xs hover:text-blue-600 hover:underline underline-offset-4 transition-all uppercase tracking-tighter">Leer análisis técnico completo →</a>
+                            <a href={`/analisis/${soft.id}/?sector=electricistas`} class="text-center text-slate-400 font-bold text-xs hover:text-blue-600 hover:underline underline-offset-4 transition-all uppercase tracking-tighter">Leer análisis técnico completo →</a>
                         </div>
                     </div>
                 </div>

@@ -1,6 +1,7 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import softwares from '../../softwares.json';
+// src/pages/software/fontaneros/index.astro
+import Layout from '../../../layouts/Layout.astro';
+import softwares from '../../../softwares.json';
 
 const info = {
   id: 'fontaneros',
@@ -11,17 +12,34 @@ const info = {
   filtro: ['fontaneros', 'fontanería', 'desatascos', 'pocería', 'calefacción'],
   opinionKey: 'opinion_experto_fontanero',
   guiaTitulo: 'Guía 2026: Cómo elegir App y Programa para Fontanería',
-  guiaTexto: 'La fontanería moderna requiere movilidad total. No basta con un programa de oficina; necesitas una <strong>App de partes de trabajo</strong> que permita geolocalizar al técnico y facturar in-situ.',
+  
+  // 👇 AQUÍ ESTÁ EL CAMBIO CLAVE (EL ENLACE A LA GUÍA):
+  guiaTexto: 'La fontanería moderna requiere movilidad total. No basta con un programa de oficina; necesitas una <strong>App de partes de trabajo</strong> que permita geolocalizar al técnico y facturar in-situ. <br><br>🚨 <strong>¿Preocupado por Hacienda?</strong> <a href="/software/fontaneros/guia-verifactu/" class="text-blue-600 font-bold underline hover:text-blue-800 transition-colors">Lee nuestra Guía Urgente: Normativa Verifactu 2027 y Riesgos del Excel →</a>',
+  
   bloques: [
     { icon: '📱', t: 'App de Partes', d: 'Crea partes con fotos del "antes y después", recoge la firma del cliente y ciérralos al momento.' },
     { icon: '📦', t: 'Stock en Furgoneta', d: 'Controla el stock de grifería y cobre. Descuenta el material del almacén móvil automáticamente.' },
     { icon: '🧾', t: 'Facturación Verifactu', d: 'Evita sanciones. Tus facturas deben llevar el código QR legal obligatorio.' }
   ],
   faqs: [
-    { q: "¿Es legal facturar con Excel tras la Ley Verifactu?", a: "No. A partir de 2026 el uso de Excel será ilegal ya que no garantiza la inalterabilidad. Necesitas un software homologado." },
+    { q: "¿Es legal facturar con Excel tras la Ley Verifactu?", a: "No. A partir de 2027 (y según la Ley Antifraude actual) el uso de Excel es arriesgado ya que no garantiza la inalterabilidad. Necesitas un software homologado." },
     { q: "¿Cómo controlo el material de cada operario?", a: "Los programas recomendados permiten gestionar 'almacenes móviles' que se descuentan al cerrar el parte." },
     { q: "¿Qué pasa en sótanos sin cobertura?", a: "Las mejores Apps son 'Offline First'. Sincronizan los datos automáticamente al recuperar señal." }
   ]
+};
+
+// 🔥 SEO: DATOS ESTRUCTURADOS AUTOMÁTICOS (Schema FAQPage)
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": info.faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.a
+    }
+  }))
 };
 
 const vipList = ['stel-order', 'taclia'];
@@ -39,9 +57,13 @@ const fontanerosSoft = softwares
 const topTable = fontanerosSoft.slice(0, 5);
 ---
 
-<Layout title="Mejor Software para Fontaneros 2026 | Apps Offline">
+<Layout title="Software para Fontaneros 2026: Comparativa y Precios [Verifactu]">
+  
+  {/* 🔥 INYECCIÓN DE SCHEMA EN EL HEAD */}
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+
   <header class="bg-blue-900 text-white pt-24 pb-20 px-6 relative overflow-hidden">
-    <div class="absolute top-0 right-0 opacity-10 text-[200px]">🔧</div>
+    <div class="absolute top-0 right-0 opacity-10 text-[200px] pointer-events-none">🔧</div>
     <div class="max-w-4xl mx-auto relative z-10">
       <span class="bg-blue-800 text-blue-200 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-blue-600 mb-4 inline-block">Especial Fontanería</span>
       <h1 class="text-4xl md:text-6xl font-black mb-6 leading-tight">Software para <br/><span class="text-blue-400">Fontaneros y Calefactores</span></h1>
@@ -59,26 +81,26 @@ const topTable = fontanerosSoft.slice(0, 5);
                 <h3 class="font-black text-slate-800 text-lg mb-1">STEL Order</h3>
                 <span class="inline-block bg-blue-100 text-blue-800 text-xs font-bold px-2 py-1 rounded mb-3 uppercase tracking-tighter">Mejor Global</span>
                 <p class="text-sm text-slate-500 mb-4 h-10 line-clamp-2 italic">La mejor App Offline para garajes y grupos de presión.</p>
-                <a href="/analisis/stel-order?sector=fontaneros" class="text-blue-600 font-bold text-sm hover:underline">Ver Análisis →</a>
+                <a href="/analisis/stel-order/?sector=fontaneros" class="text-blue-600 font-bold text-sm hover:underline">Ver Análisis →</a>
             </div>
             <div class="p-6 text-center hover:bg-green-50 transition-colors">
                 <div class="text-4xl mb-3">🚀</div>
                 <h3 class="font-black text-slate-800 text-lg mb-1">Taclia</h3>
                 <span class="inline-block bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded mb-3 uppercase tracking-tighter">Opción Gratuita</span>
                 <p class="text-sm text-slate-500 mb-4 h-10 line-clamp-2 italic">Ideal para empezar con gestión de avisos sencilla.</p>
-                <a href="/analisis/taclia?sector=fontaneros" class="text-green-600 font-bold text-sm hover:underline">Ver Análisis →</a>
+                <a href="/analisis/taclia/?sector=fontaneros" class="text-green-600 font-bold text-sm hover:underline">Ver Análisis →</a>
             </div>
             <div class="p-6 text-center hover:bg-purple-50 transition-colors">
                 <div class="text-4xl mb-3">⚙️</div>
                 <h3 class="font-black text-slate-800 text-lg mb-1">Fixner</h3>
                 <span class="inline-block bg-purple-100 text-purple-800 text-xs font-bold px-2 py-1 rounded mb-3 uppercase tracking-tighter">Mantenimientos</span>
                 <p class="text-sm text-slate-500 mb-4 h-10 line-clamp-2 italic">Especialista en contratos de mantenimiento recurrente.</p>
-                <a href="/analisis/fixner?sector=fontaneros" class="text-purple-600 font-bold text-sm hover:underline">Ver Análisis →</a>
+                <a href="/analisis/fixner/?sector=fontaneros" class="text-purple-600 font-bold text-sm hover:underline">Ver Análisis →</a>
             </div>
         </div>
     </div>
 
-    {/* 2. TABLA COMPARATIVA TÉCNICA (INSERTADA AQUÍ) */}
+    {/* 2. TABLA COMPARATIVA TÉCNICA */}
     <div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden mb-16">
         <div class="bg-slate-100 p-4 border-b border-slate-200 text-center md:text-left">
             <h3 class="font-bold text-slate-700 uppercase text-xs tracking-wider">Comparativa Técnica Fontanería</h3>
@@ -127,7 +149,7 @@ const topTable = fontanerosSoft.slice(0, 5);
                             </div>
                             <div>
                                 <h3 class="text-2xl font-black text-slate-800">
-                                    <a href={`/analisis/${soft.id}?sector=fontaneros`} class="hover:text-blue-700 underline decoration-blue-200 decoration-4 underline-offset-4 transition">{soft.name}</a>
+                                    <a href={`/analisis/${soft.id}/?sector=fontaneros`} class="hover:text-blue-700 underline decoration-blue-200 decoration-4 underline-offset-4 transition">{soft.name}</a>
                                 </h3>
                                 <div class="flex flex-wrap gap-2 mt-3">
                                     {soft.legal_spain?.verifactu_ready && <span class="text-green-700 font-bold text-[10px] uppercase bg-green-50 px-2 py-1 rounded border border-green-200 tracking-tighter">✅ Verifactu Ready</span>}
@@ -149,7 +171,7 @@ const topTable = fontanerosSoft.slice(0, 5);
                         </div>
                         <div class="flex flex-col gap-3">
                             <a href={soft.url_afiliado || "#"} target="_blank" rel="nofollow noopener" class="bg-blue-600 hover:bg-blue-700 text-white font-black py-4 rounded-xl text-center shadow-lg transition transform hover:-translate-y-1">VISITAR WEB OFICIAL</a>
-                            <a href={`/analisis/${soft.id}?sector=fontaneros`} class="text-center text-slate-500 font-bold text-sm hover:underline italic">Ver análisis detallado →</a>
+                            <a href={`/analisis/${soft.id}/?sector=fontaneros`} class="text-center text-slate-500 font-bold text-sm hover:underline italic">Ver análisis detallado →</a>
                         </div>
                     </div>
                 </div>

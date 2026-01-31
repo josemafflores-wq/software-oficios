@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Mapa del sitio generado por Astro
+Sitemap: https://www.softwareoficios.es/sitemap-index.xml

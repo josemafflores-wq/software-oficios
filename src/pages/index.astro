@@ -4,7 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import BuscadorInteligente from '../components/BuscadorInteligente.astro';
 import softwares from '../softwares.json';
 
-// 1. DATOS PARA LA REJILLA DE OFICIOS (Colores intensificados)
+// 1. DATOS PARA LA REJILLA DE OFICIOS
 const oficios = [
   { id: 'fontaneros', name: 'Fontaneros', icon: '🔧', color: 'bg-blue-100 text-blue-700' },
   { id: 'electricistas', name: 'Electricistas', icon: '⚡', color: 'bg-yellow-100 text-yellow-700' },
@@ -21,7 +21,7 @@ const oficios = [
 const topIds = ['stel-order', 'taclia', 'fixner', 'tooltime', 'houzz-pro'];
 const mejoresDelMes = topIds.map(id => softwares.find(s => s.id === id)).filter(Boolean);
 
-// 3. DIRECTORIO RÁPIDO (Ordenado A-Z)
+// 3. DIRECTORIO RÁPIDO
 const todosLosSoftwares = softwares.sort((a, b) => a.name.localeCompare(b.name));
 ---
 
@@ -56,8 +56,8 @@ const todosLosSoftwares = softwares.sort((a, b) => a.name.localeCompare(b.name))
     </div>
     <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
       {oficios.map((oficio) => (
-        <a href={`/software/${oficio.id}`} class="group bg-white border border-slate-200 rounded-xl p-6 hover:shadow-lg transition-all hover:-translate-y-1 flex flex-col items-center text-center">
-          {/* Aquí aplicamos el color de fondo y texto */}
+        // 🔴 CORRECCIÓN: Barra / añadida al final del href
+        <a href={`/software/${oficio.id}/`} class="group bg-white border border-slate-200 rounded-xl p-6 hover:shadow-lg transition-all hover:-translate-y-1 flex flex-col items-center text-center">
           <div class={`w-14 h-14 rounded-full flex items-center justify-center text-3xl mb-4 transition-transform group-hover:scale-110 ${oficio.color}`}>
             {oficio.icon}
           </div>
@@ -101,7 +101,8 @@ const todosLosSoftwares = softwares.sort((a, b) => a.name.localeCompare(b.name))
                     {soft.pricing?.start_price ? `${soft.pricing.start_price}€` : 'Gratis'}
                 </td>
                 <td class="p-4 text-right">
-                  <a href={`/analisis/${soft.id}`} class="text-blue-600 font-bold hover:underline text-xs uppercase bg-blue-50 px-3 py-2 rounded-lg hover:bg-blue-100 transition-colors">
+                  {/* 🔴 CORRECCIÓN: Barra / añadida al final del href */}
+                  <a href={`/analisis/${soft.id}/`} class="text-blue-600 font-bold hover:underline text-xs uppercase bg-blue-50 px-3 py-2 rounded-lg hover:bg-blue-100 transition-colors">
                     Ver Análisis
                   </a>
                 </td>
@@ -149,7 +150,7 @@ const todosLosSoftwares = softwares.sort((a, b) => a.name.localeCompare(b.name))
         </div>
       </div>
       
-      {/* ICONOS DE CONFIANZA (SIN GRAYSCALE PARA QUE SE VEAN VIVOS) */}
+      {/* ICONOS DE CONFIANZA */}
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
         <div>
           <div class="text-4xl mb-4">🔍</div>
@@ -170,14 +171,14 @@ const todosLosSoftwares = softwares.sort((a, b) => a.name.localeCompare(b.name))
     </div>
   </section>
 
-  {/* 📂 DIRECTORIO RÁPIDO (CENTRADO) */}
+  {/* 📂 DIRECTORIO RÁPIDO */}
   <section class="border-t border-slate-200 py-12 px-6 bg-white">
     <div class="max-w-4xl mx-auto text-center">
       <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6">Directorio Rápido de Análisis</h3>
-      {/* AQUÍ ESTÁ EL CAMBIO: justify-center */}
       <div class="flex flex-wrap justify-center gap-3">
         {todosLosSoftwares.map(soft => (
-          <a href={`/analisis/${soft.id}`} class="text-sm font-medium text-slate-600 hover:text-blue-600 bg-slate-50 hover:bg-blue-50 px-3 py-1 rounded-full border border-slate-200 transition-colors">
+          // 🔴 CORRECCIÓN: Barra / añadida al final del href
+          <a href={`/analisis/${soft.id}/`} class="text-sm font-medium text-slate-600 hover:text-blue-600 bg-slate-50 hover:bg-blue-50 px-3 py-1 rounded-full border border-slate-200 transition-colors">
             {soft.name}
           </a>
         ))}

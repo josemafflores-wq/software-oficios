@@ -5,14 +5,18 @@ import Header from '../components/header.astro';
 
 interface Props {
     title: string;
-    description?: string; // 👈 Nueva propiedad opcional
+    description?: string;
 }
 
-// Si no nos pasan descripción, usamos esta por defecto (para la Home)
 const { 
     title, 
     description = "Comparador de software líder para gremios y oficios en España. Encuentra el mejor ERP para fontaneros, electricistas y empresas de reformas." 
 } = Astro.props;
+
+// 🔥 SEO: Calculamos la URL Canónica Limpia
+// Al usar 'pathname', Astro descarta automáticamente el '?sector=fontaneros'.
+// Esto protege tu web de contenido duplicado.
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -28,7 +32,10 @@ const {
         
         <title>{title}</title>
         <meta name="description" content={description} />
-        <link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+        
+        <link rel="canonical" href={canonicalURL} />
+
+        <link rel="sitemap" href="/sitemap-index.xml" />
     </head>
     <body class="bg-gray-50 min-h-screen font-sans text-gray-900">
         
